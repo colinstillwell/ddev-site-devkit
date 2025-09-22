@@ -83,6 +83,7 @@ Create a [release](https://docs.github.com/en/repositories/releasing-projects-on
 
 ## TODO
 * [ ] Create a `devkit` command for copying files.
+* [ ] `devkit-run-script` should be more informative about when it starts and finishes.
 * [ ] `devkit-run-script` should check the file exists, with error handling as needed.
 * [ ] `devkit-run-script` should always expect a mode, instead of defaulting to host.
 * [ ] Create a `devkit` command for handing errors and logging, adjusting `echo` as needed.
