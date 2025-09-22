@@ -7,41 +7,88 @@
 
 ## Overview
 
-This add-on integrates Site Devkit into your [DDEV](https://ddev.com/) project.
+DDEV Site Devkit standardises everyday project tasks across multiple repositories while keeping each project in control of its own logic. It adds a set of first-class DDEV commands that orchestrate common "site" workflows such as scaffold, build, install, update and test. The heavy lifting lives in project-owned scripts under `.ddev/site-devkit/site/scripts`, so teams can customise behaviour per project without forking the add-on.
 
-## Installation
+**What you get**
+* `site-` commands: each command calls a matching script from your project-owned scripts.
+* `devkit` commands: tools you can use directly or from within your project-owned scripts.
+* Examples: example scripts live in `.ddev/site-devkit/site/scripts/examples`; copy them into place as needed.
+* Safe, CI-friendly defaults: idempotent tasks, sensible exit codes, and pass-through arguments for full control.
+* Framework agnostic: works with any tech stack.
+
+## Install or update
 
 ```bash
-ddev add-on get colinstillwell/ddev-site-devkit
+ddev add-on get https://github.com/colinstillwell/ddev-site-devkit/tarball/main
 ddev restart
 ```
 
-After installation, make sure to commit the `.ddev` directory to version control.
+After installing or updating, commit the changes this add-on makes under `.ddev`. In most cases these are in `.ddev/site-devkit` and `.ddev/commands`.
 
 ## Usage
 
 | Command | Description |
 | ------- | ----------- |
-| `ddev describe` | View service status and used ports for Site Devkit |
-| `ddev logs -s site-devkit` | Check Site Devkit logs |
+| `ddev site-build` | Run build tasks. |
+| `ddev site-build-backend` | Run backend build tasks. |
+| `ddev site-build-frontend` | Run frontend build tasks. |
+| `ddev site-initialisation` | Run initialisation tasks. |
+| `ddev site-install` | Run install tasks. |
+| `ddev site-mode-development` | Enable development mode. |
+| `ddev site-mode-production` | Enable production mode. |
+| `ddev site-scaffold` | Run scaffolding tasks. |
+| `ddev site-test` | Run test tasks. |
+| `ddev site-test-backend` | Run backend test tasks. |
+| `ddev site-test-frontend` | Run frontend test tasks. |
+| `ddev site-update` | Run update tasks. |
+| `ddev site-update-backend` | Run backend update tasks. |
+| `ddev site-update-frontend` | Run frontend update tasks. |
 
-## Advanced Customization
+## Resources
 
-To change the Docker image:
+* [DDEV Documentation for Add-ons](https://ddev.readthedocs.io/en/stable/users/extend/additional-services/)
+* [DDEV Add-ons: Creating, maintaining, testing](https://www.youtube.com/watch?v=TmXqQe48iqE) (part of the [DDEV Contributor Live Training](https://ddev.com/blog/contributor-training))
+* [Advanced Add-On Techniques](https://ddev.com/blog/advanced-add-on-contributor-training/)
+* [DDEV Add-on Maintenance Guide](https://ddev.com/blog/ddev-add-on-maintenance-guide/)
+
+## Contributing
+
+1. Branch from `main`.
+2. Make your changes.
+3. Add or update tests in `tests` as needed.
+4. Update `README.md` as needed.
+5. Push your branch and open a pull request on [GitHub](https://github.com/colinstillwell/ddev-site-devkit).
+
+## Testing branch or PR
 
 ```bash
-ddev dotenv set .ddev/.env.site-devkit --site-devkit-docker-image="ddev/ddev-utilities:latest"
-ddev add-on get colinstillwell/ddev-site-devkit
-ddev restart
+# Branch
+ddev add-on get https://github.com/colinstillwell/ddev-site-devkit/tarball/<branch>
+
+# Pull request
+ddev add-on get https://github.com/colinstillwell/ddev-site-devkit/tarball/refs/pull/<pr-number>/head
 ```
 
-Make sure to commit the `.ddev/.env.site-devkit` file to version control.
+## Release
 
-All customization options (use with caution):
+Create a [release](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) on [GitHub](https://github.com/colinstillwell/ddev-site-devkit):
+* `main` as the target.
+* Follow semantic versioning (`MAJOR.MINOR.PATCH`):
+  * `MAJOR`: incompatible changes.
+  * `MINOR`: backwards compatible feature additions.
+  * `PATCH`: backwards compatible fixes.
+* Concise notes.
 
-| Variable | Flag | Default |
-| -------- | ---- | ------- |
-| `SITE_DEVKIT_DOCKER_IMAGE` | `--site-devkit-docker-image` | `ddev/ddev-utilities:latest` |
+## TODO
+* [ ] Create a `devkit` command for copying files.
+* [ ] Create a `devkit` command for importing the database, with file selection from a path.
+* [ ] `devkit-run-script` should check the file exists, with error handling as needed.
+* [ ] `devkit-run-script` should always expect a mode, instead of defaulting to host.
+* [ ] Create a `devkit` command for handing errors and logging, adjusting `echo` as needed.
+* [ ] Create a `devkit` command for comparing `.env` file variables, to see if anything is missing.
+* [ ] When ready to share, make the add-on discoverable:
+  * [ ] Add the `ddev-get` [topic](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics).
+  * [ ] Update `README.md` with `ddev add-on get colinstillwell/ddev-site-devkit` as needed.
 
 ## Credits
 

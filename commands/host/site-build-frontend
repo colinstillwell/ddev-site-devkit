@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Run frontend build tasks.
+## Usage: site-build-frontend [flags] [args]
+## Example: "ddev site-build-frontend"
+## Aliases: site:build:frontend,site-fe-build,site:fe:build
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+# Path to the site scripts
+SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
+
+# Run the site script
+ddev devkit-run-script "$SITE_SCRIPTS/site-build-frontend.sh" "${@}" --host
