@@ -1,7 +1,7 @@
 name: site-devkit
 
 project_files:
-  - commands/host/devkit-database-import
+  - commands/host/devkit-import-database
   - commands/host/devkit-run-script
   - commands/host/site-build
   - commands/host/site-build-backend
