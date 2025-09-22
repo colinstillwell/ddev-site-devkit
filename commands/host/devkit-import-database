@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Interactively import a SQL dump file into the project.
+## Usage: devkit-import-database [flags]
+## Example: "ddev devkit-import-database"
+## Flags: [{"Name":"dir","Usage":"Directory to look for database dumps","Type":"string"}]
+## Aliases: devkit:import-database,devkit-import-db,devkit:import-db
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+DIRECTORY="database"
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --dir=*) DIRECTORY="${1#*=}";  shift; continue ;;
+  esac
+done
+
+DIRECTORY_PATH="$DDEV_APPROOT/$DIRECTORY"
+
+[[ -d "$DIRECTORY_PATH" ]] || { echo "Folder not found: $DIRECTORY_PATH"; exit 1; }
+
+shopt -s nullglob
+FILES=(
+  "$DIRECTORY_PATH"/*.sql
+  "$DIRECTORY_PATH"/*.sql.gz
+  "$DIRECTORY_PATH"/*.sql.bz2
+  "$DIRECTORY_PATH"/*.sql.xz
+  "$DIRECTORY_PATH"/*.mysql
+  "$DIRECTORY_PATH"/*.mysql.gz
+  "$DIRECTORY_PATH"/*.zip
+  "$DIRECTORY_PATH"/*.tgz
+  "$DIRECTORY_PATH"/*.tar
+  "$DIRECTORY_PATH"/*.tar.gz
+  "$DIRECTORY_PATH"/*.tar.bz2
+  "$DIRECTORY_PATH"/*.tar.xz
+)
+shopt -u nullglob
+
+(( ${#FILES[@]} > 0 )) || { echo "No files found in $DIRECTORY_PATH"; exit 1; }
+
+echo "Choose a file to import from: $DIRECTORY_PATH"
+for i in "${!FILES[@]}"; do
+  printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")"
+done
+
+while true; do
+  read -r -p "Enter a number 1-${#FILES[@]}: " n
+  if [[ "$n" =~ ^[0-9]+$ ]] && (( n>=1 && n<=${#FILES[@]} )); then
+    CHOICE="${FILES[$((n-1))]}"
+    break
+  fi
+  echo "Invalid selection. Please try again."
+done
+
+echo "Importing database: $(basename -- "$CHOICE")"
+exec ddev import-db -f "$CHOICE"
