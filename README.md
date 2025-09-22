@@ -73,7 +73,10 @@ ddev add-on get https://github.com/colinstillwell/ddev-site-devkit/tarball/refs/
 
 Create a [release](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository) on [GitHub](https://github.com/colinstillwell/ddev-site-devkit):
 * `main` as the target.
-* `X.Y.Z` versioning.
+* Follow semantic versioning (`MAJOR.MINOR.PATCH`):
+  * `MAJOR`: incompatible changes.
+  * `MINOR`: backwards compatible feature additions.
+  * `PATCH`: backwards compatible fixes.
 * Concise notes.
 
 ## TODO
