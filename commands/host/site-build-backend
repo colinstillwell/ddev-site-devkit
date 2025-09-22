@@ -10,4 +10,8 @@
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
 
-echo "'site-build-backend' logic will be added here."
+# Path to the site scripts
+SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
+
+# Run the site script
+ddev devkit-run-script "$SITE_SCRIPTS/site-build-backend.sh" "${@}" --host
