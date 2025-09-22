@@ -29,6 +29,8 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 
 | Command | Description |
 | ------- | ----------- |
+| `ddev devkit-import-database` | Interactively import a SQL dump file into the project. |
+| `ddev devkit-run-script` | Run a script on the host or in the web container. |
 | `ddev site-build` | Run build tasks. |
 | `ddev site-build-backend` | Run backend build tasks. |
 | `ddev site-build-frontend` | Run frontend build tasks. |
@@ -81,7 +83,7 @@ Create a [release](https://docs.github.com/en/repositories/releasing-projects-on
 
 ## TODO
 * [ ] Create a `devkit` command for copying files.
-* [ ] Create a `devkit` command for importing the database, with file selection from a path.
+* [ ] `devkit-run-script` should be more informative about when it starts and finishes.
 * [ ] `devkit-run-script` should check the file exists, with error handling as needed.
 * [ ] `devkit-run-script` should always expect a mode, instead of defaulting to host.
 * [ ] Create a `devkit` command for handing errors and logging, adjusting `echo` as needed.
