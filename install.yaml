@@ -1,6 +1,7 @@
 name: site-devkit
 
 project_files:
+  - commands/host/devkit-run-script
   - commands/host/site-build
   - commands/host/site-build-backend
   - commands/host/site-build-frontend

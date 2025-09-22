@@ -77,7 +77,6 @@ Create a [release](https://docs.github.com/en/repositories/releasing-projects-on
 * Concise notes.
 
 ## TODO
-* [ ] Create a `devkit` command for running scripts.
 * [ ] Update the `site-` commands to run `.ddev/site-devkit/site/scripts` scripts.
 * [ ] Create a `devkit` command for copying files.
 * [ ] Create a `devkit` command for importing the database, with file selection from a path.
