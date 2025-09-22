@@ -63,6 +63,13 @@ Create a [release](https://docs.github.com/en/repositories/releasing-projects-on
 * Concise notes.
 
 ## TODO
+* [ ] Create the `site-` commands.
+* [ ] Create the `.ddev/site-devkit/site/scripts/examples` scripts.
+* [ ] Create a `devkit` command for running scripts.
+* [ ] Update the `site-` commands to run `.ddev/site-devkit/site/scripts` scripts.
+* [ ] Create a `devkit` command for copying files.
+* [ ] Create a `devkit` command for importing the database, with file selection from a path.
+* [ ] Create `devkit` command for handing errors and logging, adjusting `echo` as needed.
 * [ ] When ready to share, make the add-on discoverable:
   * [ ] Add the `ddev-get` [topic](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics).
   * [ ] Update `README.md` with `ddev add-on get colinstillwell/ddev-site-devkit` as needed.
