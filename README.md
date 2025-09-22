@@ -22,26 +22,6 @@ After installation, make sure to commit the `.ddev` directory to version control
 
 | Command | Description |
 | ------- | ----------- |
-| `ddev describe` | View service status and used ports for Site Devkit |
-| `ddev logs -s site-devkit` | Check Site Devkit logs |
-
-## Advanced Customization
-
-To change the Docker image:
-
-```bash
-ddev dotenv set .ddev/.env.site-devkit --site-devkit-docker-image="ddev/ddev-utilities:latest"
-ddev add-on get colinstillwell/ddev-site-devkit
-ddev restart
-```
-
-Make sure to commit the `.ddev/.env.site-devkit` file to version control.
-
-All customization options (use with caution):
-
-| Variable | Flag | Default |
-| -------- | ---- | ------- |
-| `SITE_DEVKIT_DOCKER_IMAGE` | `--site-devkit-docker-image` | `ddev/ddev-utilities:latest` |
 
 ## Credits
 
