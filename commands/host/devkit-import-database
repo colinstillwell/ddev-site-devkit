@@ -13,9 +13,9 @@ set -euo pipefail
 
 DIRECTORY="database"
 
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-    --dir=*) DIRECTORY="${1#*=}";  shift; continue ;;
+for ARG in "$@"; do
+  case "$ARG" in
+    --dir=*) DIRECTORY="${ARG#*=}";;
   esac
 done
 
