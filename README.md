@@ -29,6 +29,8 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 
 | Command | Description |
 | ------- | ----------- |
+| `ddev devkit-import-database` | Interactively import a SQL dump file into the project. |
+| `ddev devkit-run-script` | Run a script on the host or in the web container. |
 | `ddev site-build` | Run build tasks. |
 | `ddev site-build-backend` | Run backend build tasks. |
 | `ddev site-build-frontend` | Run frontend build tasks. |
