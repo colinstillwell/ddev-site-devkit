@@ -80,6 +80,8 @@ Create a [release](https://docs.github.com/en/repositories/releasing-projects-on
 * [ ] Update the `site-` commands to run `.ddev/site-devkit/site/scripts` scripts.
 * [ ] Create a `devkit` command for copying files.
 * [ ] Create a `devkit` command for importing the database, with file selection from a path.
+* [ ] `devkit-run-script` should check the file exists, with error handling as needed.
+* [ ] `devkit-run-script` should always expect a mode, instead of defaulting to host.
 * [ ] Create a `devkit` command for handing errors and logging, adjusting `echo` as needed.
 * [ ] Create a `devkit` command for comparing `.env` file variables, to see if anything is missing.
 * [ ] When ready to share, make the add-on discoverable:
