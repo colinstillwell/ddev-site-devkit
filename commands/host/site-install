@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Run install tasks.
+## Usage: site-install [flags] [args]
+## Example: "ddev site-install"
+## Aliases: site:install
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+echo "'site-install' logic will be added here."

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Run scaffolding tasks.
+## Usage: site-scaffold [flags] [args]
+## Example: "ddev site-scaffolding"
+## Aliases: site:scaffold,site-scaffolding,site:scaffolding,site-scaff,site:scaff
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+echo "'site-scaffold' logic will be added here."

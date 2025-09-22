@@ -29,6 +29,20 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 
 | Command | Description |
 | ------- | ----------- |
+| `ddev site-build` | Run build tasks. |
+| `ddev site-build-backend` | Run backend build tasks. |
+| `ddev site-build-frontend` | Run frontend build tasks. |
+| `ddev site-initialisation` | Run initialisation tasks. |
+| `ddev site-install` | Run install tasks. |
+| `ddev site-mode-development` | Enable development mode. |
+| `ddev site-mode-production` | Enable production mode. |
+| `ddev site-scaffold` | Run scaffolding tasks. |
+| `ddev site-test` | Run test tasks. |
+| `ddev site-test-backend` | Run backend test tasks. |
+| `ddev site-test-frontend` | Run frontend test tasks. |
+| `ddev site-update` | Run update tasks. |
+| `ddev site-update-backend` | Run backend update tasks. |
+| `ddev site-update-frontend` | Run frontend update tasks. |
 
 ## Resources
 
@@ -63,7 +77,6 @@ Create a [release](https://docs.github.com/en/repositories/releasing-projects-on
 * Concise notes.
 
 ## TODO
-* [ ] Create the `site-` commands.
 * [ ] Create the `.ddev/site-devkit/site/scripts/examples` scripts.
 * [ ] Create a `devkit` command for running scripts.
 * [ ] Update the `site-` commands to run `.ddev/site-devkit/site/scripts` scripts.

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Run test tasks.
+## Usage: site-test [flags] [args]
+## Example: "ddev site-test"
+## Aliases: site:test
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+echo "'site-test' logic will be added here."

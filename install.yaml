@@ -1,3 +1,19 @@
 name: site-devkit
 
+project_files:
+  - commands/host/site-build
+  - commands/host/site-build-backend
+  - commands/host/site-build-frontend
+  - commands/host/site-initialisation
+  - commands/host/site-install
+  - commands/host/site-mode-development
+  - commands/host/site-mode-production
+  - commands/host/site-scaffold
+  - commands/host/site-test
+  - commands/host/site-test-backend
+  - commands/host/site-test-frontend
+  - commands/host/site-update
+  - commands/host/site-update-backend
+  - commands/host/site-update-frontend
+
 ddev_version_constraint: '>= v1.24.3'
