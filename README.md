@@ -77,7 +77,6 @@ Create a [release](https://docs.github.com/en/repositories/releasing-projects-on
 * Concise notes.
 
 ## TODO
-* [ ] Create the `.ddev/site-devkit/site/scripts/examples` scripts.
 * [ ] Create a `devkit` command for running scripts.
 * [ ] Update the `site-` commands to run `.ddev/site-devkit/site/scripts` scripts.
 * [ ] Create a `devkit` command for copying files.
