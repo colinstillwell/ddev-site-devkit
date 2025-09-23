@@ -55,11 +55,12 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 
 ## Contributing
 
-1. Branch from `main`.
-2. Make your changes.
-3. Add or update tests in `tests` as needed.
-4. Update `README.md` as needed.
-5. Push your branch and open a pull request on [GitHub](https://github.com/colinstillwell/ddev-site-devkit).
+1. Work from an issue. If none exists, create one first.
+2. Branch from `main` using `issue/<number>-<short-slug>` in lowercase with hyphens.
+3. Make your changes and commit with the prefix `[<number>]`.
+4. Add or update tests in `tests` as needed.
+5. Update `README.md` as needed.
+6. Push your branch and open a pull request on [GitHub](https://github.com/colinstillwell/ddev-site-devkit).
 
 ## Testing branch or PR
 
@@ -80,15 +81,6 @@ Create a [release](https://docs.github.com/en/repositories/releasing-projects-on
   * `MINOR`: backwards compatible feature additions.
   * `PATCH`: backwards compatible fixes.
 * Concise notes.
-
-## TODO
-* [ ] Create a `devkit` command for copying files.
-* [ ] `devkit-run-script` should be more informative about when it starts and finishes.
-* [ ] `devkit-run-script` should check the file exists, with error handling as needed.
-* [ ] `devkit-run-script` should always expect a mode, instead of defaulting to host.
-* [ ] Create a `devkit` command for handing errors and logging, adjusting `echo` as needed.
-* [ ] Create a `devkit` command for comparing `.env` file variables, to see if anything is missing.
-* [ ] When ready to share with the DDEV community, [make the add-on official](https://docs.ddev.com/en/stable/users/extend/creating-add-ons/#making-it-official).
 
 ## Credits
 
