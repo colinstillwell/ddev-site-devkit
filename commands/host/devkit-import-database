@@ -5,7 +5,7 @@
 ## Description: Interactively import a SQL dump file into the project.
 ## Usage: devkit-import-database [flags]
 ## Example: "ddev devkit-import-database"
-## Flags: [{"Name":"dir","Usage":"Directory to look for database dumps","Type":"string"}]
+## Flags: [{"Name":"dir","Usage":"Path to the directory to look for dump files, relative to the project root","Type":"string"}]
 ## Aliases: devkit:import-database,devkit-import-db,devkit:import-db
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
