@@ -38,6 +38,9 @@ if [[ -z "${SCRIPT_PATH-}" ]]; then
   exit 2
 fi
 
+# Summarise
+echo "Running script '$SCRIPT_PATH' in '$WHERE'..."
+
 # Commands
 if [[ "$WHERE" == host ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT_PATH"
