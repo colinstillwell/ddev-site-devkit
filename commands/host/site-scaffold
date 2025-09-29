@@ -3,7 +3,7 @@
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Run scaffolding tasks.
-## Usage: site-scaffold [flags] [args]
+## Usage: site-scaffold
 ## Example: "ddev site-scaffolding"
 ## Aliases: site:scaffold,site-scaffolding,site:scaffolding,site-scaff,site:scaff
 
@@ -14,4 +14,4 @@ set -euo pipefail
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
 # Run the site script
-ddev devkit-run-script "$SITE_SCRIPTS/site-scaffold.sh" "${@}" --host
+ddev devkit-run-script --script="$SITE_SCRIPTS/site-scaffold.sh" --where=host

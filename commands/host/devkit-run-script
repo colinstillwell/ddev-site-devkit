@@ -3,40 +3,43 @@
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Run a script on the host or in the web container.
-## Usage: devkit-run-script [script] [flags] [args]
-## Example: "ddev devkit-run-script scripts/example.sh --web"
-## Flags: [{"Name":"host","Usage":"Run the script on the host"},{"Name":"web","Usage":"Run the script in the web container"}]
+## Usage: devkit-run-script [flags] -- [script-args]
+## Example: "ddev devkit-run-script --script=scripts/example.sh --where=web -- script-arg1 script-arg2"
+## Flags: [{"Name":"script","Usage":"Path to the script to run, relative to the project root","Type":"string"},{"Name":"where","Usage":"Where to run the script: 'host' or 'web'","Type":"string"}]
 ## Aliases: devkit:run-script
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
 
-MODE=host
-SCRIPT_PATH=""
-ARGS=()
+# Defaults
+SCRIPT=""
+WHERE="host"
 
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-    --web)  MODE=web;  shift; continue ;;
-    --host) MODE=host; shift; continue ;;
-    --)     shift; ARGS+=("$@"); break ;;
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --script=*) SCRIPT="${ARG#*=}"; shift; continue ;;
+    --where=*) WHERE="${ARG#*=}"; shift; continue ;;
+    --) shift; break ;;
+    *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
-
-  if [[ -z "$SCRIPT_PATH" ]]; then
-    SCRIPT_PATH="$1"; shift
-  else
-    ARGS+=("$1"); shift
-  fi
 done
 
-if [[ -z "${SCRIPT_PATH-}" ]]; then
-  echo "[script] is required."
-  exit 2
+# Validate
+[[ -n "$SCRIPT" ]] || { echo "--script is required."; exit 2; }
+
+if [[ "$WHERE" == host ]]; then
+  SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT"
+else
+  SCRIPT_PATH="$SCRIPT"
 fi
 
-if [[ "$MODE" == host ]]; then
-  SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT_PATH"
-  exec bash "$SCRIPT_PATH" "${ARGS[@]}"
+# Summarise
+echo "Running script '$SCRIPT' in '$WHERE'..."
+
+# Commands
+if [[ "$WHERE" == host ]]; then
+  exec bash "$SCRIPT_PATH" "$@"
 else
-  exec ddev exec bash "$SCRIPT_PATH" "${ARGS[@]}"
+  exec ddev exec bash "$SCRIPT_PATH" "$@"
 fi

@@ -3,7 +3,7 @@
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Run update tasks.
-## Usage: site-update [flags] [args]
+## Usage: site-update
 ## Example: "ddev site-update"
 ## Aliases: site:update
 
@@ -14,4 +14,4 @@ set -euo pipefail
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
 # Run the site script
-ddev devkit-run-script "$SITE_SCRIPTS/site-update.sh" "${@}" --host
+ddev devkit-run-script --script="$SITE_SCRIPTS/site-update.sh" --where=host

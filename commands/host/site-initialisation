@@ -3,7 +3,7 @@
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Run initialisation tasks.
-## Usage: site-initialisation [flags] [args]
+## Usage: site-initialisation
 ## Example: "ddev site-initialisation"
 ## Aliases: site:initialisation,site-init,site:init
 
@@ -14,4 +14,4 @@ set -euo pipefail
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
 # Run the site script
-ddev devkit-run-script "$SITE_SCRIPTS/site-initialisation.sh" "${@}" --host
+ddev devkit-run-script --script="$SITE_SCRIPTS/site-initialisation.sh" --where=host
