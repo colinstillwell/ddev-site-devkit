@@ -44,10 +44,10 @@ FILES=(
 )
 shopt -u nullglob
 
-(( ${#FILES[@]} > 0 )) || { echo "No files found in $DIRECTORY_PATH"; exit 1; }
+(( ${#FILES[@]} > 0 )) || { echo "No dump files found in $DIRECTORY_PATH"; exit 1; }
 
 # Prompt
-echo "Choose a file to import from: $DIRECTORY_PATH"
+echo "Choose a dump file to import from: $DIRECTORY_PATH"
 for i in "${!FILES[@]}"; do
   printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")"
 done
@@ -62,7 +62,7 @@ while true; do
 done
 
 # Summarise
-echo "Importing database: $(basename -- "$CHOICE")"
+echo "Importing dump file '$(basename -- "$CHOICE")'..."
 
 # Commands
 exec ddev import-db -f "$CHOICE"
