@@ -6,7 +6,6 @@ project_files:
   - commands/host/site-build
   - commands/host/site-build-backend
   - commands/host/site-build-frontend
-  - commands/host/site-initialisation
   - commands/host/site-install
   - commands/host/site-mode-development
   - commands/host/site-mode-production
@@ -20,7 +19,6 @@ project_files:
   - site-devkit/site/scripts/examples/site-build-backend.sh
   - site-devkit/site/scripts/examples/site-build-frontend.sh
   - site-devkit/site/scripts/examples/site-build.sh
-  - site-devkit/site/scripts/examples/site-initialisation.sh
   - site-devkit/site/scripts/examples/site-install.sh
   - site-devkit/site/scripts/examples/site-mode-development.sh
   - site-devkit/site/scripts/examples/site-mode-production.sh

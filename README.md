@@ -34,7 +34,6 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 | `ddev site-build` | Run build tasks. |
 | `ddev site-build-backend` | Run backend build tasks. |
 | `ddev site-build-frontend` | Run frontend build tasks. |
-| `ddev site-initialisation` | Run initialisation tasks. |
 | `ddev site-install` | Run install tasks. |
 | `ddev site-mode-development` | Enable development mode. |
 | `ddev site-mode-production` | Enable production mode. |
