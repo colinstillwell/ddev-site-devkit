@@ -4,7 +4,7 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Interactively import a SQL dump file into the project.
 ## Usage: devkit-import-database [flags]
-## Example: "ddev devkit-import-database"
+## Example: "ddev devkit-import-database --dir=backups"
 ## Flags: [{"Name":"dir","Usage":"Path to the directory to look for dump files, relative to the project root","Type":"string"}]
 ## Aliases: devkit:import-database,devkit-import-db,devkit:import-db
 
