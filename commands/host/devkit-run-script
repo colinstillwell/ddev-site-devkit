@@ -16,6 +16,13 @@ MODE=host
 SCRIPT_PATH=""
 ARGS=()
 
+# Get script path
+if [[ -z "$SCRIPT_PATH" ]]; then
+  SCRIPT_PATH="$1"; shift
+else
+  ARGS+=("$1"); shift
+fi
+
 # Parse flags
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -23,12 +30,6 @@ while [[ $# -gt 0 ]]; do
     --host) MODE=host; shift; continue ;;
     --)     shift; ARGS+=("$@"); break ;;
   esac
-
-  if [[ -z "$SCRIPT_PATH" ]]; then
-    SCRIPT_PATH="$1"; shift
-  else
-    ARGS+=("$1"); shift
-  fi
 done
 
 # Validate
