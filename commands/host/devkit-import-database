@@ -11,14 +11,17 @@
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
 
+# Defaults
 DIRECTORY="database"
 
+# Parse flags
 for ARG in "$@"; do
   case "$ARG" in
     --dir=*) DIRECTORY="${ARG#*=}";;
   esac
 done
 
+# Validate
 DIRECTORY_PATH="$DDEV_APPROOT/$DIRECTORY"
 
 [[ -d "$DIRECTORY_PATH" ]] || { echo "Folder not found: $DIRECTORY_PATH"; exit 1; }
@@ -42,6 +45,7 @@ shopt -u nullglob
 
 (( ${#FILES[@]} > 0 )) || { echo "No files found in $DIRECTORY_PATH"; exit 1; }
 
+# Prompt
 echo "Choose a file to import from: $DIRECTORY_PATH"
 for i in "${!FILES[@]}"; do
   printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")"
@@ -56,5 +60,8 @@ while true; do
   echo "Invalid selection. Please try again."
 done
 
+# Summarise
 echo "Importing database: $(basename -- "$CHOICE")"
+
+# Commands
 exec ddev import-db -f "$CHOICE"

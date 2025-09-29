@@ -11,10 +11,12 @@
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
 
+# Defaults
 MODE=host
 SCRIPT_PATH=""
 ARGS=()
 
+# Parse flags
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --web)  MODE=web;  shift; continue ;;
@@ -29,11 +31,13 @@ while [[ $# -gt 0 ]]; do
   fi
 done
 
+# Validate
 if [[ -z "${SCRIPT_PATH-}" ]]; then
   echo "[script] is required."
   exit 2
 fi
 
+# Commands
 if [[ "$MODE" == host ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT_PATH"
   exec bash "$SCRIPT_PATH" "${ARGS[@]}"
