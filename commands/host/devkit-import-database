@@ -18,6 +18,7 @@ DIRECTORY="database"
 for ARG in "$@"; do
   case "$ARG" in
     --dir=*) DIRECTORY="${ARG#*=}"; shift; continue ;;
+    *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
 done
 
