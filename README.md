@@ -7,7 +7,7 @@
 
 ## Overview
 
-DDEV Site Devkit standardises everyday project tasks across multiple repositories while keeping each project in control of its own logic. It adds a set of first-class DDEV commands that orchestrate common "site" workflows such as scaffold, build, install, update and test. The heavy lifting lives in project-owned scripts under `.ddev/site-devkit/site/scripts`, so teams can customise behaviour per project without forking the add-on.
+DDEV Site Devkit standardises everyday project tasks across multiple repositories while keeping each project in control of its own logic. It adds a set of first-class DDEV commands that orchestrate common "site" workflows such as scaffold, build, install, sync and test. The heavy lifting lives in project-owned scripts under `.ddev/site-devkit/site/scripts`, so teams can customise behaviour per project without forking the add-on.
 
 **What you get**
 * `site-` commands: each command calls a matching script from your project-owned scripts.
@@ -38,12 +38,12 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 | `ddev site-mode-development` | Enable development mode. |
 | `ddev site-mode-production` | Enable production mode. |
 | `ddev site-scaffold` | Run scaffolding tasks. |
+| `ddev site-sync` | Run sync tasks. |
+| `ddev site-sync-backend` | Run backend sync tasks. |
+| `ddev site-sync-frontend` | Run frontend sync tasks. |
 | `ddev site-test` | Run test tasks. |
 | `ddev site-test-backend` | Run backend test tasks. |
 | `ddev site-test-frontend` | Run frontend test tasks. |
-| `ddev site-update` | Run update tasks. |
-| `ddev site-update-backend` | Run backend update tasks. |
-| `ddev site-update-frontend` | Run frontend update tasks. |
 
 ## Resources
 

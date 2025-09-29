@@ -6,4 +6,4 @@
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
 
-echo "This is an example for 'ddev site-update-backend'."
+echo "This is an example for 'ddev site-sync-frontend'."

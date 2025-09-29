@@ -10,12 +10,12 @@ project_files:
   - commands/host/site-mode-development
   - commands/host/site-mode-production
   - commands/host/site-scaffold
+  - commands/host/site-sync
+  - commands/host/site-sync-backend
+  - commands/host/site-sync-frontend
   - commands/host/site-test
   - commands/host/site-test-backend
   - commands/host/site-test-frontend
-  - commands/host/site-update
-  - commands/host/site-update-backend
-  - commands/host/site-update-frontend
   - site-devkit/site/scripts/examples/site-build-backend.sh
   - site-devkit/site/scripts/examples/site-build-frontend.sh
   - site-devkit/site/scripts/examples/site-build.sh
@@ -23,11 +23,11 @@ project_files:
   - site-devkit/site/scripts/examples/site-mode-development.sh
   - site-devkit/site/scripts/examples/site-mode-production.sh
   - site-devkit/site/scripts/examples/site-scaffold.sh
+  - site-devkit/site/scripts/examples/site-sync-backend.sh
+  - site-devkit/site/scripts/examples/site-sync-frontend.sh
+  - site-devkit/site/scripts/examples/site-sync.sh
   - site-devkit/site/scripts/examples/site-test-backend.sh
   - site-devkit/site/scripts/examples/site-test-frontend.sh
   - site-devkit/site/scripts/examples/site-test.sh
-  - site-devkit/site/scripts/examples/site-update-backend.sh
-  - site-devkit/site/scripts/examples/site-update-frontend.sh
-  - site-devkit/site/scripts/examples/site-update.sh
 
 ddev_version_constraint: '>= v1.24.3'
