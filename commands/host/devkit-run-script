@@ -21,6 +21,7 @@ for ARG in "$@"; do
     --script=*) SCRIPT="${ARG#*=}"; shift; continue ;;
     --where=*) WHERE="${ARG#*=}"; shift; continue ;;
     --) shift; ARGS+=("$@"); break ;;
+    *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
 done
 
