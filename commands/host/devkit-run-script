@@ -20,7 +20,7 @@ for ARG in "$@"; do
   case "$ARG" in
     --script=*) SCRIPT="${ARG#*=}"; shift; continue ;;
     --where=*) WHERE="${ARG#*=}"; shift; continue ;;
-    --) shift; ARGS+=("$@"); break ;;
+    --) shift; break ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
 done
