@@ -3,7 +3,7 @@
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Run frontend build tasks.
-## Usage: site-build-frontend [flags] [args]
+## Usage: site-build-frontend
 ## Example: "ddev site-build-frontend"
 ## Aliases: site:build:frontend,site-fe-build,site:fe:build
 
@@ -14,4 +14,4 @@ set -euo pipefail
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
 # Run the site script
-ddev devkit-run-script --script="$SITE_SCRIPTS/site-build-frontend.sh" "${@}" --where=host
+ddev devkit-run-script --script="$SITE_SCRIPTS/site-build-frontend.sh" --where=host

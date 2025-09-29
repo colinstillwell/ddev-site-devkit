@@ -3,7 +3,7 @@
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Run backend build tasks.
-## Usage: site-build-backend [flags] [args]
+## Usage: site-build-backend
 ## Example: "ddev site-build-backend"
 ## Aliases: site:build:backend,site-be-build,site:be:build
 
@@ -14,4 +14,4 @@ set -euo pipefail
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
 # Run the site script
-ddev devkit-run-script --script="$SITE_SCRIPTS/site-build-backend.sh" "${@}" --where=host
+ddev devkit-run-script --script="$SITE_SCRIPTS/site-build-backend.sh" --where=host

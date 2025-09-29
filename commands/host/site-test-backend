@@ -3,7 +3,7 @@
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Run backend test tasks.
-## Usage: site-test-backend [flags] [args]
+## Usage: site-test-backend
 ## Example: "ddev site-test-backend"
 ## Aliases: site:test:backend,site-be-test,site:be:test
 
@@ -14,4 +14,4 @@ set -euo pipefail
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
 # Run the site script
-ddev devkit-run-script --script="$SITE_SCRIPTS/site-test-backend.sh" "${@}" --where=host
+ddev devkit-run-script --script="$SITE_SCRIPTS/site-test-backend.sh" --where=host
