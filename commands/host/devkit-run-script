@@ -13,8 +13,7 @@ set -euo pipefail
 
 # Defaults
 SCRIPT=""
-WHERE=host
-ARGS=()
+WHERE="host"
 
 # Parse flags
 for ARG in "$@"; do
@@ -42,7 +41,7 @@ echo "Running script '$SCRIPT' in '$WHERE'..."
 
 # Commands
 if [[ "$WHERE" == host ]]; then
-  exec bash "$SCRIPT_PATH" "${ARGS[@]}"
+  exec bash "$SCRIPT_PATH" "$@"
 else
-  exec ddev exec bash "$SCRIPT_PATH" "${ARGS[@]}"
+  exec ddev exec bash "$SCRIPT_PATH" "$@"
 fi
