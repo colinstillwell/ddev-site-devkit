@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Run sync tasks.
+## Description: Run synchronisation tasks.
 ## Usage: site-sync
 ## Example: "ddev site-sync"
 ## Aliases: site:sync
