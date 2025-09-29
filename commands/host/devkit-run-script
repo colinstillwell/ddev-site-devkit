@@ -12,7 +12,7 @@
 set -euo pipefail
 
 # Defaults
-MODE=host
+WHERE=host
 SCRIPT_PATH=""
 ARGS=()
 
@@ -26,8 +26,8 @@ fi
 # Parse flags
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    --web)  MODE=web;  shift; continue ;;
-    --host) MODE=host; shift; continue ;;
+    --web)  WHERE=web;  shift; continue ;;
+    --host) WHERE=host; shift; continue ;;
     --)     shift; ARGS+=("$@"); break ;;
   esac
 done
@@ -39,7 +39,7 @@ if [[ -z "${SCRIPT_PATH-}" ]]; then
 fi
 
 # Commands
-if [[ "$MODE" == host ]]; then
+if [[ "$WHERE" == host ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT_PATH"
   exec bash "$SCRIPT_PATH" "${ARGS[@]}"
 else
