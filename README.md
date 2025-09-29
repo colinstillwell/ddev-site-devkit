@@ -31,26 +31,33 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 
 ## Usage
 
+### `devkit` commands
+
 | Command | Description |
 | ------- | ----------- |
-| `ddev devkit-import-database` | Interactively import a SQL dump file into the project. |
-| `ddev devkit-run-script` | Run a script on the host or in the web container. |
-| `ddev site-build` | Run build tasks. |
-| `ddev site-build-backend` | Run backend build tasks. |
-| `ddev site-build-frontend` | Run frontend build tasks. |
-| `ddev site-install` | Run installation tasks. |
-| `ddev site-mode-development` | Enable development mode. |
-| `ddev site-mode-production` | Enable production mode. |
-| `ddev site-scaffold` | Run scaffolding tasks. |
-| `ddev site-refresh` | Run refresh tasks. |
-| `ddev site-refresh-backend` | Run backend refresh tasks. |
-| `ddev site-refresh-frontend` | Run frontend refresh tasks. |
-| `ddev site-sync` | Run synchronisation tasks. |
-| `ddev site-sync-backend` | Run backend synchronisation tasks. |
-| `ddev site-sync-frontend` | Run frontend synchronisation tasks. |
-| `ddev site-test` | Run testing tasks. |
-| `ddev site-test-backend` | Run backend testing tasks. |
-| `ddev site-test-frontend` | Run frontend testing tasks. |
+| `ddev devkit-import-database` | Interactively import an SQL dump into the project database |
+| `ddev devkit-run-script` | Run a script on the host or in the web container |
+
+### `site` commands
+
+| Command | Description | Examples |
+| ------- | ----------- | -------- |
+| `ddev site-build` | Run build tasks | `site-build-backend` then `site-build-frontend` |
+| `ddev site-build-backend` | Run backend build tasks | `composer install` |
+| `ddev site-build-frontend` | Run frontend build tasks | `npm install` |
+| `ddev site-install` | Run installation tasks | New project installs the application; existing project runs `site-refresh` |
+| `ddev site-mode-development` | Enable development mode | Disable caches, enable verbose logging |
+| `ddev site-mode-production` | Enable production mode | Enable caches, aggregate CSS and JS |
+| `ddev site-scaffold` | Run scaffolding tasks | Copy required files, set permissions |
+| `ddev site-refresh` | Run refresh tasks | `site-refresh-backend` then `site-refresh-frontend` |
+| `ddev site-refresh-backend` | Run backend refresh tasks | `site-build-backend` then `site-sync-backend` |
+| `ddev site-refresh-frontend` | Run frontend refresh tasks | `site-build-frontend` then `site-sync-frontend` |
+| `ddev site-sync` | Run synchronisation tasks | `site-sync-backend` then `site-sync-frontend` |
+| `ddev site-sync-backend` | Run backend synchronisation tasks | Database import, public files |
+| `ddev site-sync-frontend` | Run frontend synchronisation tasks | Images, compiled CSS and JS |
+| `ddev site-test` | Run testing tasks | `site-test-backend` then `site-test-frontend` |
+| `ddev site-test-backend` | Run backend testing tasks | Unit, kernel, integration |
+| `ddev site-test-frontend` | Run frontend testing tasks | Unit, end to end |
 
 ## Resources
 
