@@ -3,9 +3,9 @@
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Run a script on the host or in the web container.
-## Usage: devkit-run-script [script] [flags] [args]
-## Example: "ddev devkit-run-script scripts/example.sh --where=web"
-## Flags: [{"Name":"where","Usage":"Where to run the script: 'host' or 'web'","Type":"string"}]
+## Usage: devkit-run-script [flags] [args]
+## Example: "ddev devkit-run-script --script=scripts/example.sh --where=web"
+## Flags: [{"Name":"script","Usage":"Path to the script to run, relative to the project root","Type":"string"},{"Name":"where","Usage":"Where to run the script: 'host' or 'web'","Type":"string"}]
 ## Aliases: devkit:run-script
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
@@ -16,16 +16,10 @@ SCRIPT=""
 WHERE=host
 ARGS=()
 
-# Get script path
-if [[ -z "$SCRIPT" ]]; then
-  SCRIPT="$1"; shift
-else
-  ARGS+=("$1"); shift
-fi
-
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
+    --script=*) SCRIPT="${ARG#*=}"; shift; continue ;;
     --where=*) WHERE="${ARG#*=}"; shift; continue ;;
     --) shift; ARGS+=("$@"); break ;;
   esac
@@ -33,7 +27,7 @@ done
 
 # Validate
 if [[ -z "${SCRIPT-}" ]]; then
-  echo "[script] is required."
+  echo "--script is required."
   exit 2
 fi
 
