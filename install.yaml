@@ -19,21 +19,21 @@ project_files:
   - commands/host/site-test
   - commands/host/site-test-backend
   - commands/host/site-test-frontend
+  - site-devkit/site/scripts/examples/site-build.sh
   - site-devkit/site/scripts/examples/site-build-backend.sh
   - site-devkit/site/scripts/examples/site-build-frontend.sh
-  - site-devkit/site/scripts/examples/site-build.sh
   - site-devkit/site/scripts/examples/site-install.sh
   - site-devkit/site/scripts/examples/site-mode-development.sh
   - site-devkit/site/scripts/examples/site-mode-production.sh
   - site-devkit/site/scripts/examples/site-scaffold.sh
+  - site-devkit/site/scripts/examples/site-refresh.sh
   - site-devkit/site/scripts/examples/site-refresh-backend.sh
   - site-devkit/site/scripts/examples/site-refresh-frontend.sh
-  - site-devkit/site/scripts/examples/site-refresh.sh
+  - site-devkit/site/scripts/examples/site-sync.sh
   - site-devkit/site/scripts/examples/site-sync-backend.sh
   - site-devkit/site/scripts/examples/site-sync-frontend.sh
-  - site-devkit/site/scripts/examples/site-sync.sh
+  - site-devkit/site/scripts/examples/site-test.sh
   - site-devkit/site/scripts/examples/site-test-backend.sh
   - site-devkit/site/scripts/examples/site-test-frontend.sh
-  - site-devkit/site/scripts/examples/site-test.sh
 
 ddev_version_constraint: '>= v1.24.3'
