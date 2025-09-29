@@ -17,7 +17,7 @@ DIRECTORY="database"
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
-    --dir=*) DIRECTORY="${ARG#*=}";;
+    --dir=*) DIRECTORY="${ARG#*=}"; shift; continue ;;
   esac
 done
 
