@@ -12,13 +12,13 @@
 set -euo pipefail
 
 # Defaults
+SCRIPT=""
 WHERE=host
-SCRIPT_PATH=""
 ARGS=()
 
 # Get script path
-if [[ -z "$SCRIPT_PATH" ]]; then
-  SCRIPT_PATH="$1"; shift
+if [[ -z "$SCRIPT" ]]; then
+  SCRIPT="$1"; shift
 else
   ARGS+=("$1"); shift
 fi
@@ -33,17 +33,22 @@ while [[ $# -gt 0 ]]; do
 done
 
 # Validate
-if [[ -z "${SCRIPT_PATH-}" ]]; then
+if [[ -z "${SCRIPT-}" ]]; then
   echo "[script] is required."
   exit 2
 fi
 
+if [[ "$WHERE" == host ]]; then
+  SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT"
+else
+  SCRIPT_PATH="$SCRIPT"
+fi
+
 # Summarise
-echo "Running script '$SCRIPT_PATH' in '$WHERE'..."
+echo "Running script '$SCRIPT' in '$WHERE'..."
 
 # Commands
 if [[ "$WHERE" == host ]]; then
-  SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT_PATH"
   exec bash "$SCRIPT_PATH" "${ARGS[@]}"
 else
   exec ddev exec bash "$SCRIPT_PATH" "${ARGS[@]}"
