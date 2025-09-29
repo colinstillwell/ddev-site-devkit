@@ -38,19 +38,19 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 | `ddev site-build` | Run build tasks. |
 | `ddev site-build-backend` | Run backend build tasks. |
 | `ddev site-build-frontend` | Run frontend build tasks. |
-| `ddev site-install` | Run install tasks. |
+| `ddev site-install` | Run installation tasks. |
 | `ddev site-mode-development` | Enable development mode. |
 | `ddev site-mode-production` | Enable production mode. |
 | `ddev site-scaffold` | Run scaffolding tasks. |
 | `ddev site-refresh` | Run refresh tasks. |
 | `ddev site-refresh-backend` | Run backend refresh tasks. |
 | `ddev site-refresh-frontend` | Run frontend refresh tasks. |
-| `ddev site-sync` | Run sync tasks. |
-| `ddev site-sync-backend` | Run backend sync tasks. |
-| `ddev site-sync-frontend` | Run frontend sync tasks. |
-| `ddev site-test` | Run test tasks. |
-| `ddev site-test-backend` | Run backend test tasks. |
-| `ddev site-test-frontend` | Run frontend test tasks. |
+| `ddev site-sync` | Run synchronisation tasks. |
+| `ddev site-sync-backend` | Run backend synchronisation tasks. |
+| `ddev site-sync-frontend` | Run frontend synchronisation tasks. |
+| `ddev site-test` | Run testing tasks. |
+| `ddev site-test-backend` | Run backend testing tasks. |
+| `ddev site-test-frontend` | Run frontend testing tasks. |
 
 ## Resources
 
