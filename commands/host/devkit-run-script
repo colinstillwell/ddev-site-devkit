@@ -25,10 +25,7 @@ for ARG in "$@"; do
 done
 
 # Validate
-if [[ -z "${SCRIPT-}" ]]; then
-  echo "--script is required."
-  exit 2
-fi
+[[ -n "$SCRIPT" ]] || { echo "--script is required."; exit 2; }
 
 if [[ "$WHERE" == host ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT"
