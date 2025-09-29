@@ -7,7 +7,11 @@
 
 ## Overview
 
-DDEV Site Devkit standardises everyday project tasks across multiple repositories while keeping each project in control of its own logic. It adds a set of first-class DDEV commands that orchestrate common "site" workflows such as scaffold, build, install, sync and test. The heavy lifting lives in project-owned scripts under `.ddev/site-devkit/site/scripts`, so teams can customise behaviour per project without forking the add-on.
+DDEV Site Devkit standardises everyday project tasks across multiple repositories while keeping each project in control of its own logic.
+
+This add-on adds a set of first-class DDEV commands that orchestrate common site workflows such as scaffolding, authentication, build, synchronisation, refresh, installation, and testing, as well as switching between development and production modes. Some workflows provide both frontend and backend variants.
+
+The heavy lifting lives in project-owned scripts under `.ddev/site-devkit/site/scripts`, so teams can customise behaviour per project without forking the add-on.
 
 **What you get**
 * `site-` commands: each command calls a matching script from your project-owned scripts.
