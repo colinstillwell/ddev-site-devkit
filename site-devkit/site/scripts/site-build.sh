@@ -12,8 +12,8 @@ For guidance on how to adapt it, see "Customising the generated scripts" in the 
 https://github.com/colinstillwell/ddev-site-devkit#customising-the-generated-scripts
 EXAMPLE
 
-# Run the backend build tasks
+# Backend build tasks
 # ddev site-build-backend
 
-# Run the frontend build tasks
+# Frontend build tasks
 # ddev site-build-frontend

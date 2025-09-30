@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Run backend synchronisation tasks.
+## Description: Backend synchronisation tasks.
 ## Usage: site-sync-backend
 ## Example: "ddev site-sync-backend"
 ## Aliases: site:sync:backend,site-sync-be,site:sync:be,site-backend-sync,site:backend:sync,site-be-sync,site:be:sync
@@ -13,5 +13,5 @@ set -euo pipefail
 # Path to the site scripts
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
-# Run the site script
+# Run the script
 ddev devkit-run-script --script="$SITE_SCRIPTS/site-sync-backend.sh" --where=host

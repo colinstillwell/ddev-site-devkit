@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Run frontend build tasks.
+## Description: Frontend build tasks.
 ## Usage: site-build-frontend
 ## Example: "ddev site-build-frontend"
 ## Aliases: site:build:frontend,site-build-fe,site:build:fe,site-frontend-build,site:frontend:build,site-fe-build,site:fe:build
@@ -13,5 +13,5 @@ set -euo pipefail
 # Path to the site scripts
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
-# Run the site script
+# Run the script
 ddev devkit-run-script --script="$SITE_SCRIPTS/site-build-frontend.sh" --where=host

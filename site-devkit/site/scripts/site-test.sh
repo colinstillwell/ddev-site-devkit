@@ -12,8 +12,8 @@ For guidance on how to adapt it, see "Customising the generated scripts" in the 
 https://github.com/colinstillwell/ddev-site-devkit#customising-the-generated-scripts
 EXAMPLE
 
-# Run the backend testing tasks
+# Backend testing tasks
 # ddev site-test-backend
 
-# Run the frontend testing tasks
+# Frontend testing tasks
 # ddev site-test-frontend

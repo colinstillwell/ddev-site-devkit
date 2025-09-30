@@ -17,7 +17,7 @@ The heavy lifting lives in project-owned scripts under `.ddev/site-devkit/site/s
 * `site-` commands: each command calls a matching script from your project-owned scripts.
 * `devkit` commands: tools you can use directly or from within your project-owned scripts.
 * Example scripts are automatically generated in `.ddev/site-devkit/site/scripts`.
-* Safe, CI-friendly defaults: idempotent tasks, sensible exit codes, and pass-through arguments for full control.
+* Safe, CI-friendly defaults: idempotent tasks with strict error handling and sensible exit codes, making them pipeline-safe.
 * Framework agnostic: works with any tech stack.
 
 ## Install or update
@@ -31,36 +31,42 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 
 ## Usage
 
-### `devkit` commands
+There are two types of commands provided by this add-on:
+* **`ddev site-*`**: project workflows backed by your own scripts.
+* **`ddev devkit-*`**: helper tools you can use directly or inside those scripts.
 
-| Command | Description |
-| ------- | ----------- |
-| `ddev devkit-import-database` | Interactively import an SQL dump into the project database |
-| `ddev devkit-run-script` | Run a script on the host or in the web container |
+### `ddev devkit-*` commands
 
-### `site` commands
+| Command                  | Description                                                |
+| ------------------------ | ---------------------------------------------------------- |
+| `devkit-import-database` | Interactively import an SQL dump into the project database |
+| `devkit-run-script`      | Run a script on the host or in the web container           |
 
-| Command | Description | Examples |
-| ------- | ----------- | -------- |
-| `ddev site-build` | Run build tasks | `site-build-backend` and `site-build-frontend` |
-| `ddev site-build-backend` | Run backend build tasks | `composer install` |
-| `ddev site-build-frontend` | Run frontend build tasks | `npm install` |
-| `ddev site-install` | Run installation tasks | New project installs the application; existing project runs `site-build-backend`, `site-sync-backend`, `site-build-frontend` and `site-sync-frontend` |
-| `ddev site-mode-development` | Enable development mode | Disable caches, enable verbose logging |
-| `ddev site-mode-production` | Enable production mode | Enable caches, aggregate CSS and JS |
-| `ddev site-scaffold` | Run scaffolding tasks | Copy required files, set permissions |
-| `ddev site-sync` | Run synchronisation tasks | `site-sync-backend` and `site-sync-frontend` |
-| `ddev site-sync-backend` | Run backend synchronisation tasks | Database import, public files |
-| `ddev site-sync-frontend` | Run frontend synchronisation tasks | Images, compiled CSS and JS |
-| `ddev site-test` | Run testing tasks | `site-test-backend` and `site-test-frontend` |
-| `ddev site-test-backend` | Run backend testing tasks | Unit, kernel, integration |
-| `ddev site-test-frontend` | Run frontend testing tasks | Unit, end to end |
+### `ddev site-*` commands
+
+| Command                 | Description                    | Examples                                                                |
+| ----------------------- | ------------------------------ | ----------------------------------------------------------------------- |
+| `site-build`            | Build tasks                    | `site-build-backend` and `site-build-frontend`                          |
+| `site-build-backend`    | Backend build tasks            | `composer install`                                                      |
+| `site-build-frontend`   | Frontend build tasks           | `npm install`                                                           |
+| `site-install`          | Installation tasks             | New project installs the application; existing project builds and syncs |
+| `site-mode-development` | Enable development mode        | Disable caches, enable verbose logging                                  |
+| `site-mode-production`  | Enable production mode         | Enable caches, aggregate CSS and JS                                     |
+| `site-scaffold`         | Scaffolding tasks              | Copy required files, set permissions                                    |
+| `site-sync`             | Synchronisation tasks          | `site-sync-backend` and `site-sync-frontend`                            |
+| `site-sync-backend`     | Backend synchronisation tasks  | Database import, public files                                           |
+| `site-sync-frontend`    | Frontend synchronisation tasks | Images, compiled CSS and JS                                             |
+| `site-test`             | Testing tasks                  | `site-test-backend` and `site-test-frontend`                            |
+| `site-test-backend`     | Backend testing tasks          | Unit, kernel, integration                                               |
+| `site-test-frontend`    | Frontend testing tasks         | Unit, end to end                                                        |
 
 ## Customising the generated scripts
 
 When you install this add-on, example scripts are copied into your project at `.ddev/site-devkit/site/scripts`.
 
 Each `ddev site-*` command maps 1:1 to a script in that directory. These scripts are yours to edit and should be committed to your repository.
+
+If your project doesn't need frontend or backend scripts, just leave them unused. They'll reappear on update if deleted.
 
 ### How to modify
 1. Open the matching script.
