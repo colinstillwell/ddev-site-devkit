@@ -56,6 +56,31 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 | `ddev site-test-backend` | Run backend testing tasks | Unit, kernel, integration |
 | `ddev site-test-frontend` | Run frontend testing tasks | Unit, end to end |
 
+## Customising the generated scripts
+
+When you install this add-on, example scripts are copied into your project at `.ddev/site-devkit/site/scripts`.
+
+Each `ddev site-*` command maps 1:1 to a script in that directory. These scripts are yours to edit and should be committed to your repository.
+
+### How to modify
+1. Open the matching script.
+2. Remove the `#ddev-generated` line (this prevents the script being replaced on update).
+3. Keep the shebang and safety flags:
+   ```bash
+   #!/usr/bin/env bash
+
+   # Exit on error; treat unset variables as errors; fail pipelines if any command fails
+   set -euo pipefail
+   ```
+4. Replace the placeholder content with your project's logic.
+5. Use the `ddev devkit-*` commands provided by this add-on where useful.
+
+### Update behaviour
+
+When you update the add-on, any script that still has `#ddev-generated` will be overwritten. Once you remove that line, the script is considered project-owned and will not be touched.
+
+To reset a script back to the example, delete it from your project and reinstall the add-on. A fresh copy will be generated.
+
 ## Resources
 
 * [DDEV Documentation for Add-ons](https://ddev.readthedocs.io/en/stable/users/extend/additional-services/)
