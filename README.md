@@ -44,21 +44,21 @@ There are two types of commands provided by this add-on:
 
 ### `ddev site-*` commands
 
-| Command                 | Description                        | Examples                                                                |
-| ----------------------- | ---------------------------------- | ----------------------------------------------------------------------- |
-| `site-build`            | Run build tasks                    | `site-build-backend` and `site-build-frontend`                          |
-| `site-build-backend`    | Run backend build tasks            | `composer install`                                                      |
-| `site-build-frontend`   | Run frontend build tasks           | `npm install`                                                           |
-| `site-install`          | Run installation tasks             | New project installs the application; existing project builds and syncs |
-| `site-mode-development` | Enable development mode            | Disable caches, enable verbose logging                                  |
-| `site-mode-production`  | Enable production mode             | Enable caches, aggregate CSS and JS                                     |
-| `site-scaffold`         | Run scaffolding tasks              | Copy required files, set permissions                                    |
-| `site-sync`             | Run synchronisation tasks          | `site-sync-backend` and `site-sync-frontend`                            |
-| `site-sync-backend`     | Run backend synchronisation tasks  | Database import, public files                                           |
-| `site-sync-frontend`    | Run frontend synchronisation tasks | Images, compiled CSS and JS                                             |
-| `site-test`             | Run testing tasks                  | `site-test-backend` and `site-test-frontend`                            |
-| `site-test-backend`     | Run backend testing tasks          | Unit, kernel, integration                                               |
-| `site-test-frontend`    | Run frontend testing tasks         | Unit, end to end                                                        |
+| Command                 | Description                    | Examples                                                                |
+| ----------------------- | ------------------------------ | ----------------------------------------------------------------------- |
+| `site-build`            | Build tasks                    | `site-build-backend` and `site-build-frontend`                          |
+| `site-build-backend`    | Backend build tasks            | `composer install`                                                      |
+| `site-build-frontend`   | Frontend build tasks           | `npm install`                                                           |
+| `site-install`          | Installation tasks             | New project installs the application; existing project builds and syncs |
+| `site-mode-development` | Enable development mode        | Disable caches, enable verbose logging                                  |
+| `site-mode-production`  | Enable production mode         | Enable caches, aggregate CSS and JS                                     |
+| `site-scaffold`         | Scaffolding tasks              | Copy required files, set permissions                                    |
+| `site-sync`             | Synchronisation tasks          | `site-sync-backend` and `site-sync-frontend`                            |
+| `site-sync-backend`     | Backend synchronisation tasks  | Database import, public files                                           |
+| `site-sync-frontend`    | Frontend synchronisation tasks | Images, compiled CSS and JS                                             |
+| `site-test`             | Testing tasks                  | `site-test-backend` and `site-test-frontend`                            |
+| `site-test-backend`     | Backend testing tasks          | Unit, kernel, integration                                               |
+| `site-test-frontend`    | Frontend testing tasks         | Unit, end to end                                                        |
 
 ## Customising the generated scripts
 
