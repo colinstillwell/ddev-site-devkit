@@ -42,17 +42,17 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 
 | Command | Description | Examples |
 | ------- | ----------- | -------- |
-| `ddev site-build` | Run build tasks | `site-build-backend` then `site-build-frontend` |
+| `ddev site-build` | Run build tasks | `site-build-backend` and `site-build-frontend` |
 | `ddev site-build-backend` | Run backend build tasks | `composer install` |
 | `ddev site-build-frontend` | Run frontend build tasks | `npm install` |
 | `ddev site-install` | Run installation tasks | New project installs the application; existing project runs `site-build-backend`, `site-sync-backend`, `site-build-frontend` and `site-sync-frontend` |
 | `ddev site-mode-development` | Enable development mode | Disable caches, enable verbose logging |
 | `ddev site-mode-production` | Enable production mode | Enable caches, aggregate CSS and JS |
 | `ddev site-scaffold` | Run scaffolding tasks | Copy required files, set permissions |
-| `ddev site-sync` | Run synchronisation tasks | `site-sync-backend` then `site-sync-frontend` |
+| `ddev site-sync` | Run synchronisation tasks | `site-sync-backend` and `site-sync-frontend` |
 | `ddev site-sync-backend` | Run backend synchronisation tasks | Database import, public files |
 | `ddev site-sync-frontend` | Run frontend synchronisation tasks | Images, compiled CSS and JS |
-| `ddev site-test` | Run testing tasks | `site-test-backend` then `site-test-frontend` |
+| `ddev site-test` | Run testing tasks | `site-test-backend` and `site-test-frontend` |
 | `ddev site-test-backend` | Run backend testing tasks | Unit, kernel, integration |
 | `ddev site-test-frontend` | Run frontend testing tasks | Unit, end to end |
 
