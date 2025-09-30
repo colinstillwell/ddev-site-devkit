@@ -13,5 +13,5 @@ set -euo pipefail
 # Path to the site scripts
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
-# Run the site script
+# Run the script
 ddev devkit-run-script --script="$SITE_SCRIPTS/site-mode-development.sh" --where=host
