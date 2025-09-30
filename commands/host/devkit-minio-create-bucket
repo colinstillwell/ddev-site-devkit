@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Create a MinIO bucket if it does not exist, and set its policy.
+## Usage: devkit-minio-create-bucket [flags]
+## Example: "ddev devkit-minio-create-bucket --bucket=example --policy=public"
+## Flags: [{"Name":"bucket","Usage":"Name of the bucket to create","Type":"string"},{"Name":"policy","Usage":"Policy to set on the bucket","Type":"string"},{"Name":"access-key","Usage":"Access key for MinIO","Type":"string"},{"Name":"secret-key","Usage":"Secret key for MinIO","Type":"string"},{"Name":"host","Usage":"Host URL for MinIO","Type":"string"}]
+## Aliases: devkit:minio:create:bucket,devkit-minio-bucket-create,devkit:minio:bucket:create
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+# Defaults
+BUCKET=""
+POLICY=""
+ACCESS_KEY="ddevminio"
+SECRET_KEY="ddevminio"
+HOST="$DDEV_PRIMARY_URL_WITHOUT_PORT:10101"
+
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --bucket=*) BUCKET="${ARG#*=}"; shift; continue ;;
+    --policy=*) POLICY="${ARG#*=}"; shift; continue ;;
+    --access-key=*) ACCESS_KEY="${ARG#*=}"; shift; continue ;;
+    --secret-key=*) SECRET_KEY="${ARG#*=}"; shift; continue ;;
+    --host=*) HOST="${ARG#*=}"; shift; continue ;;
+    *) echo "Unknown flag: $ARG"; exit 2 ;;
+  esac
+done
+
+# Validate
+[[ -n "$BUCKET" ]] || { echo "--bucket is required."; exit 2; }
+[[ -n "$POLICY" ]] || { echo "--policy is required."; exit 2; }
+
+# Summarise
+echo "Creating '$BUCKET' bucket with '$POLICY' policy if it does not exist..."
+
+# Commands
+mc_exec() {
+  ddev exec -s minio env MC_CONFIG_DIR=/tmp/.mc mc --insecure "$@"
+}
+
+mc_exec alias set localminio "$HOST" "$ACCESS_KEY" "$SECRET_KEY" > /dev/null
+
+if mc_exec ls localminio | grep -q "^.* $BUCKET/"; then
+  echo "Bucket '$BUCKET' already exists. Skipping creation."
+else
+  echo "Bucket '$BUCKET' does not exist. Creating it..."
+  mc_exec mb "localminio/$BUCKET" > /dev/null
+
+  echo "Setting public policy on '$BUCKET'..."
+  mc_exec anonymous set public "localminio/$BUCKET" > /dev/null
+fi

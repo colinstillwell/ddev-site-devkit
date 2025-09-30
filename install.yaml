@@ -2,6 +2,7 @@ name: site-devkit
 
 project_files:
   - commands/host/devkit-db-import
+  - commands/host/devkit-minio-create-bucket
   - commands/host/devkit-script-run
   - commands/host/site-auth
   - commands/host/site-build
