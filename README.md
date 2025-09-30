@@ -47,10 +47,10 @@ There are two types of commands provided by this add-on:
 
 | Command                 | Description                    | Examples                                                                |
 | ----------------------- | ------------------------------ | ----------------------------------------------------------------------- |
-| `site-auth`             | Authentication tasks           | `ddev auth ssh`                                                         |
+| `site-auth`             | Authentication tasks           | Authenticate SSH keys                                                   |
 | `site-build`            | Build tasks                    | `site-build-backend` and `site-build-frontend`                          |
-| `site-build-backend`    | Backend build tasks            | `composer install`                                                      |
-| `site-build-frontend`   | Frontend build tasks           | `npm install`                                                           |
+| `site-build-backend`    | Backend build tasks            | Composer install                                                        |
+| `site-build-frontend`   | Frontend build tasks           | NPM install                                                             |
 | `site-install`          | Installation tasks             | New project installs the application; existing project builds and syncs |
 | `site-mode-development` | Enable development mode        | Disable caches, enable verbose logging                                  |
 | `site-mode-production`  | Enable production mode         | Enable caches, aggregate CSS and JS                                     |
