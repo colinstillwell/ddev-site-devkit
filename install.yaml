@@ -3,6 +3,7 @@ name: site-devkit
 project_files:
   - commands/host/devkit-db-import
   - commands/host/devkit-script-run
+  - commands/host/site-auth
   - commands/host/site-build
   - commands/host/site-build-backend
   - commands/host/site-build-frontend
@@ -16,6 +17,7 @@ project_files:
   - commands/host/site-test
   - commands/host/site-test-backend
   - commands/host/site-test-frontend
+  - site-devkit/site/scripts/site-auth.sh
   - site-devkit/site/scripts/site-build.sh
   - site-devkit/site/scripts/site-build-backend.sh
   - site-devkit/site/scripts/site-build-frontend.sh
