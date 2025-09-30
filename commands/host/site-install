@@ -14,4 +14,4 @@ set -euo pipefail
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
 # Run the script
-ddev devkit-run-script --script="$SITE_SCRIPTS/site-install.sh" --where=host
+ddev devkit-script-run --script="$SITE_SCRIPTS/site-install.sh" --where=host
