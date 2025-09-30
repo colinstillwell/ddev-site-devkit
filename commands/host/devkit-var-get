@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Get the value of a variable from the specified source.
+## Usage: devkit-var-get [flags]
+## Example: "ddev devkit-var-get --name=EXAMPLE --source=env"
+## Flags: [{"Name":"name","Usage":"The name of the variable to get the value for","Type":"string"},{"Name":"source","Usage":"The source to get the variable from","Type":"string"}]
+## Aliases: devkit:var:get,devkit-get-var,devkit:get:var
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+# Defaults
+NAME=""
+SOURCE=""
+
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --name=*) NAME="${ARG#*=}"; shift; continue ;;
+    --source=*) SOURCE="${ARG#*=}"; shift; continue ;;
+    *) echo "Unknown flag: $ARG"; exit 2 ;;
+  esac
+done
+
+# Validate
+[[ -n "$NAME" ]] || { echo "--name is required."; exit 2; }
+[[ -n "$SOURCE" ]] || { echo "--source is required."; exit 2; }
+
+if [[ "$SOURCE" != "env" ]]; then
+  echo "Unsupported --source '$SOURCE'. Only 'env' is supported." >&2
+  exit 2
+fi
+
+# Commands
+VALUE="$(ddev exec bash -lc "printenv $(printf '%q' "$NAME")" 2>/dev/null || true)"
+
+if [[ -z "$VALUE" ]]; then
+  exit 1
+fi
+
+printf '%s\n' "$VALUE"
