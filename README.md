@@ -31,6 +31,10 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 
 ## Usage
 
+There are two types of commands provided by this add-on:
+* **`ddev site-*`**: project workflows backed by your own scripts.
+* **`ddev devkit-*`**: helper tools you can use directly or inside those scripts.
+
 ### `ddev devkit-*` commands
 
 | Command | Description |
