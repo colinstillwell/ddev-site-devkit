@@ -9,7 +9,7 @@
 
 DDEV Site Devkit standardises everyday project tasks across multiple repositories while keeping each project in control of its own logic.
 
-This add-on adds a set of first-class DDEV commands that orchestrate common site workflows such as scaffolding, authentication, build, synchronisation, refresh, installation, and testing, as well as switching between development and production modes. Some workflows provide both frontend and backend variants.
+This add-on adds a set of first-class DDEV commands that orchestrate common site workflows such as scaffolding, authentication, build, synchronisation, installation, and testing, as well as switching between development and production modes. Some workflows provide both frontend and backend variants.
 
 The heavy lifting lives in project-owned scripts under `.ddev/site-devkit/site/scripts`, so teams can customise behaviour per project without forking the add-on.
 
@@ -45,13 +45,10 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 | `ddev site-build` | Run build tasks | `site-build-backend` then `site-build-frontend` |
 | `ddev site-build-backend` | Run backend build tasks | `composer install` |
 | `ddev site-build-frontend` | Run frontend build tasks | `npm install` |
-| `ddev site-install` | Run installation tasks | New project installs the application; existing project runs `site-refresh` |
+| `ddev site-install` | Run installation tasks | New project installs the application; existing project runs `site-build-backend`, `site-sync-backend`, `site-build-frontend` and `site-sync-frontend` |
 | `ddev site-mode-development` | Enable development mode | Disable caches, enable verbose logging |
 | `ddev site-mode-production` | Enable production mode | Enable caches, aggregate CSS and JS |
 | `ddev site-scaffold` | Run scaffolding tasks | Copy required files, set permissions |
-| `ddev site-refresh` | Run refresh tasks | `site-refresh-backend` then `site-refresh-frontend` |
-| `ddev site-refresh-backend` | Run backend refresh tasks | `site-build-backend` then `site-sync-backend` |
-| `ddev site-refresh-frontend` | Run frontend refresh tasks | `site-build-frontend` then `site-sync-frontend` |
 | `ddev site-sync` | Run synchronisation tasks | `site-sync-backend` then `site-sync-frontend` |
 | `ddev site-sync-backend` | Run backend synchronisation tasks | Database import, public files |
 | `ddev site-sync-frontend` | Run frontend synchronisation tasks | Images, compiled CSS and JS |
