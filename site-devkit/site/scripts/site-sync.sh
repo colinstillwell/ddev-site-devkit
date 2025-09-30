@@ -11,3 +11,9 @@ This script has not been customised for your project yet.
 For guidance on how to adapt it, see "Customising the generated scripts" in the add-on documentation:
 https://github.com/colinstillwell/ddev-site-devkit#customising-the-generated-scripts
 EXAMPLE
+
+# Run the backend synchronisation tasks
+# ddev site-sync-backend
+
+# Run the frontend synchronisation tasks
+# ddev site-sync-frontend
