@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Run frontend synchronisation tasks.
+## Description: Frontend synchronisation tasks.
 ## Usage: site-sync-frontend
 ## Example: "ddev site-sync-frontend"
 ## Aliases: site:sync:frontend,site-sync-fe,site:sync:fe,site-frontend-sync,site:frontend:sync,site-fe-sync,site:fe:sync

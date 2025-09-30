@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Run testing tasks.
+## Description: Testing tasks.
 ## Usage: site-test
 ## Example: "ddev site-test"
 ## Aliases: site:test

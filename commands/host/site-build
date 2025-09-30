@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Run build tasks.
+## Description: Build tasks.
 ## Usage: site-build
 ## Example: "ddev site-build"
 ## Aliases: site:build

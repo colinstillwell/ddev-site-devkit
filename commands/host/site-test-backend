@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Run backend testing tasks.
+## Description: Backend testing tasks.
 ## Usage: site-test-backend
 ## Example: "ddev site-test-backend"
 ## Aliases: site:test:backend,site-test-be,site:test:be,site-backend-test,site:backend:test,site-be-test,site:be:test

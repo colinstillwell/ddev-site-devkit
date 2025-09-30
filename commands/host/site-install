@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Run installation tasks.
+## Description: Installation tasks.
 ## Usage: site-install
 ## Example: "ddev site-install"
 ## Aliases: site:install,site-installation,site:installation

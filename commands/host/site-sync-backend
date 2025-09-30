@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Run backend synchronisation tasks.
+## Description: Backend synchronisation tasks.
 ## Usage: site-sync-backend
 ## Example: "ddev site-sync-backend"
 ## Aliases: site:sync:backend,site-sync-be,site:sync:be,site-backend-sync,site:backend:sync,site-be-sync,site:be:sync
