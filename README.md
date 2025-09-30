@@ -16,7 +16,7 @@ The heavy lifting lives in project-owned scripts under `.ddev/site-devkit/site/s
 **What you get**
 * `site-` commands: each command calls a matching script from your project-owned scripts.
 * `devkit` commands: tools you can use directly or from within your project-owned scripts.
-* Examples: example scripts live in `.ddev/site-devkit/site/scripts/examples`; copy them into place as needed.
+* Example scripts are automatically generated in `.ddev/site-devkit/site/scripts`.
 * Safe, CI-friendly defaults: idempotent tasks, sensible exit codes, and pass-through arguments for full control.
 * Framework agnostic: works with any tech stack.
 
