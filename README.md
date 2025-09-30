@@ -48,17 +48,17 @@ There are two types of commands provided by this add-on:
 | Command                 | Description                    | Examples                                                                |
 | ----------------------- | ------------------------------ | ----------------------------------------------------------------------- |
 | `site-auth`             | Authentication tasks           | Authenticate SSH keys                                                   |
-| `site-build`            | Build tasks                    | `site-build-backend` and `site-build-frontend`                          |
+| `site-build`            | Build tasks                    | Wraps tasks for the backend and frontend                                |
 | `site-build-backend`    | Backend build tasks            | Composer install                                                        |
 | `site-build-frontend`   | Frontend build tasks           | NPM install                                                             |
 | `site-install`          | Installation tasks             | New project installs the application; existing project builds and syncs |
 | `site-mode-development` | Enable development mode        | Disable caches, enable verbose logging                                  |
 | `site-mode-production`  | Enable production mode         | Enable caches, aggregate CSS and JS                                     |
 | `site-scaffold`         | Scaffolding tasks              | Copy required files, set permissions                                    |
-| `site-sync`             | Synchronisation tasks          | `site-sync-backend` and `site-sync-frontend`                            |
+| `site-sync`             | Synchronisation tasks          | Wraps tasks for the backend and frontend                                |
 | `site-sync-backend`     | Backend synchronisation tasks  | Database import, public files                                           |
 | `site-sync-frontend`    | Frontend synchronisation tasks | Images, compiled CSS and JS                                             |
-| `site-test`             | Testing tasks                  | `site-test-backend` and `site-test-frontend`                            |
+| `site-test`             | Testing tasks                  | Wraps tasks for the backend and frontend                                |
 | `site-test-backend`     | Backend testing tasks          | Unit, kernel, integration                                               |
 | `site-test-frontend`    | Frontend testing tasks         | Unit, end to end                                                        |
 
