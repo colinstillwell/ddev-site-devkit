@@ -6,7 +6,7 @@
 ## Usage: devkit-run-script [flags] -- [script-args]
 ## Example: "ddev devkit-run-script --script=scripts/example.sh --where=web -- script-arg1 script-arg2"
 ## Flags: [{"Name":"script","Usage":"Path to the script to run, relative to the project root","Type":"string"},{"Name":"where","Usage":"Where to run the script: 'host' or 'web'","Type":"string"}]
-## Aliases: devkit:run-script
+## Aliases: devkit:run:script,devkit-script-run,devkit:script:run
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail

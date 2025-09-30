@@ -5,7 +5,7 @@
 ## Description: Run backend testing tasks.
 ## Usage: site-test-backend
 ## Example: "ddev site-test-backend"
-## Aliases: site:test:backend,site-be-test,site:be:test
+## Aliases: site:test:backend,site-test-be,site:test:be,site-backend-test,site:backend:test,site-be-test,site:be:test
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail

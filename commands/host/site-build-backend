@@ -5,7 +5,7 @@
 ## Description: Run backend build tasks.
 ## Usage: site-build-backend
 ## Example: "ddev site-build-backend"
-## Aliases: site:build:backend,site-be-build,site:be:build
+## Aliases: site:build:backend,site-build-be,site:build:be,site-backend-build,site:backend:build,site-be-build,site:be:build
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
