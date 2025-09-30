@@ -44,21 +44,21 @@ There are two types of commands provided by this add-on:
 
 ### `ddev site-*` commands
 
-| Command                 | Description                        | Examples |
-| ----------------------- | ---------------------------------- | -------- |
-| `site-build`            | Run build tasks                    | `site-build-backend` and `site-build-frontend` |
-| `site-build-backend`    | Run backend build tasks            | `composer install` |
-| `site-build-frontend`   | Run frontend build tasks           | `npm install` |
+| Command                 | Description                        | Examples                                                                |
+| ----------------------- | ---------------------------------- | ----------------------------------------------------------------------- |
+| `site-build`            | Run build tasks                    | `site-build-backend` and `site-build-frontend`                          |
+| `site-build-backend`    | Run backend build tasks            | `composer install`                                                      |
+| `site-build-frontend`   | Run frontend build tasks           | `npm install`                                                           |
 | `site-install`          | Run installation tasks             | New project installs the application; existing project builds and syncs |
-| `site-mode-development` | Enable development mode            | Disable caches, enable verbose logging |
-| `site-mode-production`  | Enable production mode             | Enable caches, aggregate CSS and JS |
-| `site-scaffold`         | Run scaffolding tasks              | Copy required files, set permissions |
-| `site-sync`             | Run synchronisation tasks          | `site-sync-backend` and `site-sync-frontend` |
-| `site-sync-backend`     | Run backend synchronisation tasks  | Database import, public files |
-| `site-sync-frontend`    | Run frontend synchronisation tasks | Images, compiled CSS and JS |
-| `site-test`             | Run testing tasks                  | `site-test-backend` and `site-test-frontend` |
-| `site-test-backend`     | Run backend testing tasks          | Unit, kernel, integration |
-| `site-test-frontend`    | Run frontend testing tasks         | Unit, end to end |
+| `site-mode-development` | Enable development mode            | Disable caches, enable verbose logging                                  |
+| `site-mode-production`  | Enable production mode             | Enable caches, aggregate CSS and JS                                     |
+| `site-scaffold`         | Run scaffolding tasks              | Copy required files, set permissions                                    |
+| `site-sync`             | Run synchronisation tasks          | `site-sync-backend` and `site-sync-frontend`                            |
+| `site-sync-backend`     | Run backend synchronisation tasks  | Database import, public files                                           |
+| `site-sync-frontend`    | Run frontend synchronisation tasks | Images, compiled CSS and JS                                             |
+| `site-test`             | Run testing tasks                  | `site-test-backend` and `site-test-frontend`                            |
+| `site-test-backend`     | Run backend testing tasks          | Unit, kernel, integration                                               |
+| `site-test-frontend`    | Run frontend testing tasks         | Unit, end to end                                                        |
 
 ## Customising the generated scripts
 
