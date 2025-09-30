@@ -5,7 +5,7 @@
 ## Description: Enable development mode.
 ## Usage: site-mode-development
 ## Example: "ddev site-mode-development"
-## Aliases: site:mode:development,site-dev-mode,site:dev:mode
+## Aliases: site:mode:development,site-mode-dev,site:mode:dev,site-development-mode,site:development:mode,site-dev-mode,site:dev:mode
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
