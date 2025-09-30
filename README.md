@@ -7,7 +7,11 @@
 
 ## Overview
 
-DDEV Site Devkit standardises everyday project tasks across multiple repositories while keeping each project in control of its own logic. It adds a set of first-class DDEV commands that orchestrate common "site" workflows such as scaffold, build, install, update and test. The heavy lifting lives in project-owned scripts under `.ddev/site-devkit/site/scripts`, so teams can customise behaviour per project without forking the add-on.
+DDEV Site Devkit standardises everyday project tasks across multiple repositories while keeping each project in control of its own logic.
+
+This add-on adds a set of first-class DDEV commands that orchestrate common site workflows such as scaffolding, authentication, build, synchronisation, installation, and testing, as well as switching between development and production modes. Some workflows provide both frontend and backend variants.
+
+The heavy lifting lives in project-owned scripts under `.ddev/site-devkit/site/scripts`, so teams can customise behaviour per project without forking the add-on.
 
 **What you get**
 * `site-` commands: each command calls a matching script from your project-owned scripts.
@@ -27,24 +31,30 @@ After installing or updating, commit the changes this add-on makes under `.ddev`
 
 ## Usage
 
+### `devkit` commands
+
 | Command | Description |
 | ------- | ----------- |
-| `ddev devkit-import-database` | Interactively import a SQL dump file into the project. |
-| `ddev devkit-run-script` | Run a script on the host or in the web container. |
-| `ddev site-build` | Run build tasks. |
-| `ddev site-build-backend` | Run backend build tasks. |
-| `ddev site-build-frontend` | Run frontend build tasks. |
-| `ddev site-initialisation` | Run initialisation tasks. |
-| `ddev site-install` | Run install tasks. |
-| `ddev site-mode-development` | Enable development mode. |
-| `ddev site-mode-production` | Enable production mode. |
-| `ddev site-scaffold` | Run scaffolding tasks. |
-| `ddev site-test` | Run test tasks. |
-| `ddev site-test-backend` | Run backend test tasks. |
-| `ddev site-test-frontend` | Run frontend test tasks. |
-| `ddev site-update` | Run update tasks. |
-| `ddev site-update-backend` | Run backend update tasks. |
-| `ddev site-update-frontend` | Run frontend update tasks. |
+| `ddev devkit-import-database` | Interactively import an SQL dump into the project database |
+| `ddev devkit-run-script` | Run a script on the host or in the web container |
+
+### `site` commands
+
+| Command | Description | Examples |
+| ------- | ----------- | -------- |
+| `ddev site-build` | Run build tasks | `site-build-backend` and `site-build-frontend` |
+| `ddev site-build-backend` | Run backend build tasks | `composer install` |
+| `ddev site-build-frontend` | Run frontend build tasks | `npm install` |
+| `ddev site-install` | Run installation tasks | New project installs the application; existing project runs `site-build-backend`, `site-sync-backend`, `site-build-frontend` and `site-sync-frontend` |
+| `ddev site-mode-development` | Enable development mode | Disable caches, enable verbose logging |
+| `ddev site-mode-production` | Enable production mode | Enable caches, aggregate CSS and JS |
+| `ddev site-scaffold` | Run scaffolding tasks | Copy required files, set permissions |
+| `ddev site-sync` | Run synchronisation tasks | `site-sync-backend` and `site-sync-frontend` |
+| `ddev site-sync-backend` | Run backend synchronisation tasks | Database import, public files |
+| `ddev site-sync-frontend` | Run frontend synchronisation tasks | Images, compiled CSS and JS |
+| `ddev site-test` | Run testing tasks | `site-test-backend` and `site-test-frontend` |
+| `ddev site-test-backend` | Run backend testing tasks | Unit, kernel, integration |
+| `ddev site-test-frontend` | Run frontend testing tasks | Unit, end to end |
 
 ## Resources
 
