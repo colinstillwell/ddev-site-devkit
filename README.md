@@ -66,6 +66,8 @@ When you install this add-on, example scripts are copied into your project at `.
 
 Each `ddev site-*` command maps 1:1 to a script in that directory. These scripts are yours to edit and should be committed to your repository.
 
+If your project doesn't need frontend or backend scripts, just leave them unused. They'll reappear on update if deleted.
+
 ### How to modify
 1. Open the matching script.
 2. Remove the `#ddev-generated` line (this prevents the script being replaced on update).
