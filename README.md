@@ -46,6 +46,7 @@ There are two types of commands provided by this add-on:
 
 | Command                 | Description                    | Examples                                                                |
 | ----------------------- | ------------------------------ | ----------------------------------------------------------------------- |
+| `site-auth`             | Authentication tasks           | `ddev auth ssh`                                                         |
 | `site-build`            | Build tasks                    | `site-build-backend` and `site-build-frontend`                          |
 | `site-build-backend`    | Backend build tasks            | `composer install`                                                      |
 | `site-build-frontend`   | Frontend build tasks           | `npm install`                                                           |
