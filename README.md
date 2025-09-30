@@ -37,10 +37,10 @@ There are two types of commands provided by this add-on:
 
 ### `ddev devkit-*` commands
 
-| Command                  | Description                                                |
-| ------------------------ | ---------------------------------------------------------- |
-| `devkit-import-database` | Interactively import an SQL dump into the project database |
-| `devkit-run-script`      | Run a script on the host or in the web container           |
+| Command             | Description                                                |
+| ------------------- | ---------------------------------------------------------- |
+| `devkit-db-import`  | Interactively import an SQL dump into the project database |
+| `devkit-run-script` | Run a script on the host or in the web container           |
 
 ### `ddev site-*` commands
 
