@@ -3,10 +3,10 @@
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Run a script on the host or in the web container.
-## Usage: devkit-run-script [flags] -- [script-args]
-## Example: "ddev devkit-run-script --script=scripts/example.sh --where=web -- script-arg1 script-arg2"
+## Usage: devkit-script-run [flags] -- [script-args]
+## Example: "ddev devkit-script-run --script=scripts/example.sh --where=web -- script-arg1 script-arg2"
 ## Flags: [{"Name":"script","Usage":"Path to the script to run, relative to the project root","Type":"string"},{"Name":"where","Usage":"Where to run the script: 'host' or 'web'","Type":"string"}]
-## Aliases: devkit:run:script,devkit-script-run,devkit:script:run
+## Aliases: devkit:script:run,devkit-run-script,devkit:run:script
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail

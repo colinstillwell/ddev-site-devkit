@@ -40,7 +40,7 @@ There are two types of commands provided by this add-on:
 | Command             | Description                                                |
 | ------------------- | ---------------------------------------------------------- |
 | `devkit-db-import`  | Interactively import an SQL dump into the project database |
-| `devkit-run-script` | Run a script on the host or in the web container           |
+| `devkit-script-run` | Run a script on the host or in the web container           |
 
 ### `ddev site-*` commands
 
