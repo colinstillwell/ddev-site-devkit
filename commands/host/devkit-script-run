@@ -61,10 +61,18 @@ else
   fi
 fi
 
+# Helpers
+timestamp() {
+  date '+%Y-%m-%d %H:%M:%S'
+}
+
 # Commands
-echo "Running script '$SCRIPT' in '$LOCATION'..."
+echo "[$(timestamp)] Starting script '$SCRIPT' in '$LOCATION'..."
+
 if [[ "$LOCATION" == host ]]; then
   exec bash "$SCRIPT_PATH" "$@"
 else
   exec ddev exec -s "$LOCATION" bash "$SCRIPT_PATH" "$@"
 fi
+
+echo "[$(timestamp)] Completed script '$SCRIPT' in '$LOCATION'."
