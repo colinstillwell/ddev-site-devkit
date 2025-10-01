@@ -34,13 +34,15 @@ done
 [[ -n "$BUCKET" ]] || { echo "--bucket is required."; exit 2; }
 [[ -n "$POLICY" ]] || { echo "--policy is required."; exit 2; }
 
-# Commands
+# Helpers
 mc_exec() {
   ddev exec -s minio env MC_CONFIG_DIR=/tmp/.mc mc --insecure "$@"
 }
 
+# Aliases
 mc_exec alias set localminio "$HOST" "$ACCESS_KEY" "$SECRET_KEY" > /dev/null
 
+# Commands
 if mc_exec ls localminio | grep -q "^.* $BUCKET/"; then
   echo "MinIO bucket '$BUCKET' already exists. Nothing to do."
 else
