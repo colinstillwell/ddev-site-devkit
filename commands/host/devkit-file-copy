@@ -32,12 +32,15 @@ done
 SOURCE_PATH="$DDEV_APPROOT/$SOURCE"
 DESTINATION_PATH="$DDEV_APPROOT/$DESTINATION"
 
-if [[ -f "$DESTINATION_PATH" ]]; then
-  echo "'$DESTINATION_PATH' already exists, skipping."
-elif [[ -f "$SOURCE_PATH" ]]; then
-  echo "Copying '$SOURCE_PATH' to '$DESTINATION_PATH'."
-  cp "$SOURCE_PATH" "$DESTINATION_PATH"
-else
+if [[ ! -f "$SOURCE_PATH" ]]; then
   echo "'$SOURCE_PATH' not found. Cannot copy to '$DESTINATION_PATH'."
   exit 1
 fi
+
+if [[ -f "$DESTINATION_PATH" ]]; then
+  echo "'$DESTINATION_PATH' already exists, skipping."
+  exit 0
+fi
+
+echo "Copying '$SOURCE_PATH' to '$DESTINATION_PATH'."
+cp "$SOURCE_PATH" "$DESTINATION_PATH"
