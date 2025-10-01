@@ -12,8 +12,10 @@ For guidance on how to adapt it, see "Customising the generated scripts" in the 
 https://github.com/colinstillwell/ddev-site-devkit#customising-the-generated-scripts
 EXAMPLE
 
-# Backend synchronisation tasks
+# Run backend synchronisation tasks
+# echo "Running backend synchronisation tasks..."
 # ddev site-sync-backend
 
-# Frontend synchronisation tasks
+# Run frontend synchronisation tasks
+# echo "Running frontend synchronisation tasks..."
 # ddev site-sync-frontend

@@ -12,8 +12,10 @@ For guidance on how to adapt it, see "Customising the generated scripts" in the 
 https://github.com/colinstillwell/ddev-site-devkit#customising-the-generated-scripts
 EXAMPLE
 
-# Backend build tasks
+# Run backend build tasks
+# echo "Running backend build tasks..."
 # ddev site-build-backend
 
-# Frontend build tasks
+# Run frontend build tasks
+# echo "Running frontend build tasks..."
 # ddev site-build-frontend
