@@ -33,10 +33,31 @@ done
 # Guards
 SOURCE_PATH="$DDEV_APPROOT/$SOURCE"
 DESTINATION_PATH="$DDEV_APPROOT/$DESTINATION"
+DESTINATION_DIR="$(dirname "$DESTINATION_PATH")"
+
+if [[ -d "$SOURCE_PATH" ]]; then
+  echo "'$SOURCE_PATH' is a directory. Refusing to copy to '$DESTINATION_PATH'."
+  exit 1
+fi
+
+if [[ -d "$DESTINATION_PATH" ]]; then
+  echo "'$DESTINATION_PATH' is a directory. Refusing to overwrite a directory with a file."
+  exit 1
+fi
+
+if [[ ! -d "$DESTINATION_DIR" ]]; then
+  echo "Destination directory '$DESTINATION_DIR' not found. Cannot copy to '$DESTINATION_PATH'."
+  exit 1
+fi
 
 if [[ ! -f "$SOURCE_PATH" ]]; then
   echo "'$SOURCE_PATH' not found. Cannot copy to '$DESTINATION_PATH'."
   exit 1
+fi
+
+if [[ -e "$DESTINATION_PATH" ]] && [[ "$SOURCE_PATH" -ef "$DESTINATION_PATH" ]]; then
+  echo "'$SOURCE_PATH' and '$DESTINATION_PATH' refer to the same file. Nothing to do."
+  exit 0
 fi
 
 if [[ -f "$DESTINATION_PATH" ]]; then
