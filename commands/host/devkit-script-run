@@ -69,7 +69,7 @@ timestamp() {
 # Commands
 echo "[$(timestamp)] Starting script '$SCRIPT' in '$LOCATION'..."
 
-if [[ "$LOCATION" == host ]]; then
+if [[ "$LOCATION" == "host" ]]; then
   bash "$SCRIPT_PATH" "$@"
 else
   ddev exec -s "$LOCATION" bash "$SCRIPT_PATH" "$@"
