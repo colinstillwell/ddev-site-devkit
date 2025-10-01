@@ -18,7 +18,7 @@ LOCATION=""
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
-    --script=*) SCRIPT="${ARG#*=}"; shift; continue ;;
+    --script=*)   SCRIPT="${ARG#*=}"; shift; continue ;;
     --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
     --) shift; break ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;

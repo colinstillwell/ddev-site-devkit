@@ -21,11 +21,11 @@ HOST="$DDEV_PRIMARY_URL_WITHOUT_PORT:10101"
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
-    --bucket=*) BUCKET="${ARG#*=}"; shift; continue ;;
-    --policy=*) POLICY="${ARG#*=}"; shift; continue ;;
+    --bucket=*)     BUCKET="${ARG#*=}"; shift; continue ;;
+    --policy=*)     POLICY="${ARG#*=}"; shift; continue ;;
     --access-key=*) ACCESS_KEY="${ARG#*=}"; shift; continue ;;
     --secret-key=*) SECRET_KEY="${ARG#*=}"; shift; continue ;;
-    --host=*) HOST="${ARG#*=}"; shift; continue ;;
+    --host=*)       HOST="${ARG#*=}"; shift; continue ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
 done

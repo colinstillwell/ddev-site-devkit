@@ -19,8 +19,8 @@ LOCATION=""
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
-    --name=*) NAME="${ARG#*=}"; shift; continue ;;
-    --format=*) FORMAT="${ARG#*=}"; shift; continue ;;
+    --name=*)     NAME="${ARG#*=}"; shift; continue ;;
+    --format=*)   FORMAT="${ARG#*=}"; shift; continue ;;
     --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
