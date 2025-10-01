@@ -14,4 +14,4 @@ set -euo pipefail
 SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
 
 # Run the script
-ddev devkit-script-run --script="$SITE_SCRIPTS/site-sync-backend.sh" --where=host
+ddev devkit-script-run --script="$SITE_SCRIPTS/site-sync-backend.sh" --location=host

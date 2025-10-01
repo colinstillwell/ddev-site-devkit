@@ -41,7 +41,7 @@ There are two types of commands provided by this add-on:
 | ---------------------------- | ------------------------------------------------------------------ |
 | `devkit-db-import`           | Interactively import an SQL dump into the project database         |
 | `devkit-minio-create-bucket` | Create a MinIO bucket if it does not exist, and set its policy     |
-| `devkit-script-run`          | Run a script on the host or in the web container                   |
+| `devkit-script-run`          | Run a script on the host or in a specified service                 |
 | `devkit-var-get`             | Get the value of a variable from the specified format and location |
 
 ### `ddev site-*` commands

@@ -2,10 +2,10 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Run a script on the host or in the web container.
+## Description: Run a script on the host or in a specified service.
 ## Usage: devkit-script-run [flags] -- [script-args]
-## Example: "ddev devkit-script-run --script=scripts/example.sh --where=web -- script-arg1 script-arg2"
-## Flags: [{"Name":"script","Usage":"Path to the script to run, relative to the project root","Type":"string"},{"Name":"where","Usage":"Where to run the script: 'host' or 'web'","Type":"string"}]
+## Example: "ddev devkit-script-run --script=scripts/example.sh --location=web -- script-arg1 script-arg2"
+## Flags: [{"Name":"script","Usage":"Path to the script to run, relative to the project root","Type":"string"},{"Name":"location","Usage":"Where to run the script: 'host' or a service name such as 'web'","Type":"string"}]
 ## Aliases: devkit:script:run,devkit-run-script,devkit:run:script
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
@@ -13,13 +13,13 @@ set -euo pipefail
 
 # Defaults
 SCRIPT=""
-WHERE="host"
+LOCATION=""
 
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
     --script=*) SCRIPT="${ARG#*=}"; shift; continue ;;
-    --where=*) WHERE="${ARG#*=}"; shift; continue ;;
+    --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
     --) shift; break ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
@@ -27,19 +27,20 @@ done
 
 # Validate
 [[ -n "$SCRIPT" ]] || { echo "--script is required."; exit 2; }
+[[ -n "$LOCATION" ]] || { echo "--location is required."; exit 2; }
 
-if [[ "$WHERE" == host ]]; then
+if [[ "$LOCATION" == host ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT"
 else
   SCRIPT_PATH="$SCRIPT"
 fi
 
 # Summarise
-echo "Running script '$SCRIPT' in '$WHERE'..."
+echo "Running script '$SCRIPT' in '$LOCATION'..."
 
 # Commands
-if [[ "$WHERE" == host ]]; then
+if [[ "$LOCATION" == host ]]; then
   exec bash "$SCRIPT_PATH" "$@"
 else
-  exec ddev exec bash "$SCRIPT_PATH" "$@"
+  exec ddev exec -s "$LOCATION" bash "$SCRIPT_PATH" "$@"
 fi
