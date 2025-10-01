@@ -21,35 +21,36 @@ HOST="$DDEV_PRIMARY_URL_WITHOUT_PORT:10101"
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
-    --bucket=*) BUCKET="${ARG#*=}"; shift; continue ;;
-    --policy=*) POLICY="${ARG#*=}"; shift; continue ;;
+    --bucket=*)     BUCKET="${ARG#*=}"; shift; continue ;;
+    --policy=*)     POLICY="${ARG#*=}"; shift; continue ;;
     --access-key=*) ACCESS_KEY="${ARG#*=}"; shift; continue ;;
     --secret-key=*) SECRET_KEY="${ARG#*=}"; shift; continue ;;
-    --host=*) HOST="${ARG#*=}"; shift; continue ;;
+    --host=*)       HOST="${ARG#*=}"; shift; continue ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
 done
 
-# Validate
+# Validate flags
 [[ -n "$BUCKET" ]] || { echo "--bucket is required."; exit 2; }
 [[ -n "$POLICY" ]] || { echo "--policy is required."; exit 2; }
 
-# Summarise
-echo "Creating '$BUCKET' bucket with '$POLICY' policy if it does not exist..."
-
-# Commands
+# Helpers
 mc_exec() {
   ddev exec -s minio env MC_CONFIG_DIR=/tmp/.mc mc --insecure "$@"
 }
 
+# Aliases
 mc_exec alias set localminio "$HOST" "$ACCESS_KEY" "$SECRET_KEY" > /dev/null
 
+# Guards
 if mc_exec ls localminio | grep -q "^.* $BUCKET/"; then
-  echo "Bucket '$BUCKET' already exists. Skipping creation."
-else
-  echo "Bucket '$BUCKET' does not exist. Creating it..."
-  mc_exec mb "localminio/$BUCKET" > /dev/null
-
-  echo "Setting public policy on '$BUCKET'..."
-  mc_exec anonymous set public "localminio/$BUCKET" > /dev/null
+  echo "MinIO bucket '$BUCKET' already exists. Nothing to do."
+  exit 0
 fi
+
+# Commands
+echo "Creating MinIO bucket '$BUCKET'..."
+mc_exec mb "localminio/$BUCKET" > /dev/null
+
+echo "Setting policy '$POLICY' on MinIO bucket '$BUCKET'..."
+mc_exec anonymous set public "localminio/$BUCKET" > /dev/null

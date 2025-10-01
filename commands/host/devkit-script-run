@@ -18,27 +18,26 @@ LOCATION=""
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
-    --script=*) SCRIPT="${ARG#*=}"; shift; continue ;;
+    --script=*)   SCRIPT="${ARG#*=}"; shift; continue ;;
     --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
     --) shift; break ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
 done
 
-# Validate
+# Validate flags
 [[ -n "$SCRIPT" ]] || { echo "--script is required."; exit 2; }
 [[ -n "$LOCATION" ]] || { echo "--location is required."; exit 2; }
 
+# Guards
 if [[ "$LOCATION" == host ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT"
 else
   SCRIPT_PATH="$SCRIPT"
 fi
 
-# Summarise
-echo "Running script '$SCRIPT' in '$LOCATION'..."
-
 # Commands
+echo "Running script '$SCRIPT' in '$LOCATION'..."
 if [[ "$LOCATION" == host ]]; then
   exec bash "$SCRIPT_PATH" "$@"
 else

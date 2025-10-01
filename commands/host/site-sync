@@ -10,8 +10,5 @@
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
 
-# Path to the site scripts
-SITE_SCRIPTS=".ddev/site-devkit/site/scripts"
-
 # Run the script
-ddev devkit-script-run --script="$SITE_SCRIPTS/site-sync.sh" --location=host
+ddev devkit-script-run --script=".ddev/site-devkit/site/scripts/site-sync.sh" --location=host

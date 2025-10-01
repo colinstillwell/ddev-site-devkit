@@ -19,18 +19,19 @@ LOCATION=""
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
-    --name=*) NAME="${ARG#*=}"; shift; continue ;;
-    --format=*) FORMAT="${ARG#*=}"; shift; continue ;;
+    --name=*)     NAME="${ARG#*=}"; shift; continue ;;
+    --format=*)   FORMAT="${ARG#*=}"; shift; continue ;;
     --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
 done
 
-# Validate
+# Validate flags
 [[ -n "$NAME" ]] || { echo "--name is required."; exit 2; }
 [[ -n "$FORMAT" ]] || { echo "--format is required."; exit 2; }
 [[ -n "$LOCATION" ]] || { echo "--location is required."; exit 2; }
 
+# Guards
 if [[ "$FORMAT" != "env" ]]; then
   echo "Unsupported --format '$FORMAT'. Only 'env' is supported for now." >&2
   exit 2
@@ -40,7 +41,6 @@ fi
 VALUE="$(ddev exec -s "$LOCATION" bash -lc "printenv $(printf '%q' "$NAME")" 2>/dev/null || true)"
 
 if [[ -z "$VALUE" ]]; then
-  # Non-zero return signals not found while staying quiet on stdout
   exit 1
 fi
 
