@@ -35,7 +35,6 @@ done
 [[ -n "$POLICY" ]] || { echo "--policy is required."; exit 2; }
 
 # Commands
-echo "Creating '$BUCKET' bucket with '$POLICY' policy if it does not exist..."
 mc_exec() {
   ddev exec -s minio env MC_CONFIG_DIR=/tmp/.mc mc --insecure "$@"
 }
@@ -43,11 +42,11 @@ mc_exec() {
 mc_exec alias set localminio "$HOST" "$ACCESS_KEY" "$SECRET_KEY" > /dev/null
 
 if mc_exec ls localminio | grep -q "^.* $BUCKET/"; then
-  echo "Bucket '$BUCKET' already exists. Skipping creation."
+  echo "MinIO bucket '$BUCKET' already exists. Nothing to do."
 else
-  echo "Bucket '$BUCKET' does not exist. Creating it..."
+  echo "Creating MinIO bucket '$BUCKET'..."
   mc_exec mb "localminio/$BUCKET" > /dev/null
 
-  echo "Setting public policy on '$BUCKET'..."
+  echo "Setting policy '$POLICY' on MinIO bucket '$BUCKET'..."
   mc_exec anonymous set public "localminio/$BUCKET" > /dev/null
 fi

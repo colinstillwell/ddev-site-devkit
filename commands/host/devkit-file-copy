@@ -38,9 +38,9 @@ if [[ ! -f "$SOURCE_PATH" ]]; then
 fi
 
 if [[ -f "$DESTINATION_PATH" ]]; then
-  echo "'$DESTINATION_PATH' already exists, skipping."
+  echo "'$DESTINATION_PATH' already exists. Nothing to do."
   exit 0
 fi
 
-echo "Copying '$SOURCE_PATH' to '$DESTINATION_PATH'."
+echo "Copying '$SOURCE_PATH' to '$DESTINATION_PATH'..."
 cp "$SOURCE_PATH" "$DESTINATION_PATH"
