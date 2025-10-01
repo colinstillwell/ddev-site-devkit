@@ -32,8 +32,33 @@ done
 # Guards
 if [[ "$LOCATION" == host ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT"
+
+  if [[ -d "$SCRIPT_PATH" ]]; then
+    echo "'$SCRIPT_PATH' is a directory. Refusing to run."
+    exit 1
+  fi
+
+  if [[ ! -f "$SCRIPT_PATH" ]]; then
+    echo "'$SCRIPT_PATH' not found. Cannot run."
+    exit 1
+  fi
 else
   SCRIPT_PATH="$SCRIPT"
+
+  if ! ddev exec -s "$LOCATION" bash -lc 'true' >/dev/null 2>&1; then
+    echo "Service '$LOCATION' not found or not running."
+    exit 1
+  fi
+
+  if ddev exec -s "$LOCATION" bash -lc "test -d $SCRIPT_PATH" >/dev/null 2>&1; then
+    echo "'$SCRIPT_PATH' is a directory. Refusing to run."
+    exit 1
+  fi
+
+  if ! ddev exec -s "$LOCATION" bash -lc "test -f $SCRIPT_PATH" >/dev/null 2>&1; then
+    echo "'$SCRIPT_PATH' not found. Cannot run."
+    exit 1
+  fi
 fi
 
 # Commands
