@@ -41,7 +41,6 @@ fi
 VALUE="$(ddev exec -s "$LOCATION" bash -lc "printenv $(printf '%q' "$NAME")" 2>/dev/null || true)"
 
 if [[ -z "$VALUE" ]]; then
-  # Non-zero return signals not found while staying quiet on stdout
   exit 1
 fi
 
