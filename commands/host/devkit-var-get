@@ -2,10 +2,10 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Get the value of a variable from the specified source.
+## Description: Get the value of a variable from the specified format and location.
 ## Usage: devkit-var-get [flags]
-## Example: "ddev devkit-var-get --name=EXAMPLE --source=env"
-## Flags: [{"Name":"name","Usage":"The name of the variable to get the value for","Type":"string"},{"Name":"source","Usage":"The source to get the variable from","Type":"string"}]
+## Example: "ddev devkit-var-get --name=EXAMPLE --format=env --location=web"
+## Flags: [{"Name":"name","Usage":"The name of the variable to get the value for","Type":"string"},{"Name":"format","Usage":"How to interpret the location","Type":"string"},{"Name":"location","Usage":"Where to read from","Type":"string"}]
 ## Aliases: devkit:var:get,devkit-get-var,devkit:get:var
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
@@ -13,30 +13,34 @@ set -euo pipefail
 
 # Defaults
 NAME=""
-SOURCE=""
+FORMAT=""
+LOCATION=""
 
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
     --name=*) NAME="${ARG#*=}"; shift; continue ;;
-    --source=*) SOURCE="${ARG#*=}"; shift; continue ;;
+    --format=*) FORMAT="${ARG#*=}"; shift; continue ;;
+    --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
 done
 
 # Validate
 [[ -n "$NAME" ]] || { echo "--name is required."; exit 2; }
-[[ -n "$SOURCE" ]] || { echo "--source is required."; exit 2; }
+[[ -n "$FORMAT" ]] || { echo "--format is required."; exit 2; }
+[[ -n "$LOCATION" ]] || { echo "--location is required."; exit 2; }
 
-if [[ "$SOURCE" != "env" ]]; then
-  echo "Unsupported --source '$SOURCE'. Only 'env' is supported." >&2
+if [[ "$FORMAT" != "env" ]]; then
+  echo "Unsupported --format '$FORMAT'. Only 'env' is supported for now." >&2
   exit 2
 fi
 
 # Commands
-VALUE="$(ddev exec bash -lc "printenv $(printf '%q' "$NAME")" 2>/dev/null || true)"
+VALUE="$(ddev exec -s "$LOCATION" bash -lc "printenv $(printf '%q' "$NAME")" 2>/dev/null || true)"
 
 if [[ -z "$VALUE" ]]; then
+  # Non-zero return signals not found while staying quiet on stdout
   exit 1
 fi
 
