@@ -29,16 +29,16 @@ done
 [[ -n "$SCRIPT" ]] || { echo "--script is required."; exit 2; }
 [[ -n "$LOCATION" ]] || { echo "--location is required."; exit 2; }
 
+# Summarise
+echo "Running script '$SCRIPT' in '$LOCATION'..."
+
+# Commands
 if [[ "$LOCATION" == host ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT"
 else
   SCRIPT_PATH="$SCRIPT"
 fi
 
-# Summarise
-echo "Running script '$SCRIPT' in '$LOCATION'..."
-
-# Commands
 if [[ "$LOCATION" == host ]]; then
   exec bash "$SCRIPT_PATH" "$@"
 else
