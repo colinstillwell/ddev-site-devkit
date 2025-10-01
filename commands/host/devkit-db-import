@@ -25,7 +25,7 @@ done
 # Validate
 DIRECTORY_PATH="$DDEV_APPROOT/$DIRECTORY"
 
-[[ -d "$DIRECTORY_PATH" ]] || { echo "Folder not found: $DIRECTORY_PATH"; exit 1; }
+[[ -d "$DIRECTORY_PATH" ]] || { echo "'$DIRECTORY_PATH' not found."; exit 1; }
 
 shopt -s nullglob
 FILES=(
@@ -44,10 +44,10 @@ FILES=(
 )
 shopt -u nullglob
 
-(( ${#FILES[@]} > 0 )) || { echo "No dump files found in $DIRECTORY_PATH"; exit 1; }
+(( ${#FILES[@]} > 0 )) || { echo "No dump files found in '$DIRECTORY_PATH'."; exit 1; }
 
 # Prompt
-echo "Choose a dump file to import from: $DIRECTORY_PATH"
+echo "Choose a dump file to import from '$DIRECTORY_PATH':"
 for i in "${!FILES[@]}"; do
   printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")"
 done
