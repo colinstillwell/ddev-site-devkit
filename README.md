@@ -43,7 +43,7 @@ There are two types of commands provided by this add-on:
 | `devkit-file-copy`           | Copy a file from source to destination within the project, skipping if it already exists |
 | `devkit-minio-create-bucket` | Create a MinIO bucket if it does not exist, and set its policy                           |
 | `devkit-script-run`          | Run a script on the host or in a specified service                                       |
-| `devkit-var-get`             | Get the value of a variable from the specified format and location                       |
+| `devkit-config-get`          | Get a config value by name from a given format and location                              |
 
 ### `ddev site-*` commands
 
