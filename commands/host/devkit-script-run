@@ -25,7 +25,7 @@ for ARG in "$@"; do
   esac
 done
 
-# Validate
+# Validate flags
 [[ -n "$SCRIPT" ]] || { echo "--script is required."; exit 2; }
 [[ -n "$LOCATION" ]] || { echo "--location is required."; exit 2; }
 

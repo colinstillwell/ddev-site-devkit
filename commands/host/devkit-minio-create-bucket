@@ -30,7 +30,7 @@ for ARG in "$@"; do
   esac
 done
 
-# Validate
+# Validate flags
 [[ -n "$BUCKET" ]] || { echo "--bucket is required."; exit 2; }
 [[ -n "$POLICY" ]] || { echo "--policy is required."; exit 2; }
 
