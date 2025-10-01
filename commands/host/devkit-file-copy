@@ -19,7 +19,9 @@ DESTINATION=""
 for ARG in "$@"; do
   case "$ARG" in
     --source=*)      SOURCE="${ARG#*=}"; shift; continue ;;
+    --src=*)         SOURCE="${ARG#*=}"; shift; continue ;;
     --destination=*) DESTINATION="${ARG#*=}"; shift; continue ;;
+    --dest=*)        DESTINATION="${ARG#*=}"; shift; continue ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
 done
