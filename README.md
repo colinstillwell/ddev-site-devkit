@@ -75,15 +75,16 @@ If your project doesn't need frontend or backend scripts, just leave them unused
 ### How to modify
 1. Open the matching script.
 2. Remove the `#ddev-generated` line (this prevents the script being replaced on update).
-3. Keep the shebang and safety flags:
+3. Remove the `## Script provided by https://github.com/colinstillwell/ddev-site-devkit.` line.
+4. Keep the shebang and safety flags:
    ```bash
    #!/usr/bin/env bash
 
    # Exit on error; treat unset variables as errors; fail pipelines if any command fails
    set -euo pipefail
    ```
-4. Replace the placeholder content with your project's logic.
-5. Use the `ddev devkit-*` commands provided by this add-on where useful.
+5. Replace the placeholder content with your project's logic.
+6. Use the `ddev devkit-*` commands provided by this add-on where useful.
 
 ### Update behaviour
 
