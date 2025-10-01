@@ -28,7 +28,7 @@ done
 [[ -n "$SOURCE" ]] || { echo "--source is required."; exit 2; }
 [[ -n "$DESTINATION" ]] || { echo "--destination is required."; exit 2; }
 
-# Commands
+# Guards
 SOURCE_PATH="$DDEV_APPROOT/$SOURCE"
 DESTINATION_PATH="$DDEV_APPROOT/$DESTINATION"
 
@@ -42,5 +42,6 @@ if [[ -f "$DESTINATION_PATH" ]]; then
   exit 0
 fi
 
+# Commands
 echo "Copying '$SOURCE_PATH' to '$DESTINATION_PATH'..."
 cp "$SOURCE_PATH" "$DESTINATION_PATH"

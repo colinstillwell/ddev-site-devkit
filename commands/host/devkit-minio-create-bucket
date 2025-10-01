@@ -42,13 +42,15 @@ mc_exec() {
 # Aliases
 mc_exec alias set localminio "$HOST" "$ACCESS_KEY" "$SECRET_KEY" > /dev/null
 
-# Commands
+# Guards
 if mc_exec ls localminio | grep -q "^.* $BUCKET/"; then
   echo "MinIO bucket '$BUCKET' already exists. Nothing to do."
-else
-  echo "Creating MinIO bucket '$BUCKET'..."
-  mc_exec mb "localminio/$BUCKET" > /dev/null
-
-  echo "Setting policy '$POLICY' on MinIO bucket '$BUCKET'..."
-  mc_exec anonymous set public "localminio/$BUCKET" > /dev/null
+  exit 0
 fi
+
+# Commands
+echo "Creating MinIO bucket '$BUCKET'..."
+mc_exec mb "localminio/$BUCKET" > /dev/null
+
+echo "Setting policy '$POLICY' on MinIO bucket '$BUCKET'..."
+mc_exec anonymous set public "localminio/$BUCKET" > /dev/null
