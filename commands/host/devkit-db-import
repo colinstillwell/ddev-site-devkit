@@ -52,7 +52,7 @@ if (( ${#FILES[@]} == 0 )); then
   exit 1
 fi
 
-# Prompt
+# Prompts
 echo "Choose a dump file to import from '$DIRECTORY_PATH':"
 for i in "${!FILES[@]}"; do
   printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")"
