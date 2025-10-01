@@ -34,10 +34,8 @@ done
 [[ -n "$BUCKET" ]] || { echo "--bucket is required."; exit 2; }
 [[ -n "$POLICY" ]] || { echo "--policy is required."; exit 2; }
 
-# Summarise
-echo "Creating '$BUCKET' bucket with '$POLICY' policy if it does not exist..."
-
 # Commands
+echo "Creating '$BUCKET' bucket with '$POLICY' policy if it does not exist..."
 mc_exec() {
   ddev exec -s minio env MC_CONFIG_DIR=/tmp/.mc mc --insecure "$@"
 }

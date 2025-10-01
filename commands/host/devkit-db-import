@@ -61,8 +61,6 @@ while true; do
   echo "Invalid selection. Please try again."
 done
 
-# Summarise
-echo "Importing dump file '$(basename -- "$CHOICE")'..."
-
 # Commands
+echo "Importing dump file '$(basename -- "$CHOICE")'..."
 exec ddev import-db -f "$CHOICE"
