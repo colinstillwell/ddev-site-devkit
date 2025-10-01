@@ -1,11 +1,11 @@
 name: site-devkit
 
 project_files:
+  - commands/host/devkit-config-get
   - commands/host/devkit-db-import
   - commands/host/devkit-file-copy
   - commands/host/devkit-minio-create-bucket
   - commands/host/devkit-script-run
-  - commands/host/devkit-var-get
   - commands/host/site-auth
   - commands/host/site-build
   - commands/host/site-build-backend
