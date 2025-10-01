@@ -39,11 +39,12 @@ There are two types of commands provided by this add-on:
 
 | Command                      | Description                                                                              |
 | ---------------------------- | ---------------------------------------------------------------------------------------- |
+| `devkit-config-diff`         | Compare config and report keys present in reference but missing in target                |
+| `devkit-config-get`          | Get a config value by name from a given format and location                              |
 | `devkit-db-import`           | Interactively import an SQL dump into the project database                               |
 | `devkit-file-copy`           | Copy a file from source to destination within the project, skipping if it already exists |
 | `devkit-minio-create-bucket` | Create a MinIO bucket if it does not exist, and set its policy                           |
 | `devkit-script-run`          | Run a script on the host or in a specified service                                       |
-| `devkit-config-get`          | Get a config value by name from a given format and location                              |
 
 ### `ddev site-*` commands
 
