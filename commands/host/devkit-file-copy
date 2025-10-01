@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Copy a file from source to destination within the project, skipping if it already exists.
+## Usage: devkit-file-copy [flags]
+## Example: "ddev devkit-file-copy --source=.env.example --destination=.env"
+## Flags: [{"Name":"source","Usage":"Path to the file to copy, relative to the project root","Type":"string"},{"Name":"destination","Usage":"Path to copy the file to, relative to the project root","Type":"string"}]
+## Aliases: devkit:file:copy,devkit-copy-file,devkit:copy:file
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+# Defaults
+SOURCE=""
+DESTINATION=""
+
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --source=*) SOURCE="${ARG#*=}"; shift; continue ;;
+    --destination=*) DESTINATION="${ARG#*=}"; shift; continue ;;
+    *) echo "Unknown flag: $ARG"; exit 2 ;;
+  esac
+done
+
+# Validate
+[[ -n "$SOURCE" ]] || { echo "--source is required."; exit 2; }
+[[ -n "$DESTINATION" ]] || { echo "--destination is required."; exit 2; }
+
+# Commands
+SOURCE_PATH="$DDEV_APPROOT/$SOURCE"
+DESTINATION_PATH="$DDEV_APPROOT/$DESTINATION"
+
+if [[ -f "$DESTINATION_PATH" ]]; then
+  echo "'$DESTINATION_PATH' already exists, skipping."
+elif [[ -f "$SOURCE_PATH" ]]; then
+  echo "Copying '$SOURCE_PATH' to '$DESTINATION_PATH'."
+  cp "$SOURCE_PATH" "$DESTINATION_PATH"
+else
+  echo "'$SOURCE_PATH' not found. Cannot copy to '$DESTINATION_PATH'."
+  exit 1
+fi
