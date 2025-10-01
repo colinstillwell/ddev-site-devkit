@@ -53,6 +53,10 @@ if (( ${#FILES[@]} == 0 )); then
   exit 1
 fi
 
+# Newest first by modification time
+IFS=$'\n' FILES=($(ls -1t "${FILES[@]}"))
+unset IFS
+
 # Prompts
 echo "Choose a dump file to import from '$DIRECTORY_PATH':"
 for i in "${!FILES[@]}"; do
