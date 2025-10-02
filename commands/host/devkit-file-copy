@@ -4,7 +4,7 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Copy a file from source to destination within the project, skipping if it already exists.
 ## Usage: devkit-file-copy [flags]
-## Example: ddev devkit-file-copy --source=.env.example --destination=.env
+## Example: ddev devkit-file-copy --source=".env.example" --destination=".env"
 ## Flags: [{"Name":"source","Usage":"Path to the file to copy, relative to the project root","Type":"string"},{"Name":"destination","Usage":"Path to copy the file to, relative to the project root","Type":"string"}]
 ## Aliases: devkit:file:copy,devkit-copy-file,devkit:copy:file
 

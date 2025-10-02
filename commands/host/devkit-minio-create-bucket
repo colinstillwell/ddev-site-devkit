@@ -4,7 +4,7 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Create a MinIO bucket if it does not exist, and set its policy.
 ## Usage: devkit-minio-create-bucket [flags]
-## Example: ddev devkit-minio-create-bucket --bucket=example --policy=public
+## Example: ddev devkit-minio-create-bucket --bucket="example" --policy="public"
 ## Flags: [{"Name":"bucket","Usage":"Name of the bucket to create","Type":"string"},{"Name":"policy","Usage":"Policy to set on the bucket","Type":"string"},{"Name":"access-key","Usage":"Access key for MinIO","Type":"string"},{"Name":"secret-key","Usage":"Secret key for MinIO","Type":"string"},{"Name":"host","Usage":"Host URL for MinIO","Type":"string"}]
 ## Aliases: devkit:minio:create:bucket,devkit-minio-bucket-create,devkit:minio:bucket:create
 

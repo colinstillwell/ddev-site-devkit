@@ -11,4 +11,4 @@
 set -euo pipefail
 
 # Run the script
-ddev devkit-script-run --script=".ddev/site-devkit/site/scripts/site-sync-frontend.sh" --location=host
+ddev devkit-script-run --script=".ddev/site-devkit/site/scripts/site-sync-frontend.sh" --location="host"
