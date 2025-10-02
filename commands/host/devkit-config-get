@@ -22,14 +22,14 @@ for ARG in "$@"; do
     --name=*)     NAME="${ARG#*=}"; shift; continue ;;
     --format=*)   FORMAT="${ARG#*=}"; shift; continue ;;
     --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
-    *) echo "Unknown flag: $ARG"; exit 2 ;;
+    *) echo "Unknown flag: $ARG" >&2; exit 2 ;;
   esac
 done
 
 # Validate flags
-[[ -n "$NAME" ]] || { echo "--name is required."; exit 2; }
-[[ -n "$FORMAT" ]] || { echo "--format is required."; exit 2; }
-[[ -n "$LOCATION" ]] || { echo "--location is required."; exit 2; }
+[[ -n "$NAME" ]]     || { echo "--name is required." >&2; exit 2; }
+[[ -n "$FORMAT" ]]   || { echo "--format is required." >&2; exit 2; }
+[[ -n "$LOCATION" ]] || { echo "--location is required." >&2; exit 2; }
 
 # Guards
 if [[ "$FORMAT" != "env" ]]; then
@@ -41,7 +41,7 @@ fi
 VALUE="$(ddev exec -s "$LOCATION" bash -lc "printenv $(printf '%q' "$NAME")" 2>/dev/null || true)"
 
 if [[ -z "$VALUE" ]]; then
-  echo "No '$FORMAT' value found for '$NAME' in '$LOCATION'."
+  echo "No '$FORMAT' value found for '$NAME' in '$LOCATION'." >&2
   exit 1
 fi
 

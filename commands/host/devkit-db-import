@@ -19,7 +19,7 @@ for ARG in "$@"; do
   case "$ARG" in
     --directory=*) DIRECTORY="${ARG#*=}"; shift; continue ;;
     --dir=*)       DIRECTORY="${ARG#*=}"; shift; continue ;;
-    *) echo "Unknown flag: $ARG"; exit 2 ;;
+    *) echo "Unknown flag: $ARG" >&2; exit 2 ;;
   esac
 done
 
@@ -27,7 +27,7 @@ done
 DIRECTORY_PATH="$DDEV_APPROOT/$DIRECTORY"
 
 if [[ ! -d "$DIRECTORY_PATH" ]]; then
-  echo "Directory not found. Cannot locate dump files in '$DIRECTORY_PATH'."
+  echo "Directory not found. Cannot locate dump files in '$DIRECTORY_PATH'." >&2
   exit 1
 fi
 
@@ -49,7 +49,7 @@ FILES=(
 shopt -u nullglob
 
 if (( ${#FILES[@]} == 0 )); then
-  echo "Cannot locate dump files in '$DIRECTORY_PATH'."
+  echo "Cannot locate dump files in '$DIRECTORY_PATH'." >&2
   exit 1
 fi
 
@@ -58,20 +58,21 @@ IFS=$'\n' FILES=($(ls -1t "${FILES[@]}"))
 unset IFS
 
 # Prompts
-echo "Choose a dump file to import from '$DIRECTORY_PATH':"
+echo "Choose a dump file to import from '$DIRECTORY_PATH':" >&2
 for i in "${!FILES[@]}"; do
-  printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")"
+  printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")" >&2
 done
 
 while true; do
-  read -r -p "Enter a number 1-${#FILES[@]}: " n
+  printf "Enter a number 1-%d: " "${#FILES[@]}" >&2
+  read -r n
   if [[ "$n" =~ ^[0-9]+$ ]] && (( n>=1 && n<=${#FILES[@]} )); then
     CHOICE="${FILES[$((n-1))]}"
     break
   fi
-  echo "Invalid selection. Please try again."
+  echo "Invalid selection. Please try again." >&2
 done
 
 # Commands
-echo "Importing dump file '$(basename -- "$CHOICE")'..."
+echo "Importing dump file '$(basename -- "$CHOICE")'..." >&2
 exec ddev import-db -f "$CHOICE"
