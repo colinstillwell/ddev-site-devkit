@@ -12,11 +12,3 @@ This script has not been customised for your project yet.
 For guidance on how to adapt it, see "Customising the generated scripts" in the add-on documentation:
 https://github.com/colinstillwell/ddev-site-devkit#customising-the-generated-scripts
 EXAMPLE
-
-# Run backend installation tasks
-# echo "Running backend installation tasks..."
-# ddev site-install-backend
-
-# Run frontend installation tasks
-# echo "Running frontend installation tasks..."
-# ddev site-install-frontend

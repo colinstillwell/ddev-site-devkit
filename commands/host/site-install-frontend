@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Frontend installation tasks.
+## Usage: site-install-frontend
+## Example: "ddev site-install-frontend"
+## Aliases: site:install:frontend,site-install-fe,site:install:fe,site-frontend-install,site:frontend:install,site-fe-install,site:fe:install
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+# Run the script
+ddev devkit-script-run --script=".ddev/site-devkit/site/scripts/site-install-frontend.sh" --location=host
