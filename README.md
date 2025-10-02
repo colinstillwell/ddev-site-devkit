@@ -55,6 +55,7 @@ There are two types of commands provided by this add-on:
 | `site-build-backend`    | Backend build tasks            | Composer install                                                        |
 | `site-build-frontend`   | Frontend build tasks           | NPM install                                                             |
 | `site-install`          | Installation tasks             | New project installs the application; existing project builds and syncs |
+| `site-install-backend`  | Backend installation tasks     | New project installs the application; existing project builds and syncs |
 | `site-mode-development` | Enable development mode        | Disable caches, enable verbose logging                                  |
 | `site-mode-production`  | Enable production mode         | Enable caches, aggregate CSS and JS                                     |
 | `site-scaffold`         | Scaffolding tasks              | Copy required files, set permissions                                    |

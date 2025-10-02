@@ -12,6 +12,7 @@ project_files:
   - commands/host/site-build-backend
   - commands/host/site-build-frontend
   - commands/host/site-install
+  - commands/host/site-install-backend
   - commands/host/site-mode-development
   - commands/host/site-mode-production
   - commands/host/site-scaffold
@@ -26,6 +27,7 @@ project_files:
   - site-devkit/site/scripts/site-build-backend.sh
   - site-devkit/site/scripts/site-build-frontend.sh
   - site-devkit/site/scripts/site-install.sh
+  - site-devkit/site/scripts/site-install-backend.sh
   - site-devkit/site/scripts/site-mode-development.sh
   - site-devkit/site/scripts/site-mode-production.sh
   - site-devkit/site/scripts/site-scaffold.sh
