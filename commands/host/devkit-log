@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Print a formatted log message.
+## Usage: devkit-log [flags]
+## Example: ddev devkit-log --message="Info" (default type: "info")\nddev devkit-log --message="Info" --type="info"\nddev devkit-log --message="Success" --type="success"\nddev devkit-log --message="Warning" --type="warning"\nddev devkit-log --message="Error" --type="error"\nddev devkit-log --message="Starting" --type="starting"\nddev devkit-log --message="Completed" --type="completed"
+## Flags: [{"Name":"message","Usage":"Message to log","Type":"string"},{"Name":"type","Usage":"Type of message (info, success, warning, error, starting, completed)","Type":"string"}]
+## Aliases: devkit:log
+
+set -euo pipefail
+
+# Defaults
+MESSAGE=""
+TYPE="info"
+
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --message=*) MESSAGE="${ARG#*=}"; shift; continue ;;
+    --type=*)    TYPE="${ARG#*=}"; shift; continue ;;
+    *) "$0" --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
+  esac
+done
+
+# Validate flags
+[[ -n "$MESSAGE" ]] || { "$0" --message="--message is required." --type="error"; exit 2; }
+
+# Guards
+TYPE_LC="$(printf '%s' "$TYPE" | tr '[:upper:]' '[:lower:]')"
+case "$TYPE_LC" in
+  info|success|warning|error|starting|completed) ;;
+  *)
+    "$0" --message="Unsupported --type '$TYPE'. Allowed: info, success, warning, error, starting, completed." --type="error"
+    exit 2
+    ;;
+esac
+
+# Colour palette (ANSI 8-colour)
+CLR_ESC=$'\033'              # escape
+CLR_RESET="${CLR_ESC}[0m"    # reset
+CLR_RED="${CLR_ESC}[31m"     # red
+CLR_GREEN="${CLR_ESC}[32m"   # green
+CLR_YELLOW="${CLR_ESC}[33m"  # yellow
+CLR_MAGENTA="${CLR_ESC}[35m" # magenta
+CLR_CYAN="${CLR_ESC}[36m"    # cyan
+
+# Commands
+case "$TYPE_LC" in
+  success)   CLR="$CLR_GREEN" ;;
+  warning)   CLR="$CLR_YELLOW" ;;
+  error)     CLR="$CLR_RED" ;;
+  starting)  CLR="$CLR_MAGENTA" ;;
+  completed) CLR="$CLR_CYAN" ;;
+  *)         CLR="" ;;
+esac
+
+PREFIX="[$TYPE_LC]"
+
+if [ -n "$CLR" ] && [ -t 2 ] && [ -z "${NO_COLOR:-}" ] && [ "${TERM:-}" != "dumb" ]; then
+  PREFIX="${CLR}${PREFIX}${CLR_RESET}"
+fi
+
+PREFIX="[$(date '+%Y-%m-%d %H:%M:%S')] $PREFIX "
+
+while IFS= read -r line || [ -n "$line" ]; do
+  printf '%s%s\n' "$PREFIX" "$line" 1>&2
+done <<< "$MESSAGE"

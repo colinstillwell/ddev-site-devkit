@@ -4,11 +4,11 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Frontend build tasks.
 ## Usage: site-build-frontend
-## Example: "ddev site-build-frontend"
+## Example: ddev site-build-frontend
 ## Aliases: site:build:frontend,site-build-fe,site:build:fe,site-frontend-build,site:frontend:build,site-fe-build,site:fe:build
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
 
 # Run the script
-ddev devkit-script-run --script=".ddev/site-devkit/site/scripts/site-build-frontend.sh" --location=host
+ddev devkit-script-run --script=".ddev/site-devkit/site/scripts/site-build-frontend.sh" --location="host"

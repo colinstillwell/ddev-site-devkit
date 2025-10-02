@@ -4,7 +4,7 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Compare config and report keys present in reference but missing in target.
 ## Usage: devkit-config-diff [flags]
-## Example: "ddev devkit-config-diff --format=env --reference=.env.example --target=.env"
+## Example: ddev devkit-config-diff --format="env" --reference=".env.example" --target=".env"
 ## Flags: [{"Name":"format","Usage":"How to interpret the config","Type":"string"},{"Name":"reference","Usage":"Path to the reference config, relative to the project root","Type":"string"},{"Name":"target","Usage":"Path to the target config, relative to the project root","Type":"string"}]
 ## Aliases: devkit:config:diff,devkit-diff-config,devkit:diff:config
 
@@ -22,18 +22,18 @@ for ARG in "$@"; do
     --format=*)    FORMAT="${ARG#*=}"; shift; continue ;;
     --reference=*) REFERENCE="${ARG#*=}"; shift; continue ;;
     --target=*)    TARGET="${ARG#*=}"; shift; continue ;;
-    *) echo "Unknown flag: $ARG" >&2; exit 2 ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
   esac
 done
 
 # Validate flags
-[[ -n "$FORMAT" ]]    || { echo "--format is required." >&2; exit 2; }
-[[ -n "$REFERENCE" ]] || { echo "--reference is required." >&2; exit 2; }
-[[ -n "$TARGET" ]]    || { echo "--target is required." >&2; exit 2; }
+[[ -n "$FORMAT" ]]    || { ddev devkit-log --message="--format is required." --type="error"; exit 2; }
+[[ -n "$REFERENCE" ]] || { ddev devkit-log --message="--reference is required." --type="error"; exit 2; }
+[[ -n "$TARGET" ]]    || { ddev devkit-log --message="--target is required." --type="error"; exit 2; }
 
 # Guards
 if [[ "$FORMAT" != "env" ]]; then
-  echo "Unsupported --format '$FORMAT'. Only 'env' is supported for now." >&2
+  ddev devkit-log --message="Unsupported --format '$FORMAT'. Only 'env' is supported for now." --type="error"
   exit 2
 fi
 
@@ -41,35 +41,35 @@ REFERENCE_PATH="$DDEV_APPROOT/$REFERENCE"
 TARGET_PATH="$DDEV_APPROOT/$TARGET"
 
 if [[ -d "$REFERENCE_PATH" ]]; then
-  echo "'$REFERENCE_PATH' is a directory. Cannot compare with '$TARGET_PATH'." >&2
+  ddev devkit-log --message="'$REFERENCE_PATH' is a directory. Cannot compare with '$TARGET_PATH'." --type="error"
   exit 1
 fi
 
 if [[ -d "$TARGET_PATH" ]]; then
-  echo "'$TARGET_PATH' is a directory. Cannot compare with '$REFERENCE_PATH'." >&2
+  ddev devkit-log --message="'$TARGET_PATH' is a directory. Cannot compare with '$REFERENCE_PATH'." --type="error"
   exit 1
 fi
 
 if [[ ! -f "$REFERENCE_PATH" ]]; then
-  echo "'$REFERENCE_PATH' not found. Cannot compare with '$TARGET_PATH'." >&2
+  ddev devkit-log --message="'$REFERENCE_PATH' not found. Cannot compare with '$TARGET_PATH'." --type="error"
   exit 1
 fi
 
 if [[ ! -f "$TARGET_PATH" ]]; then
-  echo "'$TARGET_PATH' not found. Cannot compare with '$REFERENCE_PATH'." >&2
+  ddev devkit-log --message="'$TARGET_PATH' not found. Cannot compare with '$REFERENCE_PATH'." --type="error"
   exit 1
 fi
 
 # Commands
-echo "Comparing '$REFERENCE' to '$TARGET'..." >&2
+ddev devkit-log --message="Comparing '$REFERENCE' to '$TARGET'..."
 
 extract_env_keys() {
   awk -F'=' '
-    /^[[:space:]]*#/ { next }           # comments
-    /^[[:space:]]*$/ { next }           # empty
+    /^[[:space:]]*#/ { next }
+    /^[[:space:]]*$/ { next }
     {
       line=$0
-      sub(/\r$/,"", line)               # strip Windows CR if present
+      sub(/\r$/,"", line)
       sub(/^[[:space:]]*export[[:space:]]+/, "", line)
       split(line, parts, "=")
       key=parts[1]
@@ -85,10 +85,10 @@ MISSING=$(
 )
 
 if [[ -z "$MISSING" ]]; then
-  echo "All keys in '$REFERENCE' are present in '$TARGET'." >&2
+  ddev devkit-log --message="All keys in '$REFERENCE' are present in '$TARGET'." --type="success"
   exit 0
 fi
 
-echo "The following keys are in '$REFERENCE' but are missing from '$TARGET':" >&2
+ddev devkit-log --message="The following keys are in '$REFERENCE' but are missing from '$TARGET':" --type="error"
 printf '%s\n' "$MISSING"
 exit 1

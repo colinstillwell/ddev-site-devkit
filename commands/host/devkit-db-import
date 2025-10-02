@@ -4,7 +4,7 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Interactively import an SQL dump into the project database.
 ## Usage: devkit-db-import [flags]
-## Example: "ddev devkit-db-import --directory=backups"
+## Example: ddev devkit-db-import (default directory: "database")\nddev devkit-db-import --directory="backups"
 ## Flags: [{"Name":"directory","Usage":"Path to the directory to look for dump files, relative to the project root","Type":"string"}]
 ## Aliases: devkit:db:import,devkit-import-db,devkit:import:db,devkit-database-import,devkit:database:import,devkit-import-database,devkit:import:database
 
@@ -19,7 +19,7 @@ for ARG in "$@"; do
   case "$ARG" in
     --directory=*) DIRECTORY="${ARG#*=}"; shift; continue ;;
     --dir=*)       DIRECTORY="${ARG#*=}"; shift; continue ;;
-    *) echo "Unknown flag: $ARG" >&2; exit 2 ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
   esac
 done
 
@@ -27,7 +27,7 @@ done
 DIRECTORY_PATH="$DDEV_APPROOT/$DIRECTORY"
 
 if [[ ! -d "$DIRECTORY_PATH" ]]; then
-  echo "Directory not found. Cannot locate dump files in '$DIRECTORY_PATH'." >&2
+  ddev devkit-log --message="Directory not found. Cannot locate dump files in '$DIRECTORY_PATH'." --type="error"
   exit 1
 fi
 
@@ -49,7 +49,7 @@ FILES=(
 shopt -u nullglob
 
 if (( ${#FILES[@]} == 0 )); then
-  echo "Cannot locate dump files in '$DIRECTORY_PATH'." >&2
+  ddev devkit-log --message="Cannot locate dump files in '$DIRECTORY_PATH'." --type="error"
   exit 1
 fi
 
@@ -58,7 +58,7 @@ IFS=$'\n' FILES=($(ls -1t "${FILES[@]}"))
 unset IFS
 
 # Prompts
-echo "Choose a dump file to import from '$DIRECTORY_PATH':" >&2
+ddev devkit-log --message="Choose a dump file to import from '$DIRECTORY_PATH':"
 for i in "${!FILES[@]}"; do
   printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")" >&2
 done
@@ -70,9 +70,9 @@ while true; do
     CHOICE="${FILES[$((n-1))]}"
     break
   fi
-  echo "Invalid selection. Please try again." >&2
+  ddev devkit-log --message="Invalid selection. Please try again." --type="error"
 done
 
 # Commands
-echo "Importing dump file '$(basename -- "$CHOICE")'..." >&2
+ddev devkit-log --message="Importing dump file '$(basename -- "$CHOICE")'..."
 exec ddev import-db -f "$CHOICE"

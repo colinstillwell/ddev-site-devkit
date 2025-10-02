@@ -4,11 +4,11 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Backend installation tasks.
 ## Usage: site-install-backend
-## Example: "ddev site-install-backend"
+## Example: ddev site-install-backend
 ## Aliases: site:install:backend,site-install-be,site:install:be,site-backend-install,site:backend:install,site-be-install,site:be:install
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
 
 # Run the script
-ddev devkit-script-run --script=".ddev/site-devkit/site/scripts/site-install-backend.sh" --location=host
+ddev devkit-script-run --script=".ddev/site-devkit/site/scripts/site-install-backend.sh" --location="host"
