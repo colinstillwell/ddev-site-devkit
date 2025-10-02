@@ -14,9 +14,9 @@ https://github.com/colinstillwell/ddev-site-devkit#customising-the-generated-scr
 EXAMPLE
 
 # Run backend synchronisation tasks
-# echo "Running backend synchronisation tasks..."
+# ddev devkit-log --message="Running backend synchronisation tasks..."
 # ddev site-sync-backend
 
 # Run frontend synchronisation tasks
-# echo "Running frontend synchronisation tasks..."
+# ddev devkit-log --message="Running frontend synchronisation tasks..."
 # ddev site-sync-frontend

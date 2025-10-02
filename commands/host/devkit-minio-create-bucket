@@ -26,13 +26,13 @@ for ARG in "$@"; do
     --access-key=*) ACCESS_KEY="${ARG#*=}"; shift; continue ;;
     --secret-key=*) SECRET_KEY="${ARG#*=}"; shift; continue ;;
     --host=*)       HOST="${ARG#*=}"; shift; continue ;;
-    *) echo "Unknown flag: $ARG" >&2; exit 2 ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
   esac
 done
 
 # Validate flags
-[[ -n "$BUCKET" ]] || { echo "--bucket is required." >&2; exit 2; }
-[[ -n "$POLICY" ]] || { echo "--policy is required." >&2; exit 2; }
+[[ -n "$BUCKET" ]] || { ddev devkit-log --message="--bucket is required." --type="error"; exit 2; }
+[[ -n "$POLICY" ]] || { ddev devkit-log --message="--policy is required." --type="error"; exit 2; }
 
 # Helpers
 mc_exec() {
@@ -44,13 +44,13 @@ mc_exec alias set localminio "$HOST" "$ACCESS_KEY" "$SECRET_KEY" > /dev/null
 
 # Guards
 if mc_exec ls localminio | grep -q "^.* $BUCKET/"; then
-  echo "MinIO bucket '$BUCKET' already exists. Nothing to do." >&2
+  ddev devkit-log --message="MinIO bucket '$BUCKET' already exists. Nothing to do." --type="success"
   exit 0
 fi
 
 # Commands
-echo "Creating MinIO bucket '$BUCKET'..." >&2
+ddev devkit-log --message="Creating MinIO bucket '$BUCKET'..."
 mc_exec mb "localminio/$BUCKET" > /dev/null
 
-echo "Setting policy '$POLICY' on MinIO bucket '$BUCKET'..." >&2
+ddev devkit-log --message="Setting policy '$POLICY' on MinIO bucket '$BUCKET'..."
 mc_exec anonymous set public "localminio/$BUCKET" > /dev/null

@@ -22,18 +22,18 @@ for ARG in "$@"; do
     --name=*)     NAME="${ARG#*=}"; shift; continue ;;
     --format=*)   FORMAT="${ARG#*=}"; shift; continue ;;
     --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
-    *) echo "Unknown flag: $ARG" >&2; exit 2 ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
   esac
 done
 
 # Validate flags
-[[ -n "$NAME" ]]     || { echo "--name is required." >&2; exit 2; }
-[[ -n "$FORMAT" ]]   || { echo "--format is required." >&2; exit 2; }
-[[ -n "$LOCATION" ]] || { echo "--location is required." >&2; exit 2; }
+[[ -n "$NAME" ]]     || { ddev devkit-log --message="--name is required." --type="error"; exit 2; }
+[[ -n "$FORMAT" ]]   || { ddev devkit-log --message="--format is required." --type="error"; exit 2; }
+[[ -n "$LOCATION" ]] || { ddev devkit-log --message="--location is required." --type="error"; exit 2; }
 
 # Guards
 if [[ "$FORMAT" != "env" ]]; then
-  echo "Unsupported --format '$FORMAT'. Only 'env' is supported for now." >&2
+  ddev devkit-log --message="Unsupported --format '$FORMAT'. Only 'env' is supported for now." --type="error"
   exit 2
 fi
 
@@ -41,7 +41,7 @@ fi
 VALUE="$(ddev exec -s "$LOCATION" bash -lc "printenv $(printf '%q' "$NAME")" 2>/dev/null || true)"
 
 if [[ -z "$VALUE" ]]; then
-  echo "No '$FORMAT' value found for '$NAME' in '$LOCATION'." >&2
+  ddev devkit-log --message="No '$FORMAT' value found for '$NAME' in '$LOCATION'." --type="error"
   exit 1
 fi
 

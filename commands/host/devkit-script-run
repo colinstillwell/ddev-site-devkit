@@ -21,53 +21,48 @@ for ARG in "$@"; do
     --script=*)   SCRIPT="${ARG#*=}"; shift; continue ;;
     --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
     --) shift; break ;;
-    *) echo "Unknown flag: $ARG" >&2; exit 2 ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
   esac
 done
 
 # Validate flags
-[[ -n "$SCRIPT" ]]   || { echo "--script is required." >&2; exit 2; }
-[[ -n "$LOCATION" ]] || { echo "--location is required." >&2; exit 2; }
+[[ -n "$SCRIPT" ]]   || { ddev devkit-log --message="--script is required." --type="error"; exit 2; }
+[[ -n "$LOCATION" ]] || { ddev devkit-log --message="--location is required." --type="error"; exit 2; }
 
 # Guards
 if [[ "$LOCATION" == host ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT"
 
   if [[ -d "$SCRIPT_PATH" ]]; then
-    echo "'$SCRIPT_PATH' is a directory. Refusing to run." >&2
+    ddev devkit-log --message="'$SCRIPT_PATH' is a directory. Refusing to run." --type="error"
     exit 1
   fi
 
   if [[ ! -f "$SCRIPT_PATH" ]]; then
-    echo "'$SCRIPT_PATH' not found. Cannot run." >&2
+    ddev devkit-log --message="'$SCRIPT_PATH' not found. Cannot run." --type="error"
     exit 1
   fi
 else
   SCRIPT_PATH="$SCRIPT"
 
   if ! ddev exec -s "$LOCATION" bash -lc 'true' >/dev/null 2>&1; then
-    echo "Service '$LOCATION' not found or not running." >&2
+    ddev devkit-log --message="Service '$LOCATION' not found or not running." --type="error"
     exit 1
   fi
 
   if ddev exec -s "$LOCATION" bash -lc "test -d $SCRIPT_PATH" >/dev/null 2>&1; then
-    echo "'$SCRIPT_PATH' is a directory. Refusing to run." >&2
+    ddev devkit-log --message="'$SCRIPT_PATH' is a directory. Refusing to run." --type="error"
     exit 1
   fi
 
   if ! ddev exec -s "$LOCATION" bash -lc "test -f $SCRIPT_PATH" >/dev/null 2>&1; then
-    echo "'$SCRIPT_PATH' not found. Cannot run." >&2
+    ddev devkit-log --message="'$SCRIPT_PATH' not found. Cannot run." --type="error"
     exit 1
   fi
 fi
 
-# Helpers
-timestamp() {
-  date '+%Y-%m-%d %H:%M:%S'
-}
-
 # Commands
-echo "[$(timestamp)] Starting script '$SCRIPT' in '$LOCATION'..." >&2
+ddev devkit-log --message="Running script '$SCRIPT' in '$LOCATION'." --type="starting"
 
 if [[ "$LOCATION" == "host" ]]; then
   bash "$SCRIPT_PATH" "$@"
@@ -75,4 +70,4 @@ else
   ddev exec -s "$LOCATION" bash "$SCRIPT_PATH" "$@"
 fi
 
-echo "[$(timestamp)] Completed script '$SCRIPT' in '$LOCATION'." >&2
+ddev devkit-log --message="Running script '$SCRIPT' in '$LOCATION'." --type="completed"

@@ -14,9 +14,9 @@ https://github.com/colinstillwell/ddev-site-devkit#customising-the-generated-scr
 EXAMPLE
 
 # Run backend installation tasks
-# echo "Running backend installation tasks..."
+# ddev devkit-log --message="Running backend installation tasks..."
 # ddev site-install-backend
 
 # Run frontend installation tasks
-# echo "Running frontend installation tasks..."
+# ddev devkit-log --message="Running frontend installation tasks..."
 # ddev site-install-frontend

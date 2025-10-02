@@ -14,9 +14,9 @@ https://github.com/colinstillwell/ddev-site-devkit#customising-the-generated-scr
 EXAMPLE
 
 # Run backend build tasks
-# echo "Running backend build tasks..."
+# ddev devkit-log --message="Running backend build tasks..."
 # ddev site-build-backend
 
 # Run frontend build tasks
-# echo "Running frontend build tasks..."
+# ddev devkit-log --message="Running frontend build tasks..."
 # ddev site-build-frontend
