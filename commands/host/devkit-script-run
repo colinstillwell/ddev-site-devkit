@@ -30,7 +30,7 @@ done
 [[ -n "$LOCATION" ]] || { ddev devkit-log --message="--location is required." --type="error"; exit 2; }
 
 # Guards
-if [[ "$LOCATION" == host ]]; then
+if [[ "$LOCATION" == "host" ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT"
 
   if [[ -d "$SCRIPT_PATH" ]]; then
