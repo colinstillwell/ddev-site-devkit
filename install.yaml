@@ -5,6 +5,7 @@ project_files:
   - commands/host/devkit-config-get
   - commands/host/devkit-db-import
   - commands/host/devkit-file-copy
+  - commands/host/devkit-log
   - commands/host/devkit-minio-create-bucket
   - commands/host/devkit-script-run
   - commands/host/site-auth
