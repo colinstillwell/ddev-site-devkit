@@ -65,11 +65,11 @@ ddev devkit-log --message="Comparing '$REFERENCE' to '$TARGET'..."
 
 extract_env_keys() {
   awk -F'=' '
-    /^[[:space:]]*#/ { next }           # comments
-    /^[[:space:]]*$/ { next }           # empty
+    /^[[:space:]]*#/ { next }
+    /^[[:space:]]*$/ { next }
     {
       line=$0
-      sub(/\r$/,"", line)               # strip Windows CR if present
+      sub(/\r$/,"", line)
       sub(/^[[:space:]]*export[[:space:]]+/, "", line)
       split(line, parts, "=")
       key=parts[1]
