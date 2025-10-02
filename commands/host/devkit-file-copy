@@ -22,13 +22,13 @@ for ARG in "$@"; do
     --src=*)         SOURCE="${ARG#*=}"; shift; continue ;;
     --destination=*) DESTINATION="${ARG#*=}"; shift; continue ;;
     --dest=*)        DESTINATION="${ARG#*=}"; shift; continue ;;
-    *) echo "Unknown flag: $ARG"; exit 2 ;;
+    *) echo "Unknown flag: $ARG" >&2; exit 2 ;;
   esac
 done
 
 # Validate flags
-[[ -n "$SOURCE" ]]      || { echo "--source is required."; exit 2; }
-[[ -n "$DESTINATION" ]] || { echo "--destination is required."; exit 2; }
+[[ -n "$SOURCE" ]]      || { echo "--source is required." >&2; exit 2; }
+[[ -n "$DESTINATION" ]] || { echo "--destination is required." >&2; exit 2; }
 
 # Guards
 SOURCE_PATH="$DDEV_APPROOT/$SOURCE"
@@ -36,35 +36,35 @@ DESTINATION_PATH="$DDEV_APPROOT/$DESTINATION"
 DESTINATION_DIR="$(dirname "$DESTINATION_PATH")"
 
 if [[ -d "$SOURCE_PATH" ]]; then
-  echo "'$SOURCE_PATH' is a directory. Refusing to copy to '$DESTINATION_PATH'."
+  echo "'$SOURCE_PATH' is a directory. Refusing to copy to '$DESTINATION_PATH'." >&2
   exit 1
 fi
 
 if [[ -d "$DESTINATION_PATH" ]]; then
-  echo "'$DESTINATION_PATH' is a directory. Refusing to overwrite a directory with a file."
+  echo "'$DESTINATION_PATH' is a directory. Refusing to overwrite a directory with a file." >&2
   exit 1
 fi
 
 if [[ ! -d "$DESTINATION_DIR" ]]; then
-  echo "Destination directory '$DESTINATION_DIR' not found. Cannot copy to '$DESTINATION_PATH'."
+  echo "Destination directory '$DESTINATION_DIR' not found. Cannot copy to '$DESTINATION_PATH'." >&2
   exit 1
 fi
 
 if [[ ! -f "$SOURCE_PATH" ]]; then
-  echo "'$SOURCE_PATH' not found. Cannot copy to '$DESTINATION_PATH'."
+  echo "'$SOURCE_PATH' not found. Cannot copy to '$DESTINATION_PATH'." >&2
   exit 1
 fi
 
 if [[ -e "$DESTINATION_PATH" ]] && [[ "$SOURCE_PATH" -ef "$DESTINATION_PATH" ]]; then
-  echo "'$SOURCE_PATH' and '$DESTINATION_PATH' refer to the same file. Nothing to do."
+  echo "'$SOURCE_PATH' and '$DESTINATION_PATH' refer to the same file. Nothing to do." >&2
   exit 0
 fi
 
 if [[ -f "$DESTINATION_PATH" ]]; then
-  echo "'$DESTINATION_PATH' already exists. Nothing to do."
+  echo "'$DESTINATION_PATH' already exists. Nothing to do." >&2
   exit 0
 fi
 
 # Commands
-echo "Copying '$SOURCE_PATH' to '$DESTINATION_PATH'..."
+echo "Copying '$SOURCE_PATH' to '$DESTINATION_PATH'..." >&2
 cp "$SOURCE_PATH" "$DESTINATION_PATH"

@@ -21,42 +21,42 @@ for ARG in "$@"; do
     --script=*)   SCRIPT="${ARG#*=}"; shift; continue ;;
     --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
     --) shift; break ;;
-    *) echo "Unknown flag: $ARG"; exit 2 ;;
+    *) echo "Unknown flag: $ARG" >&2; exit 2 ;;
   esac
 done
 
 # Validate flags
-[[ -n "$SCRIPT" ]]   || { echo "--script is required."; exit 2; }
-[[ -n "$LOCATION" ]] || { echo "--location is required."; exit 2; }
+[[ -n "$SCRIPT" ]]   || { echo "--script is required." >&2; exit 2; }
+[[ -n "$LOCATION" ]] || { echo "--location is required." >&2; exit 2; }
 
 # Guards
 if [[ "$LOCATION" == host ]]; then
   SCRIPT_PATH="$DDEV_APPROOT/$SCRIPT"
 
   if [[ -d "$SCRIPT_PATH" ]]; then
-    echo "'$SCRIPT_PATH' is a directory. Refusing to run."
+    echo "'$SCRIPT_PATH' is a directory. Refusing to run." >&2
     exit 1
   fi
 
   if [[ ! -f "$SCRIPT_PATH" ]]; then
-    echo "'$SCRIPT_PATH' not found. Cannot run."
+    echo "'$SCRIPT_PATH' not found. Cannot run." >&2
     exit 1
   fi
 else
   SCRIPT_PATH="$SCRIPT"
 
   if ! ddev exec -s "$LOCATION" bash -lc 'true' >/dev/null 2>&1; then
-    echo "Service '$LOCATION' not found or not running."
+    echo "Service '$LOCATION' not found or not running." >&2
     exit 1
   fi
 
   if ddev exec -s "$LOCATION" bash -lc "test -d $SCRIPT_PATH" >/dev/null 2>&1; then
-    echo "'$SCRIPT_PATH' is a directory. Refusing to run."
+    echo "'$SCRIPT_PATH' is a directory. Refusing to run." >&2
     exit 1
   fi
 
   if ! ddev exec -s "$LOCATION" bash -lc "test -f $SCRIPT_PATH" >/dev/null 2>&1; then
-    echo "'$SCRIPT_PATH' not found. Cannot run."
+    echo "'$SCRIPT_PATH' not found. Cannot run." >&2
     exit 1
   fi
 fi
@@ -67,7 +67,7 @@ timestamp() {
 }
 
 # Commands
-echo "[$(timestamp)] Starting script '$SCRIPT' in '$LOCATION'..."
+echo "[$(timestamp)] Starting script '$SCRIPT' in '$LOCATION'..." >&2
 
 if [[ "$LOCATION" == "host" ]]; then
   bash "$SCRIPT_PATH" "$@"
@@ -75,4 +75,4 @@ else
   ddev exec -s "$LOCATION" bash "$SCRIPT_PATH" "$@"
 fi
 
-echo "[$(timestamp)] Completed script '$SCRIPT' in '$LOCATION'."
+echo "[$(timestamp)] Completed script '$SCRIPT' in '$LOCATION'." >&2

@@ -22,14 +22,14 @@ for ARG in "$@"; do
     --format=*)    FORMAT="${ARG#*=}"; shift; continue ;;
     --reference=*) REFERENCE="${ARG#*=}"; shift; continue ;;
     --target=*)    TARGET="${ARG#*=}"; shift; continue ;;
-    *) echo "Unknown flag: $ARG"; exit 2 ;;
+    *) echo "Unknown flag: $ARG" >&2; exit 2 ;;
   esac
 done
 
 # Validate flags
-[[ -n "$FORMAT" ]]    || { echo "--format is required."; exit 2; }
-[[ -n "$REFERENCE" ]] || { echo "--reference is required."; exit 2; }
-[[ -n "$TARGET" ]]    || { echo "--target is required."; exit 2; }
+[[ -n "$FORMAT" ]]    || { echo "--format is required." >&2; exit 2; }
+[[ -n "$REFERENCE" ]] || { echo "--reference is required." >&2; exit 2; }
+[[ -n "$TARGET" ]]    || { echo "--target is required." >&2; exit 2; }
 
 # Guards
 if [[ "$FORMAT" != "env" ]]; then
@@ -41,27 +41,27 @@ REFERENCE_PATH="$DDEV_APPROOT/$REFERENCE"
 TARGET_PATH="$DDEV_APPROOT/$TARGET"
 
 if [[ -d "$REFERENCE_PATH" ]]; then
-  echo "'$REFERENCE_PATH' is a directory. Cannot compare with '$TARGET_PATH'."
+  echo "'$REFERENCE_PATH' is a directory. Cannot compare with '$TARGET_PATH'." >&2
   exit 1
 fi
 
 if [[ -d "$TARGET_PATH" ]]; then
-  echo "'$TARGET_PATH' is a directory. Cannot compare with '$REFERENCE_PATH'."
+  echo "'$TARGET_PATH' is a directory. Cannot compare with '$REFERENCE_PATH'." >&2
   exit 1
 fi
 
 if [[ ! -f "$REFERENCE_PATH" ]]; then
-  echo "'$REFERENCE_PATH' not found. Cannot compare with '$TARGET_PATH'."
+  echo "'$REFERENCE_PATH' not found. Cannot compare with '$TARGET_PATH'." >&2
   exit 1
 fi
 
 if [[ ! -f "$TARGET_PATH" ]]; then
-  echo "'$TARGET_PATH' not found. Cannot compare with '$REFERENCE_PATH'."
+  echo "'$TARGET_PATH' not found. Cannot compare with '$REFERENCE_PATH'." >&2
   exit 1
 fi
 
 # Commands
-echo "Comparing '$REFERENCE' to '$TARGET'..."
+echo "Comparing '$REFERENCE' to '$TARGET'..." >&2
 
 extract_env_keys() {
   awk -F'=' '
@@ -85,10 +85,10 @@ MISSING=$(
 )
 
 if [[ -z "$MISSING" ]]; then
-  echo "All keys in '$REFERENCE' are present in '$TARGET'."
+  echo "All keys in '$REFERENCE' are present in '$TARGET'." >&2
   exit 0
 fi
 
-echo "The following keys are in '$REFERENCE' but are missing from '$TARGET':"
-printf '  - %s\n' $MISSING
+echo "The following keys are in '$REFERENCE' but are missing from '$TARGET':" >&2
+printf '%s\n' "$MISSING"
 exit 1
