@@ -41,6 +41,7 @@ fi
 VALUE="$(ddev exec -s "$LOCATION" bash -lc "printenv $(printf '%q' "$NAME")" 2>/dev/null || true)"
 
 if [[ -z "$VALUE" ]]; then
+  echo "No '$FORMAT' value found for '$NAME' in '$LOCATION'."
   exit 1
 fi
 
