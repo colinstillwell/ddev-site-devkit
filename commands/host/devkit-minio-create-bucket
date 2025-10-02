@@ -53,4 +53,4 @@ ddev devkit-log --message="Creating MinIO bucket '$BUCKET'..."
 mc_exec mb "localminio/$BUCKET" > /dev/null
 
 ddev devkit-log --message="Setting policy '$POLICY' on MinIO bucket '$BUCKET'..."
-mc_exec anonymous set public "localminio/$BUCKET" > /dev/null
+mc_exec anonymous set $POLICY "localminio/$BUCKET" > /dev/null
