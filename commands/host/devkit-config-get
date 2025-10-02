@@ -4,7 +4,7 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Get a config value by name from a given format and location.
 ## Usage: devkit-config-get [flags]
-## Example: "ddev devkit-config-get --name=EXAMPLE --format=env --location=web"
+## Example: ddev devkit-config-get --name=EXAMPLE --format=env --location=web
 ## Flags: [{"Name":"name","Usage":"The name of the variable to get the value for","Type":"string"},{"Name":"format","Usage":"How to interpret the location","Type":"string"},{"Name":"location","Usage":"Where to read from","Type":"string"}]
 ## Aliases: devkit:config:get,devkit-get-config,devkit:get:config
 

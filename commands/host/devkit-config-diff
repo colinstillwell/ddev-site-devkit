@@ -4,7 +4,7 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Compare config and report keys present in reference but missing in target.
 ## Usage: devkit-config-diff [flags]
-## Example: "ddev devkit-config-diff --format=env --reference=.env.example --target=.env"
+## Example: ddev devkit-config-diff --format=env --reference=.env.example --target=.env
 ## Flags: [{"Name":"format","Usage":"How to interpret the config","Type":"string"},{"Name":"reference","Usage":"Path to the reference config, relative to the project root","Type":"string"},{"Name":"target","Usage":"Path to the target config, relative to the project root","Type":"string"}]
 ## Aliases: devkit:config:diff,devkit-diff-config,devkit:diff:config
 

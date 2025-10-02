@@ -4,7 +4,7 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Installation tasks.
 ## Usage: site-install
-## Example: "ddev site-install"
+## Example: ddev site-install
 ## Aliases: site:install,site-installation,site:installation
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
