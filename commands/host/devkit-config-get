@@ -27,8 +27,8 @@ for ARG in "$@"; do
 done
 
 # Validate flags
-[[ -n "$NAME" ]] || { echo "--name is required."; exit 2; }
-[[ -n "$FORMAT" ]] || { echo "--format is required."; exit 2; }
+[[ -n "$NAME" ]]     || { echo "--name is required."; exit 2; }
+[[ -n "$FORMAT" ]]   || { echo "--format is required."; exit 2; }
 [[ -n "$LOCATION" ]] || { echo "--location is required."; exit 2; }
 
 # Guards

@@ -19,17 +19,17 @@ TARGET=""
 # Parse flags
 for ARG in "$@"; do
   case "$ARG" in
-    --format=*)   FORMAT="${ARG#*=}"; shift; continue ;;
+    --format=*)    FORMAT="${ARG#*=}"; shift; continue ;;
     --reference=*) REFERENCE="${ARG#*=}"; shift; continue ;;
-    --target=*) TARGET="${ARG#*=}"; shift; continue ;;
+    --target=*)    TARGET="${ARG#*=}"; shift; continue ;;
     *) echo "Unknown flag: $ARG"; exit 2 ;;
   esac
 done
 
 # Validate flags
-[[ -n "$FORMAT" ]] || { echo "--format is required."; exit 2; }
+[[ -n "$FORMAT" ]]    || { echo "--format is required."; exit 2; }
 [[ -n "$REFERENCE" ]] || { echo "--reference is required."; exit 2; }
-[[ -n "$TARGET" ]] || { echo "--target is required."; exit 2; }
+[[ -n "$TARGET" ]]    || { echo "--target is required."; exit 2; }
 
 # Guards
 if [[ "$FORMAT" != "env" ]]; then

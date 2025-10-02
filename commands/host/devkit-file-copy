@@ -27,7 +27,7 @@ for ARG in "$@"; do
 done
 
 # Validate flags
-[[ -n "$SOURCE" ]] || { echo "--source is required."; exit 2; }
+[[ -n "$SOURCE" ]]      || { echo "--source is required."; exit 2; }
 [[ -n "$DESTINATION" ]] || { echo "--destination is required."; exit 2; }
 
 # Guards
