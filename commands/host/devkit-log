@@ -4,7 +4,7 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Print a formatted log message.
 ## Usage: devkit-log [flags]
-## Example: ddev devkit-log --message="Info"\nddev devkit-log --message="Info" --type="info"\nddev devkit-log --message="Success" --type="success"\nddev devkit-log --message="Warning" --type="warning"\nddev devkit-log --message="Error" --type="error"\nddev devkit-log --message="Starting" --type="starting"\nddev devkit-log --message="Completed" --type="completed"
+## Example: ddev devkit-log --message="Info" (default type: "info")\nddev devkit-log --message="Info" --type="info"\nddev devkit-log --message="Success" --type="success"\nddev devkit-log --message="Warning" --type="warning"\nddev devkit-log --message="Error" --type="error"\nddev devkit-log --message="Starting" --type="starting"\nddev devkit-log --message="Completed" --type="completed"
 ## Flags: [{"Name":"message","Usage":"Message to log","Type":"string"},{"Name":"type","Usage":"Type of message (info, success, warning, error, starting, completed)","Type":"string"}]
 ## Aliases: devkit:log
 
