@@ -26,7 +26,7 @@ done
 # Validate flags
 [[ -n "$MESSAGE" ]] || { "$0" --message="--message is required." --type="error"; exit 2; }
 
-# Commands
+# Guards
 TYPE_LC="$(printf '%s' "$TYPE" | tr '[:upper:]' '[:lower:]')"
 case "$TYPE_LC" in
   info|success|warning|error|starting|completed) ;;
@@ -36,30 +36,32 @@ case "$TYPE_LC" in
     ;;
 esac
 
-LABEL=""
-CLR=""
-RST=$'\033[0m'
+# Colour palette (ANSI 8-colour)
+CLR_ESC=$'\033'              # escape
+CLR_RESET="${CLR_ESC}[0m"    # reset
+CLR_RED="${CLR_ESC}[31m"     # red
+CLR_GREEN="${CLR_ESC}[32m"   # green
+CLR_YELLOW="${CLR_ESC}[33m"  # yellow
+CLR_MAGENTA="${CLR_ESC}[35m" # magenta
+CLR_CYAN="${CLR_ESC}[36m"    # cyan
 
+# Commands
 case "$TYPE_LC" in
-  info)      LABEL="";            CLR=""          ;;  # uncoloured
-  success)   LABEL="[success]";   CLR=$'\033[32m' ;;  # green
-  warning)   LABEL="[warning]";   CLR=$'\033[33m' ;;  # yellow
-  error)     LABEL="[error]";     CLR=$'\033[31m' ;;  # red
-  starting)  LABEL="[starting]";  CLR=$'\033[36m' ;;  # cyan
-  completed) LABEL="[completed]"; CLR=$'\033[32m' ;;  # green
+  success)   CLR="$CLR_GREEN" ;;
+  warning)   CLR="$CLR_YELLOW" ;;
+  error)     CLR="$CLR_RED" ;;
+  starting)  CLR="$CLR_MAGENTA" ;;
+  completed) CLR="$CLR_CYAN" ;;
+  *)         CLR="" ;;
 esac
 
-if [ "$TYPE_LC" = "info" ]; then
-  PREFIX=""
-else
-  if ! [ -t 2 ] || [ -n "${NO_COLOR:-}" ] || [ "${TERM:-}" = "dumb" ]; then
-    CLR=""
-    RST=""
-  fi
+PREFIX="[$TYPE_LC]"
 
-  TS="[$(date '+%Y-%m-%d %H:%M:%S')]"
-  PREFIX="${TS} ${CLR}${LABEL}${RST} "
+if [ -n "$CLR" ] && [ -t 2 ] && [ -z "${NO_COLOR:-}" ] && [ "${TERM:-}" != "dumb" ]; then
+  PREFIX="${CLR}${PREFIX}${CLR_RESET}"
 fi
+
+PREFIX="[$(date '+%Y-%m-%d %H:%M:%S')] $PREFIX "
 
 while IFS= read -r line || [ -n "$line" ]; do
   printf '%s%s\n' "$PREFIX" "$line" 1>&2
