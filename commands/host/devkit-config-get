@@ -5,7 +5,7 @@
 ## Description: Get a config value by name from a given format and location.
 ## Usage: devkit-config-get [flags]
 ## Example: ddev devkit-config-get --name="EXAMPLE" --format="env" --location="web"
-## Flags: [{"Name":"name","Usage":"The name of the variable to get the value for","Type":"string"},{"Name":"format","Usage":"How to interpret the location","Type":"string"},{"Name":"location","Usage":"Where to read from","Type":"string"}]
+## Flags: [{"Name":"name","Usage":"The name of the variable to get the value for","Type":"string"},{"Name":"format","Usage":"How to interpret the location","Type":"string"},{"Name":"location","Usage":"Where to read from","Type":"string"},{"Name":"default","Usage":"Default value if not found","Type":"string"}]
 ## Aliases: devkit:config:get,devkit-get-config,devkit:get:config
 
 # Exit on error; treat unset variables as errors; fail pipelines if any command fails
@@ -15,6 +15,7 @@ set -euo pipefail
 NAME=""
 FORMAT=""
 LOCATION=""
+DEFAULT=""
 
 # Parse flags
 for ARG in "$@"; do
@@ -22,6 +23,7 @@ for ARG in "$@"; do
     --name=*)     NAME="${ARG#*=}"; shift; continue ;;
     --format=*)   FORMAT="${ARG#*=}"; shift; continue ;;
     --location=*) LOCATION="${ARG#*=}"; shift; continue ;;
+    --default=*)  DEFAULT="${ARG#*=}"; shift; continue ;;
     *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
   esac
 done
@@ -41,8 +43,13 @@ fi
 VALUE="$(ddev exec -s "$LOCATION" bash -lc "printenv $(printf '%q' "$NAME")" 2>/dev/null || true)"
 
 if [[ -z "$VALUE" ]]; then
-  ddev devkit-log --message="No '$FORMAT' value found for '$NAME' in '$LOCATION'." --type="error"
-  exit 1
+  if [[ -n "$DEFAULT" ]]; then
+    ddev devkit-log --message="No '$FORMAT' value found for '$NAME' in '$LOCATION', using default." --type="warning"
+    VALUE="$DEFAULT"
+  else
+    ddev devkit-log --message="No '$FORMAT' value found for '$NAME' in '$LOCATION'." --type="error"
+    exit 1
+  fi
 fi
 
 printf '%s\n' "$VALUE"
