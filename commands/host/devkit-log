@@ -62,7 +62,7 @@ if [ -n "$CLR" ] && [ -t 2 ] && [ -z "${NO_COLOR:-}" ] && [ "${TERM:-}" != "dumb
   PREFIX="${CLR}${PREFIX}${CLR_RESET}"
 fi
 
-PREFIX="[$(date '+%Y-%m-%d %H:%M:%S')] $PREFIX "
+PREFIX="[$(date '+%H:%M:%S')] $PREFIX "
 
 while IFS= read -r line || [ -n "$line" ]; do
   printf '%s%s\n' "$PREFIX" "$line" 1>&2
