@@ -70,4 +70,4 @@ else
   ddev exec -s "$LOCATION" bash "$SCRIPT_PATH" "$@"
 fi
 
-ddev devkit-log --message="Running script '$SCRIPT' in '$LOCATION'." --type="completed"
+ddev devkit-log --message="Running script '$SCRIPT' in '$LOCATION'." --type="finished"
