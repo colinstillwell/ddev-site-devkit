@@ -4,8 +4,8 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Print a formatted log message.
 ## Usage: devkit-log [flags]
-## Example: ddev devkit-log --message="Info" (default type: "info")\nddev devkit-log --message="Info" --type="info"\nddev devkit-log --message="Success" --type="success"\nddev devkit-log --message="Warning" --type="warning"\nddev devkit-log --message="Error" --type="error"\nddev devkit-log --message="Starting" --type="starting"\nddev devkit-log --message="Completed" --type="completed"
-## Flags: [{"Name":"message","Usage":"Message to log","Type":"string"},{"Name":"type","Usage":"Type of message (info, success, warning, error, starting, completed)","Type":"string"}]
+## Example: ddev devkit-log --message="Info" (default type: "info")\nddev devkit-log --message="Info" --type="info"\nddev devkit-log --message="Success" --type="success"\nddev devkit-log --message="Warning" --type="warning"\nddev devkit-log --message="Error" --type="error"\nddev devkit-log --message="Starting" --type="starting"\nddev devkit-log --message="Completed" --type="completed"\nddev devkit-log --message="Finished" --type="finished"
+## Flags: [{"Name":"message","Usage":"Message to log","Type":"string"},{"Name":"type","Usage":"Type of message (info, success, warning, error, starting, completed, finished)","Type":"string"}]
 ## Aliases: devkit:log
 
 set -euo pipefail
@@ -29,9 +29,9 @@ done
 # Guards
 TYPE_LC="$(printf '%s' "$TYPE" | tr '[:upper:]' '[:lower:]')"
 case "$TYPE_LC" in
-  info|success|warning|error|starting|completed) ;;
+  info|success|warning|error|starting|completed|finished) ;;
   *)
-    "$0" --message="Unsupported --type '$TYPE'. Allowed: info, success, warning, error, starting, completed." --type="error"
+    "$0" --message="Unsupported --type '$TYPE'. Allowed: info, success, warning, error, starting, completed, finished." --type="error"
     exit 2
     ;;
 esac
@@ -52,6 +52,7 @@ case "$TYPE_LC" in
   error)     CLR="$CLR_RED" ;;
   starting)  CLR="$CLR_MAGENTA" ;;
   completed) CLR="$CLR_CYAN" ;;
+  finished)  CLR="$CLR_CYAN" ;;
   *)         CLR="" ;;
 esac
 
