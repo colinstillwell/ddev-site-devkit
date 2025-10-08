@@ -64,15 +64,22 @@ for i in "${!FILES[@]}"; do
 done
 
 while true; do
-  printf "Enter a number 1-%d: " "${#FILES[@]}" >&2
+  printf "Enter a number 1-%d (0 to skip): " "${#FILES[@]}" >&2
   read -r n
-  if [[ "$n" =~ ^[0-9]+$ ]] && (( n>=1 && n<=${#FILES[@]} )); then
-    CHOICE="${FILES[$((n-1))]}"
-    break
+
+  if [[ "$n" =~ ^[0-9]+$ ]]; then
+    if (( n==0 )); then
+      ddev devkit-log --message="Database import skipped." --type="warning"
+      exit 0
+    elif (( n>=1 && n<=${#FILES[@]} )); then
+      CHOICE="${FILES[$((n-1))]}"
+      break
+    fi
   fi
+
   ddev devkit-log --message="Invalid selection. Please try again." --type="error"
 done
 
 # Commands
-ddev devkit-log --message="Importing dump file '$(basename -- "$CHOICE")'..."
+ddev devkit-log --message="Importing database dump file '$(basename -- "$CHOICE")'..."
 exec ddev import-db -f "$CHOICE"
