@@ -46,6 +46,7 @@ There are two types of commands provided by this add-on:
 | `devkit-file-copy`                    | Copy a file from source to destination within the project, skipping if it already exists |
 | `devkit-log`                          | Print a formatted log message                                                            |
 | `devkit-minio-create-bucket`          | Create a MinIO bucket if it does not exist, and set its policy                           |
+| `devkit-prompt`                       | Prompt the user for input                                                                |
 | `devkit-script-run`                   | Run a script on the host or in a specified service                                       |
 | `devkit-typesense-delete-collections` | Delete Typesense collections                                                             |
 

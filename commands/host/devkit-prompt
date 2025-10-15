@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Prompt the user for input.
+## Usage: devkit-prompt [flags]
+## Example: ddev devkit-prompt --message="Foo bar?" --type="confirm" --default="N"
+## Flags: [{"Name":"message","Usage":"Message to prompt","Type":"string"},{"Name":"type","Usage":"Type of prompt (confirm)","Type":"string"},{"Name":"default","Usage":"Default value","Type":"string"}]
+## Aliases: devkit:prompt
+
+set -euo pipefail
+
+# Defaults
+MESSAGE=""
+TYPE=""
+DEFAULT=""
+
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --message=*) MESSAGE="${ARG#*=}"; shift; continue ;;
+    --type=*)    TYPE="${ARG#*=}"; shift; continue ;;
+    --default=*) DEFAULT="${ARG#*=}"; shift; continue ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
+  esac
+done
+
+# Validate flags
+[[ -n "$MESSAGE" ]] || { ddev devkit-log --message="--message is required." --type="error"; exit 2; }
+[[ -n "$TYPE"    ]] || { ddev devkit-log --message="--type is required." --type="error"; exit 2; }
+[[ -n "$DEFAULT" ]] || { ddev devkit-log --message="--default is required." --type="error"; exit 2; }
+
+# Guards
+TYPE_LC="$(printf '%s' "$TYPE" | tr '[:upper:]' '[:lower:]')"
+case "$TYPE_LC" in
+  confirm) ;;
+  *)
+    ddev devkit-log --message="Unsupported --type '$TYPE'. Allowed: confirm." --type="error"
+    exit 2
+    ;;
+esac
+
+DEFAULT_LC="$(printf '%s' "$DEFAULT" | tr '[:upper:]' '[:lower:]')"
+case "$DEFAULT_LC" in
+  y|yes) DEFAULT_LC="y" ;;
+  n|no)  DEFAULT_LC="n" ;;
+  *)
+    ddev devkit-log --message="--default must be Y or N." --type="error"
+    exit 2
+    ;;
+esac
+
+# Commands
+if [ "$DEFAULT_LC" = "y" ]; then
+  SUFFIX="[Y/n]"
+else
+  SUFFIX="[y/N]"
+fi
+
+TTY="/dev/tty"
+REPLY=""
+if [ -r "$TTY" ]; then
+  ddev devkit-log --message="$MESSAGE $SUFFIX" --type="warning" > "$TTY"
+  IFS= read -r REPLY <"$TTY" || true
+fi
+
+if [ -z "${REPLY:-}" ]; then
+  REPLY="$DEFAULT"
+fi
+
+REPLY_LC="$(printf '%s' "$REPLY" | tr '[:upper:]' '[:lower:]')"
+case "$REPLY_LC" in
+  y|yes)
+    printf "yes\n"
+    ;;
+  *)
+    printf "no\n"
+    ;;
+esac
