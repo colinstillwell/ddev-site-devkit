@@ -45,17 +45,17 @@ if [[ "$LOCATION" == "host" ]]; then
 else
   SCRIPT_PATH="$SCRIPT"
 
-  if ! ddev exec -s "$LOCATION" bash -lc 'true' >/dev/null 2>&1; then
+  if ! ddev exec -s "$LOCATION" bash -lc 'true' > /dev/null 2>&1; then
     ddev devkit-log --message="Service '$LOCATION' not found or not running." --type="error"
     exit 1
   fi
 
-  if ddev exec -s "$LOCATION" bash -lc "test -d $SCRIPT_PATH" >/dev/null 2>&1; then
+  if ddev exec -s "$LOCATION" bash -lc "test -d $SCRIPT_PATH" > /dev/null 2>&1; then
     ddev devkit-log --message="'$SCRIPT_PATH' is a directory. Refusing to run." --type="error"
     exit 1
   fi
 
-  if ! ddev exec -s "$LOCATION" bash -lc "test -f $SCRIPT_PATH" >/dev/null 2>&1; then
+  if ! ddev exec -s "$LOCATION" bash -lc "test -f $SCRIPT_PATH" > /dev/null 2>&1; then
     ddev devkit-log --message="'$SCRIPT_PATH' not found. Cannot run." --type="error"
     exit 1
   fi
