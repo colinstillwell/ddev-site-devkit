@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Index Drupal Search API indexes for a given server.
+## Description: Index Drupal Search API indexes.
 ## Usage: devkit-drupal-search-api-index [flags]
 ## Example: ddev devkit-drupal-search-api-index --server-name="Typesense" (default batch-size: 500)
 ## Flags: [{"Name":"server-name","Usage":"Search API server name to target","Type":"string"},{"Name":"batch-size","Usage":"Batch size for indexing","Type":"string"}]
