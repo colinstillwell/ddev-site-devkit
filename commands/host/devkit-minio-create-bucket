@@ -43,6 +43,11 @@ mc_exec() {
 mc_exec alias set localminio "$HOST" "$ACCESS_KEY" "$SECRET_KEY" > /dev/null
 
 # Guards
+if ! ddev exec -s minio bash -lc 'true' > /dev/null 2>&1; then
+  ddev devkit-log --message="Service 'minio' not found or not running." --type="error"
+  exit 1
+fi
+
 if mc_exec ls localminio | grep -q "^.* $BUCKET/"; then
   ddev devkit-log --message="MinIO bucket '$BUCKET' already exists. Nothing to do." --type="success"
   exit 0
