@@ -61,7 +61,7 @@ fi
 TTY="/dev/tty"
 REPLY=""
 if [ -r "$TTY" ]; then
-  ddev devkit-log --message="$MESSAGE $SUFFIX" --type="warning" > "$TTY"
+  ddev devkit-log --message="$MESSAGE $SUFFIX" --type="prompt" > "$TTY"
   IFS= read -r REPLY <"$TTY" || true
 fi
 
