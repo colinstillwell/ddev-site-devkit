@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Delete Typesense collections.
+## Usage: devkit-typesense-delete-collections [flags]
+## Example: ddev devkit-typesense-delete-collections (default api-key: "ddev", host: "http://typesense:8108")
+## Flags: [{"Name":"api-key","Usage":"API key for Typesense","Type":"string"},{"Name":"host","Usage":"Host URL for Typesense","Type":"string"}]
+## Aliases: devkit:typesense:delete:collections,devkit-typesense-collections-delete,devkit:typesense:collections:delete
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+# Defaults
+API_KEY="ddev"
+HOST="http://typesense:8108"
+
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --api-key=*) API_KEY="${ARG#*=}"; shift; continue ;;
+    --host=*)    HOST="${ARG#*=}"; shift; continue ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
+  esac
+done
+
+# Helpers
+web_exec() {
+  ddev exec -s web bash -lc "$*"
+}
+
+# Guards
+if ! ddev exec -s web bash -lc 'true' > /dev/null 2>&1; then
+  ddev devkit-log --message="Service 'web' not found or not running." --type="error"
+  exit 1
+fi
+
+# Commands
+ddev devkit-log --message="Fetching list of collections from Typesense..."
+COLLECTIONS="$(web_exec "curl -sS -H 'X-TYPESENSE-API-KEY: $API_KEY' '$HOST/collections'" | jq -r '.[].name')"
+
+if [ -z "$COLLECTIONS" ]; then
+  ddev devkit-log --message="No collections found in Typesense. Nothing to do." --type="success"
+  exit 0
+fi
+
+for COLLECTION in $COLLECTIONS; do
+  ddev devkit-log --message="Deleting collection '$COLLECTION'..."
+
+  HTTP_CODE="$(web_exec "curl -sS -o /dev/null -w '%{http_code}' -X DELETE -H 'X-TYPESENSE-API-KEY: $API_KEY' '$HOST/collections/$COLLECTION'")"
+
+  if [[ "$HTTP_CODE" =~ ^2[0-9]{2}$ ]]; then
+    ddev devkit-log --message="Deleted '$COLLECTION'." --type="success"
+  else
+    ddev devkit-log --message="Failed to delete '$COLLECTION'." --type="error"
+  fi
+done
