@@ -40,14 +40,14 @@ if [[ "$FORMAT" != "env" ]]; then
 fi
 
 if [[ "$LOCATION" != "host" ]]; then
-  if ! ddev exec -s "$LOCATION" bash -lc 'true' >/dev/null 2>&1; then
+  if ! ddev exec -s "$LOCATION" bash -lc 'true' > /dev/null 2>&1; then
     ddev devkit-log --message="Service '$LOCATION' not found or not running." --type="error"
     exit 1
   fi
 fi
 
 # Commands
-VALUE="$(ddev exec -s "$LOCATION" printenv "$NAME" 2>/dev/null || true)"
+VALUE="$(ddev exec -s "$LOCATION" printenv "$NAME" 2> /dev/null || true)"
 
 if [[ -z "$VALUE" ]]; then
   if [[ -n "$DEFAULT" ]]; then
