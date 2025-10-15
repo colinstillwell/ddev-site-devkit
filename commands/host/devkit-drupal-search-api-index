@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Index Drupal Search API indexes for a given server.
+## Usage: devkit-drupal-search-api-index [flags]
+## Example: ddev devkit-drupal-search-api-index --server-name="Typesense" (default batch-size: 500)
+## Flags: [{"Name":"server-name","Usage":"Search API server name to target","Type":"string"},{"Name":"batch-size","Usage":"Batch size for indexing","Type":"string"}]
+## Aliases: devkit:drupal:search:api:index
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+# Defaults
+SERVER_NAME=""
+BATCH_SIZE="500"
+
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --server-name=*) SERVER_NAME="${ARG#*=}"; shift; continue ;;
+    --batch-size=*)  BATCH_SIZE="${ARG#*=}"; shift; continue ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
+  esac
+done
+
+# Validate flags
+[[ -n "$SERVER_NAME" ]] || { ddev devkit-log --message="--server-name is required." --type="error"; exit 2; }
+
+# Helpers
+web_exec() {
+  ddev exec -s web bash -lc "$*"
+}
+
+# Guards
+if ! ddev exec -s web bash -lc 'true' > /dev/null 2>&1; then
+  ddev devkit-log --message="Service 'web' not found or not running." --type="error"
+  exit 1
+fi
+
+# Commands
+ddev devkit-log --message="Fetching list of Search API indexes for server '$SERVER_NAME'..."
+
+INDEX_IDS="$(web_exec "drush search-api:list --format=json" | jq -r --arg srv "$SERVER_NAME" '.[] | select(.serverName == $srv) | .id')"
+
+if [ -z "$INDEX_IDS" ]; then
+  ddev devkit-log --message="No Search API indexes found for server '$SERVER_NAME'." --type="warning"
+  exit 0
+fi
+
+for INDEX_ID in $INDEX_IDS; do
+  ddev devkit-log --message="Marking '$INDEX_ID' for reindexing..."
+  web_exec "drush -y search-api:reset-tracker '$INDEX_ID'"
+
+  ddev devkit-log --message="Reindexing '$INDEX_ID'..."
+  web_exec "drush -y search-api:index '$INDEX_ID'  --batch-size='$BATCH_SIZE'"
+done
