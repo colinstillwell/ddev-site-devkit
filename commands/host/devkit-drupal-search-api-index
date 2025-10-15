@@ -4,7 +4,7 @@
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
 ## Description: Index Drupal Search API indexes for a given server.
 ## Usage: devkit-drupal-search-api-index [flags]
-## Example: ddev devkit-drupal-search-api-index --server-name="Typesense" (default batch-size: 500)
+## Example: ddev devkit-drupal-search-api-index (default batch-size: 500)
 ## Flags: [{"Name":"server-name","Usage":"Search API server name to target","Type":"string"},{"Name":"batch-size","Usage":"Batch size for indexing","Type":"string"}]
 ## Aliases: devkit:drupal:search:api:index
 
@@ -24,9 +24,6 @@ for ARG in "$@"; do
   esac
 done
 
-# Validate flags
-[[ -n "$SERVER_NAME" ]] || { ddev devkit-log --message="--server-name is required." --type="error"; exit 2; }
-
 # Helpers
 web_exec() {
   ddev exec -s web bash -lc "$*"
@@ -39,13 +36,24 @@ if ! ddev exec -s web bash -lc 'true' > /dev/null 2>&1; then
 fi
 
 # Commands
-ddev devkit-log --message="Fetching list of Search API indexes for server '$SERVER_NAME'..."
+if [ -n "$SERVER_NAME" ]; then
+  ddev devkit-log --message="Fetching list of Search API indexes for server '$SERVER_NAME'..."
 
-INDEX_IDS="$(web_exec "drush search-api:list --format=json" | jq -r --arg srv "$SERVER_NAME" '.[] | select(.serverName == $srv) | .id')"
+  INDEX_IDS="$(web_exec "drush search-api:list --format=json" | jq -r --arg srv "$SERVER_NAME" '.[] | select(.serverName == $srv) | .id')"
 
-if [ -z "$INDEX_IDS" ]; then
-  ddev devkit-log --message="No Search API indexes found for server '$SERVER_NAME'." --type="warning"
-  exit 0
+  if [ -z "$INDEX_IDS" ]; then
+    ddev devkit-log --message="No Search API indexes found for server '$SERVER_NAME'." --type="warning"
+    exit 0
+  fi
+else
+  ddev devkit-log --message="Fetching list of Search API indexes..."
+
+  INDEX_IDS="$(web_exec "drush search-api:list --format=json" | jq -r '.[] | .id')"
+
+  if [ -z "$INDEX_IDS" ]; then
+    ddev devkit-log --message="No Search API indexes found." --type="warning"
+    exit 0
+  fi
 fi
 
 for INDEX_ID in $INDEX_IDS; do
