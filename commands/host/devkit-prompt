@@ -8,6 +8,7 @@
 ## Flags: [{"Name":"message","Usage":"Message to prompt","Type":"string"},{"Name":"type","Usage":"Type of prompt (confirm)","Type":"string"},{"Name":"default","Usage":"Default value","Type":"string"}]
 ## Aliases: devkit:prompt
 
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
 set -euo pipefail
 
 # Defaults
