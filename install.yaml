@@ -8,6 +8,7 @@ project_files:
   - commands/host/devkit-file-copy
   - commands/host/devkit-log
   - commands/host/devkit-minio-create-bucket
+  - commands/host/devkit-prompt
   - commands/host/devkit-script-run
   - commands/host/devkit-typesense-delete-collections
   - commands/host/site-auth
