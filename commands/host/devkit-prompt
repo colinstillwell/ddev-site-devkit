@@ -59,18 +59,26 @@ else
 fi
 
 ddev devkit-log --message="$MESSAGE $SUFFIX" --type="prompt"
-read -r REPLY || REPLY=""
 
-if [ -z "${REPLY:-}" ]; then
-  REPLY="$DEFAULT"
-fi
+while true; do
+  read -r REPLY || REPLY=""
 
-REPLY_LC="$(printf '%s' "$REPLY" | tr '[:upper:]' '[:lower:]')"
-case "$REPLY_LC" in
-  y|yes)
-    printf "yes\n"
-    ;;
-  *)
-    printf "no\n"
-    ;;
-esac
+  if [ -z "${REPLY:-}" ]; then
+    REPLY="$DEFAULT"
+  fi
+
+  REPLY_LC="$(printf '%s' "$REPLY" | tr '[:upper:]' '[:lower:]')"
+  case "$REPLY_LC" in
+    y|yes)
+      printf "yes\n"
+      break
+      ;;
+    n|no)
+      printf "no\n"
+      break
+      ;;
+    *)
+      ddev devkit-log --message="Invalid selection. Please try again." --type="error"
+      ;;
+  esac
+done
