@@ -58,12 +58,8 @@ else
   SUFFIX="[y/N]"
 fi
 
-TTY="/dev/tty"
-REPLY=""
-if [ -r "$TTY" ]; then
-  ddev devkit-log --message="$MESSAGE $SUFFIX" --type="prompt" > "$TTY"
-  IFS= read -r REPLY <"$TTY" || true
-fi
+ddev devkit-log --message="$MESSAGE $SUFFIX" --type="prompt"
+read -r REPLY || REPLY=""
 
 if [ -z "${REPLY:-}" ]; then
   REPLY="$DEFAULT"
