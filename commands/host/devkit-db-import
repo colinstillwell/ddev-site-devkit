@@ -58,7 +58,7 @@ IFS=$'\n' FILES=($(ls -1t "${FILES[@]}"))
 unset IFS
 
 # Prompts
-ddev devkit-log --message="Choose a dump file to import from '$DIRECTORY_PATH':"
+ddev devkit-log --message="Choose a dump file to import from '$DIRECTORY_PATH':" --type="prompt"
 for i in "${!FILES[@]}"; do
   printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")" >&2
 done
