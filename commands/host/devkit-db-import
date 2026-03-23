@@ -58,21 +58,21 @@ IFS=$'\n' FILES=($(ls -1t "${FILES[@]}"))
 unset IFS
 
 # Prompts
-ddev devkit-log --message="Choose a dump file to import from '$DIRECTORY_PATH':"
+ddev devkit-log --message="Choose a dump file to import from '$DIRECTORY_PATH':" --type="prompt"
 for i in "${!FILES[@]}"; do
   printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")" >&2
 done
 
 while true; do
   printf "Enter a number 1-%d (0 to skip): " "${#FILES[@]}" >&2
-  read -r n
+  read -r REPLY || REPLY=""
 
-  if [[ "$n" =~ ^[0-9]+$ ]]; then
-    if (( n==0 )); then
+  if [[ "$REPLY" =~ ^[0-9]+$ ]]; then
+    if (( REPLY==0 )); then
       ddev devkit-log --message="Database import skipped." --type="warning"
       exit 0
-    elif (( n>=1 && n<=${#FILES[@]} )); then
-      CHOICE="${FILES[$((n-1))]}"
+    elif (( REPLY>=1 && REPLY<=${#FILES[@]} )); then
+      CHOICE="${FILES[$((REPLY-1))]}"
       break
     fi
   fi
