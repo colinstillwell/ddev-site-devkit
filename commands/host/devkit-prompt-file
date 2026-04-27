@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Prompt the user to choose a file from a directory.
+## Usage: devkit-prompt-file [flags]
+## Example: ddev devkit-prompt-file --message="Choose a dump file" --directory="database" --patterns="*.sql,*.sql.gz"
+## Flags: [{"Name":"message","Usage":"Message to prompt","Type":"string"},{"Name":"directory","Usage":"Directory to list files from, relative to project root","Type":"string"},{"Name":"patterns","Usage":"Comma-separated glob patterns to match files","Type":"string"}]
+## Aliases: devkit:prompt:file,devkit-file-prompt,devkit:file:prompt
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+# Defaults
+MESSAGE=""
+DIRECTORY=""
+PATTERNS=""
+
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --message=*)   MESSAGE="${ARG#*=}"; shift; continue ;;
+    --directory=*) DIRECTORY="${ARG#*=}"; shift; continue ;;
+    --dir=*)       DIRECTORY="${ARG#*=}"; shift; continue ;;
+    --patterns=*)  PATTERNS="${ARG#*=}"; shift; continue ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
+  esac
+done
+
+# Validate flags
+[[ -n "$MESSAGE" ]] || { ddev devkit-log --message="--message is required." --type="error"; exit 2; }
+[[ -n "$DIRECTORY" ]] || { ddev devkit-log --message="--directory is required." --type="error"; exit 2; }
+[[ -n "$PATTERNS"  ]] || { ddev devkit-log --message="--patterns is required." --type="error"; exit 2; }
+
+# Guards
+DIRECTORY_PATH="$DDEV_APPROOT/$DIRECTORY"
+
+if [[ ! -d "$DIRECTORY_PATH" ]]; then
+  ddev devkit-log --message="Directory not found. Cannot locate files in '$DIRECTORY_PATH'." --type="error"
+  exit 1
+fi
+
+IFS=',' read -r -a RAW_PATTERNS <<< "$PATTERNS"
+FILES=()
+shopt -s nullglob
+for PATTERN in "${RAW_PATTERNS[@]}"; do
+  PATTERN="$(printf '%s' "$PATTERN" | sed 's/^[[:space:]]*//; s/[[:space:]]*$//')"
+  [[ -n "$PATTERN" ]] || continue
+  MATCHES=("$DIRECTORY_PATH"/$PATTERN)
+  if (( ${#MATCHES[@]} > 0 )); then
+    FILES+=("${MATCHES[@]}")
+  fi
+done
+shopt -u nullglob
+
+if (( ${#FILES[@]} == 0 )); then
+  ddev devkit-log --message="Cannot locate files in '$DIRECTORY_PATH'." --type="error"
+  exit 1
+fi
+
+# Remove duplicates
+IFS=$'\n' FILES=($(printf '%s\n' "${FILES[@]}" | sort -u))
+unset IFS
+
+# Newest first by modification time
+IFS=$'\n' FILES=($(ls -1t "${FILES[@]}"))
+unset IFS
+
+# Prompts
+ddev devkit-log --message="$MESSAGE" --type="prompt"
+for i in "${!FILES[@]}"; do
+  printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")" >&2
+done
+
+while true; do
+  printf "Enter a number 1-%d (0 to skip): " "${#FILES[@]}" >&2
+  read -r REPLY || REPLY=""
+
+  if [[ "$REPLY" =~ ^[0-9]+$ ]]; then
+    if (( REPLY==0 )); then
+      printf ""
+      exit 0
+    elif (( REPLY>=1 && REPLY<=${#FILES[@]} )); then
+      CHOICE="${FILES[$((REPLY-1))]}"
+      RELATIVE_PATH="${CHOICE#"$DDEV_APPROOT/"}"
+      printf "%s\n" "$RELATIVE_PATH"
+      exit 0
+    fi
+  fi
+
+  ddev devkit-log --message="Invalid selection. Please try again." --type="error"
+done

@@ -47,6 +47,7 @@ There are two types of commands provided by this add-on:
 | `devkit-log`                          | Print a formatted log message                                                            |
 | `devkit-minio-create-bucket`          | Create a MinIO bucket if it does not exist, and set its policy                           |
 | `devkit-prompt-confirm`               | Prompt the user for a yes/no confirmation                                                |
+| `devkit-prompt-file`                  | Prompt the user to choose a file from a directory                                        |
 | `devkit-script-run`                   | Run a script on the host or in a specified service                                       |
 | `devkit-typesense-delete-collections` | Delete Typesense collections                                                             |
 
