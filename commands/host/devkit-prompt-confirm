@@ -2,7 +2,7 @@
 
 #ddev-generated
 ## Command provided by https://github.com/colinstillwell/ddev-site-devkit
-## Description: Prompt the user for input.
+## Description: Prompt the user for a yes/no confirmation.
 ## Usage: devkit-prompt-confirm [flags]
 ## Example: ddev devkit-prompt-confirm --message="Foo bar?" --type="confirm" --default="N"
 ## Flags: [{"Name":"message","Usage":"Message to prompt","Type":"string"},{"Name":"type","Usage":"Type of prompt (confirm)","Type":"string"},{"Name":"default","Usage":"Default value","Type":"string"}]
