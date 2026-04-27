@@ -23,62 +23,18 @@ for ARG in "$@"; do
   esac
 done
 
-# Guards
+# Prompts
 DIRECTORY_PATH="$DDEV_APPROOT/$DIRECTORY"
 
-if [[ ! -d "$DIRECTORY_PATH" ]]; then
-  ddev devkit-log --message="Directory not found. Cannot locate dump files in '$DIRECTORY_PATH'." --type="error"
-  exit 1
+CHOICE="$(ddev devkit-prompt-file \
+  --message="Choose a dump file to import from '$DIRECTORY_PATH':" \
+  --directory="$DIRECTORY" \
+  --patterns="*.sql,*.sql.gz,*.sql.bz2,*.sql.xz,*.mysql,*.mysql.gz,*.zip,*.tgz,*.tar,*.tar.gz,*.tar.bz2,*.tar.xz")"
+
+if [[ -z "$CHOICE" ]]; then
+  ddev devkit-log --message="Database import skipped." --type="warning"
+  exit 0
 fi
-
-shopt -s nullglob
-FILES=(
-  "$DIRECTORY_PATH"/*.sql
-  "$DIRECTORY_PATH"/*.sql.gz
-  "$DIRECTORY_PATH"/*.sql.bz2
-  "$DIRECTORY_PATH"/*.sql.xz
-  "$DIRECTORY_PATH"/*.mysql
-  "$DIRECTORY_PATH"/*.mysql.gz
-  "$DIRECTORY_PATH"/*.zip
-  "$DIRECTORY_PATH"/*.tgz
-  "$DIRECTORY_PATH"/*.tar
-  "$DIRECTORY_PATH"/*.tar.gz
-  "$DIRECTORY_PATH"/*.tar.bz2
-  "$DIRECTORY_PATH"/*.tar.xz
-)
-shopt -u nullglob
-
-if (( ${#FILES[@]} == 0 )); then
-  ddev devkit-log --message="Cannot locate dump files in '$DIRECTORY_PATH'." --type="error"
-  exit 1
-fi
-
-# Newest first by modification time
-IFS=$'\n' FILES=($(ls -1t "${FILES[@]}"))
-unset IFS
-
-# Prompts
-ddev devkit-log --message="Choose a dump file to import from '$DIRECTORY_PATH':" --type="prompt"
-for i in "${!FILES[@]}"; do
-  printf "%2d) %s\n" $((i+1)) "$(basename -- "${FILES[$i]}")" >&2
-done
-
-while true; do
-  printf "Enter a number 1-%d (0 to skip): " "${#FILES[@]}" >&2
-  read -r REPLY || REPLY=""
-
-  if [[ "$REPLY" =~ ^[0-9]+$ ]]; then
-    if (( REPLY==0 )); then
-      ddev devkit-log --message="Database import skipped." --type="warning"
-      exit 0
-    elif (( REPLY>=1 && REPLY<=${#FILES[@]} )); then
-      CHOICE="${FILES[$((REPLY-1))]}"
-      break
-    fi
-  fi
-
-  ddev devkit-log --message="Invalid selection. Please try again." --type="error"
-done
 
 # Commands
 ddev devkit-log --message="Importing database dump file '$(basename -- "$CHOICE")'..."
