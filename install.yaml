@@ -5,6 +5,7 @@ project_files:
   - commands/host/devkit-config-get
   - commands/host/devkit-db-clean
   - commands/host/devkit-db-import
+  - commands/host/devkit-db-split
   - commands/host/devkit-drupal-search-api-index
   - commands/host/devkit-file-copy
   - commands/host/devkit-log

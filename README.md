@@ -43,6 +43,7 @@ There are two types of commands provided by this add-on:
 | `devkit-config-get`                   | Get a config value by name from a given format and location                              |
 | `devkit-db-clean`                     | Cleans a database dump file by removing environment-specific artifacts for local import  |
 | `devkit-db-import`                    | Interactively import an SQL dump into the project database                               |
+| `devkit-db-split`                     | Splits a database dump file into separate SQL files for selective import                 |
 | `devkit-drupal-search-api-index`      | Index Drupal Search API indexes                                                          |
 | `devkit-file-copy`                    | Copy a file from source to destination within the project                                |
 | `devkit-log`                          | Print a formatted log message                                                            |
