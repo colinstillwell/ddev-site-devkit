@@ -36,4 +36,4 @@ fi
 
 # Commands
 ddev devkit-log --message="Importing database dump file '$(basename -- "$CHOICE")'..."
-exec ddev import-db -f "$CHOICE"
+ddev import-db -f "$CHOICE"
