@@ -3,6 +3,7 @@ name: site-devkit
 project_files:
   - commands/host/devkit-config-diff
   - commands/host/devkit-config-get
+  - commands/host/devkit-db-clean
   - commands/host/devkit-db-import
   - commands/host/devkit-drupal-search-api-index
   - commands/host/devkit-file-copy
