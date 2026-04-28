@@ -18,7 +18,6 @@ DIRECTORY="database"
 for ARG in "$@"; do
   case "$ARG" in
     --directory=*) DIRECTORY="${ARG#*=}"; shift; continue ;;
-    --dir=*)       DIRECTORY="${ARG#*=}"; shift; continue ;;
     *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
   esac
 done
