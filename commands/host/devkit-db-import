@@ -24,10 +24,8 @@ for ARG in "$@"; do
 done
 
 # Prompts
-DIRECTORY_PATH="$DDEV_APPROOT/$DIRECTORY"
-
 CHOICE="$(ddev devkit-prompt-file \
-  --message="Choose a dump file to import from '$DIRECTORY_PATH':" \
+  --message="Choose a dump file to import from '$DIRECTORY':" \
   --directory="$DIRECTORY" \
   --patterns="*.sql,*.sql.gz,*.sql.bz2,*.sql.xz,*.mysql,*.mysql.gz,*.zip,*.tgz,*.tar,*.tar.gz,*.tar.bz2,*.tar.xz")"
 
