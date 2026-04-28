@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Cleans a database dump file by removing environment-specific artifacts for local import.
+## Usage: devkit-db-clean [flags]
+## Example: ddev devkit-db-clean --source="database/dump.sql" --destination="database/cleaned"
+## Flags: [{"Name":"source","Usage":"Path to the source database dump file, relative to the project root","Type":"string"},{"Name":"destination","Usage":"Path to the output directory for cleaned dump files, relative to the project root","Type":"string"}]
+## Aliases: devkit:db:clean,devkit-clean-db,devkit:clean:db,devkit-database-clean,devkit:database:clean,devkit-clean-database,devkit:clean:database
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+# Defaults
+SOURCE=""
+DESTINATION=""
+
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --source=*)      SOURCE="${ARG#*=}"; shift; continue ;;
+    --destination=*) DESTINATION="${ARG#*=}"; shift; continue ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
+  esac
+done
+
+# Validate flags
+[[ -n "$SOURCE" ]]      || { ddev devkit-log --message="--source is required." --type="error"; exit 2; }
+[[ -n "$DESTINATION" ]] || { ddev devkit-log --message="--destination is required." --type="error"; exit 2; }
+
+# Commands
+SOURCE_PATH="$DDEV_APPROOT/$SOURCE"
+SOURCE_MTIME_EPOCH="$(stat -c %Y "$SOURCE_PATH")"
+SOURCE_FILENAME="$(basename -- "$SOURCE_PATH")"
+SOURCE_FILENAME_WITHOUT_EXTENSION="${SOURCE_FILENAME%.*}"
+SOURCE_EXTENSION="${SOURCE_FILENAME##*.}"
+DESTINATION_PATH="$DDEV_APPROOT/$DESTINATION/${SOURCE_FILENAME_WITHOUT_EXTENSION}-${SOURCE_MTIME_EPOCH}.${SOURCE_EXTENSION}"
+DESTINATION_DIR="$(dirname "$DESTINATION_PATH")"
+
+ddev devkit-log --message="Cleaning database dump file '$SOURCE_FILENAME'..."
+
+if [[ -f "$DESTINATION_PATH" ]]; then
+  ddev devkit-log --message="'$DESTINATION_PATH' already exists. Nothing to do." --type="success"
+  printf "%s\n" "$DESTINATION_PATH"
+  exit 0
+fi
+
+mkdir -p "$DESTINATION_DIR"
+
+awk '
+function flush_buffer(    is_rds_trigger) {
+  if (!buffered) {
+    return
+  }
+
+  is_rds_trigger = block ~ /DEFINER=`rdsadmin`@`localhost`/ && block ~ /TRIGGER mysql\./
+
+  if (is_rds_trigger) {
+    removed_blocks++
+    removed_lines += buffer_line_count
+  }
+  else {
+    printf "%s", block
+  }
+
+  block = ""
+  buffered = 0
+  buffer_line_count = 0
+}
+
+{
+  if (!buffered && $0 ~ /^DELIMITER[[:space:]]+;;[[:space:]]*$/) {
+    buffered = 1
+    block = $0 ORS
+    buffer_line_count = 1
+    next
+  }
+
+  if (buffered) {
+    block = block $0 ORS
+    buffer_line_count++
+
+    if ($0 ~ /^DELIMITER[[:space:]]+;[[:space:]]*$/) {
+      flush_buffer()
+    }
+
+    next
+  }
+
+  print
+}
+
+END {
+  flush_buffer()
+  printf "Removed %d RDS trigger block(s), %d line(s).\n", removed_blocks, removed_lines > "/dev/stderr"
+}
+' "$SOURCE_PATH" > "$DESTINATION_PATH"
+
+printf "%s\n" "$DESTINATION_PATH"

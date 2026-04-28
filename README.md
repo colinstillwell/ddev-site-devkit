@@ -41,9 +41,10 @@ There are two types of commands provided by this add-on:
 | ------------------------------------- | ---------------------------------------------------------------------------------------- |
 | `devkit-config-diff`                  | Compare config and report keys present in reference but missing in target                |
 | `devkit-config-get`                   | Get a config value by name from a given format and location                              |
+| `devkit-db-clean`                     | Cleans a database dump file by removing environment-specific artifacts for local import  |
 | `devkit-db-import`                    | Interactively import an SQL dump into the project database                               |
 | `devkit-drupal-search-api-index`      | Index Drupal Search API indexes                                                          |
-| `devkit-file-copy`                    | Copy a file from source to destination within the project, skipping if it already exists |
+| `devkit-file-copy`                    | Copy a file from source to destination within the project                                |
 | `devkit-log`                          | Print a formatted log message                                                            |
 | `devkit-minio-create-bucket`          | Create a MinIO bucket if it does not exist, and set its policy                           |
 | `devkit-prompt-confirm`               | Prompt the user for a yes/no confirmation                                                |
