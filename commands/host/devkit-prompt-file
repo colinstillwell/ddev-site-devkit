@@ -21,7 +21,6 @@ for ARG in "$@"; do
   case "$ARG" in
     --message=*)   MESSAGE="${ARG#*=}"; shift; continue ;;
     --directory=*) DIRECTORY="${ARG#*=}"; shift; continue ;;
-    --dir=*)       DIRECTORY="${ARG#*=}"; shift; continue ;;
     --patterns=*)  PATTERNS="${ARG#*=}"; shift; continue ;;
     *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
   esac
