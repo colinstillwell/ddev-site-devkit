@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+#ddev-generated
+## Command provided by https://github.com/colinstillwell/ddev-site-devkit
+## Description: Splits a database dump file into separate SQL files for selective import.
+## Usage: devkit-db-split [flags]
+## Example: ddev devkit-db-split --source="database/dump.sql" --destination="database/split"
+## Flags: [{"Name":"source","Usage":"Path to the source database dump file, relative to the project root","Type":"string"},{"Name":"destination","Usage":"Path to the output directory for split SQL files, relative to the project root","Type":"string"}]
+## Aliases: devkit:db:split,devkit-split-db,devkit:split:db,devkit-database-split,devkit:database:split,devkit-split-database,devkit:split:database
+
+# Exit on error; treat unset variables as errors; fail pipelines if any command fails
+set -euo pipefail
+
+# Defaults
+SOURCE=""
+DESTINATION=""
+
+# Parse flags
+for ARG in "$@"; do
+  case "$ARG" in
+    --source=*)      SOURCE="${ARG#*=}"; shift; continue ;;
+    --destination=*) DESTINATION="${ARG#*=}"; shift; continue ;;
+    *) ddev devkit-log --message="Unknown flag: $ARG" --type="error"; exit 2 ;;
+  esac
+done
+
+# Validate flags
+[[ -n "$SOURCE" ]]      || { ddev devkit-log --message="--source is required." --type="error"; exit 2; }
+[[ -n "$DESTINATION" ]] || { ddev devkit-log --message="--destination is required." --type="error"; exit 2; }
+
+# Commands
+SOURCE_PATH="$DDEV_APPROOT/$SOURCE"
+SOURCE_MTIME_EPOCH="$(stat -c %Y "$SOURCE_PATH")"
+SOURCE_FILENAME="$(basename -- "$SOURCE_PATH")"
+SOURCE_FILENAME_WITHOUT_EXTENSION="${SOURCE_FILENAME%.*}"
+DESTINATION_PATH="$DDEV_APPROOT/$DESTINATION/${SOURCE_FILENAME_WITHOUT_EXTENSION}-${SOURCE_MTIME_EPOCH}"
+
+ddev devkit-log --message="Splitting database dump file '$SOURCE_FILENAME'..."
+
+if [[ -d "$DESTINATION_PATH" ]]; then
+  ddev devkit-log --message="'$DESTINATION_PATH' already exists. Nothing to do." --type="success"
+  printf "%s\n" "$DESTINATION_PATH"
+  exit 0
+fi
+
+mkdir -p "$DESTINATION_PATH"
+
+awk -v outdir="$DESTINATION_PATH" '
+BEGIN {
+  current = ""
+}
+function extract_db(line,    tmp) {
+  tmp = line
+  gsub(/`/, "", tmp)
+  sub(/^USE[[:space:]]+/, "", tmp)
+  sub(/;[[:space:]]*$/, "", tmp)
+  return tmp
+}
+function extract_create_db(line,    tmp) {
+  tmp = line
+  gsub(/`/, "", tmp)
+  sub(/^CREATE DATABASE[[:space:]]+/, "", tmp)
+  sub(/^\/\*![0-9]+ IF NOT EXISTS\*\/[[:space:]]+/, "", tmp)
+  sub(/^IF NOT EXISTS[[:space:]]+/, "", tmp)
+  if (match(tmp, /^[A-Za-z0-9_]+/)) {
+    return substr(tmp, RSTART, RLENGTH)
+  }
+  return ""
+}
+{
+  if ($0 ~ /^USE[[:space:]]+`?[A-Za-z0-9_]+`?;[[:space:]]*$/) {
+    db = extract_db($0)
+    current = db
+    print $0 >> (outdir "/" db ".sql")
+    next
+  }
+
+  if ($0 ~ /^CREATE DATABASE[[:space:]]+\/\*![0-9]+ IF NOT EXISTS\*\/[[:space:]]+`?[A-Za-z0-9_]+`?[[:space:]]+/ || $0 ~ /^CREATE DATABASE[[:space:]]+IF NOT EXISTS[[:space:]]+`?[A-Za-z0-9_]+`?;/) {
+    db = extract_create_db($0)
+    if (db != "") {
+      print $0 >> (outdir "/" db ".sql")
+    }
+    next
+  }
+
+  if (current != "") {
+    print $0 >> (outdir "/" current ".sql")
+  }
+}
+' "$SOURCE_PATH"
+
+printf "%s\n" "$DESTINATION_PATH"
